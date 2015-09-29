@@ -12,7 +12,8 @@ class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
-
+    var days    = [AnyObject]()
+    var events  = [Int]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +26,14 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        objects = [15,16,17,18,19]
+        days = ["wed","thurs","fri","sat","sun"]
+        events = [2,1,1,2,1]
     }
 
     override func viewWillAppear(animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+//        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
     }
 
@@ -36,12 +41,12 @@ class MasterViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    func insertNewObject(sender: AnyObject) {
-        objects.insert(NSDate(), atIndex: 0)
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-    }
+//
+//    func insertNewObject(sender: AnyObject) {
+//        objects.insert(NSDate(), atIndex: 0)
+//        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+//        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+//    }
 
     // MARK: - Segues
 
@@ -56,7 +61,7 @@ class MasterViewController: UITableViewController {
             }
         }
     }
-
+    
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -64,14 +69,23 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return 5
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> DayCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("DayCell", forIndexPath: indexPath) as! DayCell
 
-        let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
+//        cell.dayNumber.text = "15"
+        cell.dayTitle.text  = "\(days[indexPath.row])"
+        cell.dayNumber.text = "\(objects[indexPath.row])"
+        
+        for var i = 0; i < events[indexPath.row]; i++ {
+            let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
+            label.text = "laksdjf"
+            cell.eventStack.addArrangedSubview(label)
+        }
+        
+        
         return cell
     }
 

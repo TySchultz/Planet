@@ -10,6 +10,7 @@ import UIKit
 import AKPickerView_Swift
 class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPickerViewDelegate, AKPickerViewDataSource{
 
+    @IBOutlet weak var colorScrollView: UIScrollView!
 
     @IBOutlet weak var hourPicker: AKPickerView!
     @IBOutlet weak var minutePicker: AKPickerView!
@@ -29,24 +30,30 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
         
         classNameField.becomeFirstResponder() //Shows keyboard when view opens. Automaticallly makes this textfield selected
 
+        //I set the tags just so i can tell which is which when the datasource methods are called.
+        //tag doesnt do anything really
         hourPicker.tag = 1
         minutePicker.tag = 2
         
+        //Delegate means it sends calls to this class. so the pickerview did select item at the bottom is a delegate method
         hourPicker.delegate = self
         hourPicker.dataSource = self
         
+        //Datasource means this class provides data. so the number of itesms in pickerview and pickerview title for item
         minutePicker.delegate = self
         minutePicker.dataSource = self
-        
         
         hourPicker.interitemSpacing = 10.0
         minutePicker.interitemSpacing = 10.0
         
-        hourPicker.highlightedTextColor = UIColor.whiteColor()
-        minutePicker.highlightedTextColor = UIColor.whiteColor()
+        hourPicker.highlightedTextColor = UIColor.blueColor()
+        minutePicker.highlightedTextColor = UIColor.blueColor()
         
         hourPicker.selectItem(12)
         minutePicker.selectItem(6)
+        
+        
+        colorScrollView.contentSize = CGSizeMake(800, 50)
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +81,6 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
     
     func numberOfItemsInPickerView(pickerView: AKPickerView) -> Int {
         
-    
         if pickerView.tag == 1 {
             return 24
         }else{

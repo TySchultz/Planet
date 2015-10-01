@@ -21,6 +21,9 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
     var parent : IntroViewController!
     
     
+    var oldButton : PLButton!
+
+    
     var hour :Int  = 0
     
     var minute :Int = 0
@@ -35,25 +38,39 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
         hourPicker.tag = 1
         minutePicker.tag = 2
         
-        //Delegate means it sends calls to this class. so the pickerview did select item at the bottom is a delegate method
-        hourPicker.delegate = self
-        hourPicker.dataSource = self
+//        //Delegate means it sends calls to this class. so the pickerview did select item at the bottom is a delegate method
+//        hourPicker.delegate = self
+//        hourPicker.dataSource = self
+//        
+//        hourPicker.interitemSpacing = 10.0
+//        hourPicker.highlightedTextColor = UIColor.blueColor()
+
         
         //Datasource means this class provides data. so the number of itesms in pickerview and pickerview title for item
-        minutePicker.delegate = self
-        minutePicker.dataSource = self
-        
-        hourPicker.interitemSpacing = 10.0
-        minutePicker.interitemSpacing = 10.0
-        
-        hourPicker.highlightedTextColor = UIColor.blueColor()
-        minutePicker.highlightedTextColor = UIColor.blueColor()
+        configurePickerView(minutePicker)
+        configurePickerView(hourPicker)
+
+
         
         hourPicker.selectItem(12)
         minutePicker.selectItem(6)
         
         
         colorScrollView.contentSize = CGSizeMake(800, 50)
+    }
+    
+    
+    func configurePickerView( picker :AKPickerView){
+        //Datasource means this class provides data. so the number of itesms in pickerview and pickerview title for item
+        picker.delegate = self
+        picker.dataSource = self
+
+        picker.interitemSpacing = 10.0
+        picker.highlightedTextColor = UIColor.blackColor()
+        picker.textColor = UIColor.lightGrayColor()
+        picker.font = UIFont(name: "Avenir Book", size: 18)!
+        picker.highlightedFont = UIFont(name: "Avenir Book", size: 18)!
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,16 +82,30 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
     @IBOutlet weak var closeView: UIButton!
 
     @IBAction func submitClass(sender: UIButton) {
-        classNameField.resignFirstResponder() //Hides Keyboard
-        parent.addClass(classNameField.text!) //Add textfield text to parent
-        
-        //If we were sending back time. 
-        //parent.addTime(hour, minute)  hour and minute are set when the things scroll
-        
-        self.dismissViewControllerAnimated(true, completion: nil) //hide the viewController
+        //Checks to see if we have a color selected
+        if !(oldButton != nil){
+            UIView.animateWithDuration(0.2, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse], animations: { () -> Void in
+                self.colorScrollView.backgroundColor = UIColor.redColor()
+                
+            }, completion: { (Bool) -> Void in
+                    self.colorScrollView.backgroundColor = UIColor.clearColor()
+            })
+            
+        }else{
+            classNameField.resignFirstResponder() //Hides Keyboard
+            
+            //If we were sending back time. 
+            //parent.addTime(hour, minute)  hour and minute are set when the things scroll
+            
+            self.dismissViewControllerAnimated(true) { () -> Void in
+                self.parent.addClass(self.classNameField.text!, color: self.oldButton.backgroundColor!)//Add textfield text to parent
+            }//hide the viewController
+        }
     }
     
     @IBAction func closeViewPressed(sender: UIButton) {
+        classNameField.resignFirstResponder() //Hides Keyboard
+        
         self.dismissViewControllerAnimated(true, completion: nil) //hide the viewController
     }
     
@@ -111,4 +142,13 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
         }
     }
     
+    @IBAction func colorButtonPressed(sender: PLButton) {
+        if !(oldButton != nil) {
+            oldButton = sender
+        }else{
+            oldButton.setTitle(" ", forState: UIControlState.Normal)
+            oldButton = sender
+        }
+        sender.setTitle("✓", forState: UIControlState.Normal)
+    }
 }

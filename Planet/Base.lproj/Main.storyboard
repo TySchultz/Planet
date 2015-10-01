@@ -129,10 +129,21 @@
                                     </mask>
                                 </variation>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xwk-8m-hDA">
-                                <rect key="frame" x="269" y="532" width="64" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xwk-8m-hDA" customClass="PLButton" customModule="Planet" customModuleProvider="target">
+                                <rect key="frame" x="200" y="532" width="200" height="48"/>
+                                <color key="backgroundColor" red="0.18823529410000001" green="0.48627450979999998" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="cDB-0H-lTe"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="26"/>
-                                <state key="normal" title="Done"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="doneButton:" destination="Pd0-6b-XCC" eventType="touchUpInside" id="EdR-Zm-1eU"/>
                                 </connections>
@@ -187,25 +198,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jub-7x-qbW">
-                                <rect key="frame" x="28" y="39" width="90" height="23.5"/>
-                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
+                                <rect key="frame" x="28" y="39" width="74" height="19.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVf-L5-sYT">
-                                <rect key="frame" x="28" y="136" width="38.5" height="23.5"/>
-                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
+                                <rect key="frame" x="28" y="124.5" width="31.5" height="19.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhH-wU-j4A">
-                                <rect key="frame" x="268" y="407" width="64" height="48"/>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="26"/>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="submitClass:" destination="TLD-Au-zQA" eventType="touchUpInside" id="sAF-jk-YaZ"/>
-                                </connections>
-                            </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ii9-VL-dQ7">
-                                <rect key="frame" x="4" y="297" width="592" height="50"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ii9-VL-dQ7">
+                                <rect key="frame" x="4" y="289" width="592" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Srq-lz-9hv">
                                         <rect key="frame" x="0.0" y="0.0" width="760" height="45"/>
@@ -222,141 +225,204 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oOo-5Q-Pmd" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="55" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.16875851150000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.18823529411764706" green="0.48627450980392156" blue="0.73725490196078436" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="7yq-ke-075"/>
                                                     <constraint firstAttribute="height" constant="45" id="P43-Kz-wxS"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="Y2a-U1-abO"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NXN-d4-r1C" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="110" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.31764705882352939" green="0.72156862745098038" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="DqB-KQ-bMU"/>
                                                     <constraint firstAttribute="height" constant="45" id="H7o-Ss-kbq"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="duw-rZ-gSv"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWv-8A-dAY" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="165" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="0.010926432907581329" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.49803921568627452" green="0.47843137254901963" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="Vpv-ea-AeV"/>
                                                     <constraint firstAttribute="height" constant="45" id="i23-BN-hgZ"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="FI0-Id-jUQ"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVI-2U-y5a" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="220" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="0.91572320461273193" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.80392156859999997" green="0.81176470590000005" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="Dfo-JD-1TA"/>
                                                     <constraint firstAttribute="height" constant="45" id="cFD-hd-dVJ"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="TJ7-Nf-BxB"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jD7-Of-Y0g" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="275" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.31017822027206421" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.22352941179999999" green="0.22352941179999999" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="fKl-ho-3Hy"/>
                                                     <constraint firstAttribute="height" constant="45" id="p8s-q9-Sxq"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="kxR-Pc-KTF"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1b3-Pf-Txm" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="330" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="0.18726062774658203" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.95294117647058818" green="0.59215686274509804" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="UGh-Uo-bP9"/>
                                                     <constraint firstAttribute="height" constant="45" id="eKP-5u-nqg"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="s0c-2R-AgY"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hyi-fo-eL3" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="385" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="0.53247535228729248" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.18823529410000001" green="0.48627450979999998" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="RYp-CT-7cP"/>
                                                     <constraint firstAttribute="width" constant="45" id="X0N-a4-OXL"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="h2Y-Fr-5V0"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkv-wC-lIX" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="440" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.31764705879999999" green="0.72156862749999995" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="jY9-Zh-Sg2"/>
                                                     <constraint firstAttribute="height" constant="45" id="mM7-St-Ncr"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="MQr-3O-sXx"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txv-6P-Vme" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="495" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.79674172401428223" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.49803921569999998" green="0.47843137250000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="HBu-iC-Brr"/>
                                                     <constraint firstAttribute="height" constant="45" id="XSe-kh-gWZ"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="LBu-BG-9ja"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aW6-a4-GAS" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="550" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.16875851150000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.80392156859999997" green="0.81176470590000005" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="LkP-wH-LvY"/>
                                                     <constraint firstAttribute="height" constant="45" id="lGr-g7-6g3"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorButtonPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="Hmg-41-LGt"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XB1-6f-qIw" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="605" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.16875851150000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.22352941179999999" green="0.22352941179999999" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="oeb-j0-NIn"/>
                                                     <constraint firstAttribute="width" constant="45" id="rnb-D7-aPZ"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
@@ -365,11 +431,14 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNF-qw-6WF" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="660" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.16875851150000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.95294117649999999" green="0.59215686270000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="0tj-V3-ADD"/>
                                                     <constraint firstAttribute="height" constant="45" id="Ju0-Fx-c2e"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
@@ -378,11 +447,14 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8Q-Wy-6pP" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                                 <rect key="frame" x="715" y="0.0" width="45" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.16875851150000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.18823529410000001" green="0.48627450979999998" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="fIU-ZR-buC"/>
                                                     <constraint firstAttribute="height" constant="45" id="x8R-PT-IxU"/>
                                                 </constraints>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="22.5"/>
@@ -402,27 +474,30 @@
                                     </mask>
                                 </variation>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgM-xb-w49">
-                                <rect key="frame" x="548" y="39" width="30" height="30"/>
-                                <state key="normal" title="X"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgM-xb-w49">
+                                <rect key="frame" x="535" y="20" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="IGv-3A-bNb"/>
+                                    <constraint firstAttribute="width" constant="45" id="Iti-z1-vEz"/>
+                                </constraints>
+                                <state key="normal" image="closeButton"/>
                                 <connections>
                                     <action selector="closeViewPressed:" destination="TLD-Au-zQA" eventType="touchUpInside" id="fxq-AL-5up"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bHG-l1-taI" customClass="AKPickerView" customModule="AKPickerView_Swift">
-                                <rect key="frame" x="30" y="169" width="540" height="50"/>
+                                <rect key="frame" x="30" y="144" width="540" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Pip-V6-5hZ"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ghs-bm-NMu">
-                                <rect key="frame" x="30" y="70" width="540" height="50"/>
+                                <rect key="frame" x="30" y="58.5" width="540" height="50"/>
                                 <color key="tintColor" red="0.61104279756546021" green="0.61115050315856934" blue="0.61103600263595581" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="ayx-d2-AUX"/>
                                     <constraint firstAttribute="height" constant="50" id="yeZ-VZ-lJG"/>
                                 </constraints>
-                                <color key="textColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <variation key="default">
@@ -432,47 +507,66 @@
                                 </variation>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4QA-rw-rBG" customClass="AKPickerView" customModule="AKPickerView_Swift">
-                                <rect key="frame" x="30" y="227" width="540" height="50"/>
+                                <rect key="frame" x="30" y="202" width="540" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ANv-Q4-Hsa"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sfy-5l-7bS">
-                                <rect key="frame" x="30" y="282" width="540" height="1"/>
+                                <rect key="frame" x="30" y="257" width="540" height="1"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="sm9-XY-9Md"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zc4-VN-cDy">
-                                <rect key="frame" x="30" y="224" width="540" height="1"/>
+                                <rect key="frame" x="30" y="199" width="540" height="1"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="N9i-76-JFf"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VzF-zF-HFe">
-                                <rect key="frame" x="30" y="120" width="540" height="1"/>
+                                <rect key="frame" x="30" y="108.5" width="540" height="1"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="NTs-od-7V7"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhH-wU-j4A" customClass="PLButton" customModule="Planet" customModuleProvider="target">
+                                <rect key="frame" x="200" y="332" width="200" height="48"/>
+                                <color key="backgroundColor" red="0.18823529410000001" green="0.48627450979999998" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="7kQ-Dm-TlT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="26"/>
+                                <state key="normal" title="Create Class">
+                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="submitClass:" destination="TLD-Au-zQA" eventType="touchUpInside" id="sAF-jk-YaZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
                             <constraint firstItem="zc4-VN-cDy" firstAttribute="top" secondItem="bHG-l1-taI" secondAttribute="bottom" constant="5" id="2M1-d1-vVJ"/>
-                            <constraint firstItem="pgM-xb-w49" firstAttribute="top" secondItem="rEw-gv-5x1" secondAttribute="bottom" constant="19" id="58H-rx-tSS"/>
+                            <constraint firstItem="pgM-xb-w49" firstAttribute="top" secondItem="rEw-gv-5x1" secondAttribute="bottom" id="58H-rx-tSS"/>
                             <constraint firstItem="sfy-5l-7bS" firstAttribute="trailing" secondItem="Ghs-bm-NMu" secondAttribute="trailing" id="61b-Hw-6vW"/>
                             <constraint firstItem="VzF-zF-HFe" firstAttribute="top" secondItem="Ghs-bm-NMu" secondAttribute="bottom" id="8OB-Vl-FWl"/>
                             <constraint firstItem="mhH-wU-j4A" firstAttribute="top" secondItem="4QA-rw-rBG" secondAttribute="bottom" constant="30" id="KdA-QK-3KQ"/>
                             <constraint firstItem="jVf-L5-sYT" firstAttribute="centerX" secondItem="934-4s-gdY" secondAttribute="centerX" id="M9t-hU-b1q"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ghs-bm-NMu" secondAttribute="trailing" constant="10" id="MEN-ep-cbR"/>
-                            <constraint firstItem="bHG-l1-taI" firstAttribute="top" secondItem="jVf-L5-sYT" secondAttribute="bottom" constant="9.5" id="MKa-eG-lgi"/>
+                            <constraint firstItem="bHG-l1-taI" firstAttribute="top" secondItem="jVf-L5-sYT" secondAttribute="bottom" id="MKa-eG-lgi"/>
                             <constraint firstItem="mhH-wU-j4A" firstAttribute="top" secondItem="bHG-l1-taI" secondAttribute="bottom" constant="8" id="N8A-y4-ghz"/>
                             <constraint firstItem="sfy-5l-7bS" firstAttribute="top" secondItem="4QA-rw-rBG" secondAttribute="bottom" constant="5" id="NWw-rV-MzS"/>
                             <constraint firstItem="mhH-wU-j4A" firstAttribute="centerX" secondItem="934-4s-gdY" secondAttribute="centerX" id="NeA-xY-cjn"/>
-                            <constraint firstItem="Ghs-bm-NMu" firstAttribute="top" secondItem="Jub-7x-qbW" secondAttribute="bottom" constant="8" id="Nsg-EZ-ZFp"/>
+                            <constraint firstItem="Ghs-bm-NMu" firstAttribute="top" secondItem="Jub-7x-qbW" secondAttribute="bottom" id="Nsg-EZ-ZFp"/>
                             <constraint firstItem="Ghs-bm-NMu" firstAttribute="leading" secondItem="934-4s-gdY" secondAttribute="leadingMargin" constant="10" id="Nwf-F7-rw3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bHG-l1-taI" secondAttribute="trailing" constant="10" id="Pug-Ua-2yv"/>
                             <constraint firstItem="4QA-rw-rBG" firstAttribute="leading" secondItem="934-4s-gdY" secondAttribute="leadingMargin" constant="10" id="QCX-ua-fjP"/>
@@ -485,9 +579,9 @@
                             <constraint firstItem="zc4-VN-cDy" firstAttribute="leading" secondItem="Ghs-bm-NMu" secondAttribute="leading" id="dn2-Rh-ddo"/>
                             <constraint firstItem="bHG-l1-taI" firstAttribute="leading" secondItem="934-4s-gdY" secondAttribute="leadingMargin" constant="10" id="dw5-Yl-Zvy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ii9-VL-dQ7" secondAttribute="trailing" constant="-16" id="eGe-4A-kge"/>
-                            <constraint firstItem="mhH-wU-j4A" firstAttribute="top" secondItem="Ii9-VL-dQ7" secondAttribute="bottom" constant="60" id="fjs-Nb-5Lp"/>
+                            <constraint firstItem="mhH-wU-j4A" firstAttribute="top" secondItem="Ii9-VL-dQ7" secondAttribute="bottom" constant="10" id="fjs-Nb-5Lp"/>
                             <constraint firstItem="Ii9-VL-dQ7" firstAttribute="top" secondItem="4QA-rw-rBG" secondAttribute="bottom" constant="20" id="ftz-nF-P8n"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pgM-xb-w49" secondAttribute="trailing" constant="2" id="hum-wa-i43"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pgM-xb-w49" secondAttribute="trailing" id="hum-wa-i43"/>
                             <constraint firstItem="VzF-zF-HFe" firstAttribute="trailing" secondItem="Ghs-bm-NMu" secondAttribute="trailing" id="jDy-nS-gOo"/>
                             <constraint firstItem="Jub-7x-qbW" firstAttribute="leading" secondItem="934-4s-gdY" secondAttribute="leadingMargin" constant="8" id="myB-LS-Zzg"/>
                             <constraint firstItem="zc4-VN-cDy" firstAttribute="trailing" secondItem="Ghs-bm-NMu" secondAttribute="trailing" id="ofm-qI-sYN"/>
@@ -630,6 +724,9 @@
             <point key="canvasLocation" x="-45" y="129"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="closeButton" width="56" height="56"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>

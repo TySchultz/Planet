@@ -34,8 +34,6 @@ class IntroViewController: UIViewController {
         let viewController = storyboard.instantiateViewControllerWithIdentifier("IntroAddClass") as! IntroAddClassViewController //Uses the view created in the sotryboard so we have autolayout
         viewController.parent = self
         
-        
-        
         self.presentViewController(viewController, animated: true) { () -> Void in
             
         }
@@ -46,29 +44,25 @@ class IntroViewController: UIViewController {
         
     }
     
-    @IBAction func addClass( classToAdd : NSString){
+    @IBAction func addClass( classToAdd : NSString , color :UIColor){
         let size :CGFloat = 16.0
-
-        
         
         let label = UILabel(frame: CGRectMake(0, 0, 50, 50)) //This CGRectMake doesnt actually matter. stackview collapses everything
         label.font = UIFont(name: "Avenir Heavy", size: 18.0)
         label.text = classToAdd as String
-        label.heightAnchor.constraintEqualToConstant(size).active = true
-
-        classesStack.addArrangedSubview(label)
+        label.heightAnchor.constraintEqualToConstant(size).active = true //Makes the height be at least 16.0 tall
+        label.backgroundColor = UIColor.whiteColor()
+        self.classesStack.addArrangedSubview(label)
         
         
-        
-        //No idea why. but it wont let me add uiviews to the circles stackview. sooo i added o's instead
         let circle = UIView(frame: CGRectMake(0, 0, size, size))
         circle.layer.cornerRadius = size/2
-        circle.backgroundColor = UIColor.purpleColor()
-        circle.layer.masksToBounds = true
+        circle.backgroundColor = color
+        circle.layer.masksToBounds = true //This is like the photoshop thing. if we dont have it the corner radius wont show up
         circle.heightAnchor.constraintEqualToConstant(size).active = true
         circle.widthAnchor.constraintEqualToConstant(size).active = true
+        self.circlesStack.addArrangedSubview(circle)
 
-        circlesStack.addArrangedSubview(circle)
     }
     
     @IBAction func doneButton(sender: UIButton) {
@@ -77,7 +71,6 @@ class IntroViewController: UIViewController {
         let viewController = storyboard.instantiateViewControllerWithIdentifier("Master") //Uses the view created in the sotryboard so we have autolayout
 
         let navControl = UINavigationController(rootViewController: viewController)
-        
         
         self.presentViewController(navControl, animated: true) { () -> Void in
             

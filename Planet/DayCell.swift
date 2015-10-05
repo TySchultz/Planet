@@ -13,6 +13,7 @@ class DayCell: UITableViewCell {
     @IBOutlet weak var dayTitle: UILabel!
     @IBOutlet weak var dayNumber: UILabel!
     @IBOutlet weak var eventStack: UIStackView!
+    @IBOutlet weak var circleStack: UIStackView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

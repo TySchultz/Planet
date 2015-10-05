@@ -21,8 +21,8 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
     var parent : IntroViewController!
     
     
-    var oldButton : PLButton!
 
+    @IBOutlet weak var oldButton: PLButton!
     
     var hour :Int  = 0
     

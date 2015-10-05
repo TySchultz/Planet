@@ -52,6 +52,7 @@ class IntroViewController: UIViewController {
         label.text = classToAdd as String
         label.heightAnchor.constraintEqualToConstant(size).active = true //Makes the height be at least 16.0 tall
         label.backgroundColor = UIColor.whiteColor()
+        label.hidden = true
         self.classesStack.addArrangedSubview(label)
         
         
@@ -61,8 +62,11 @@ class IntroViewController: UIViewController {
         circle.layer.masksToBounds = true //This is like the photoshop thing. if we dont have it the corner radius wont show up
         circle.heightAnchor.constraintEqualToConstant(size).active = true
         circle.widthAnchor.constraintEqualToConstant(size).active = true
+        circle.hidden = true
         self.circlesStack.addArrangedSubview(circle)
-
+        
+        
+     
     }
     
     @IBAction func doneButton(sender: UIButton) {
@@ -72,9 +76,15 @@ class IntroViewController: UIViewController {
 
         let navControl = UINavigationController(rootViewController: viewController)
         
+        navControl.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+//        navControl.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+
         self.presentViewController(navControl, animated: true) { () -> Void in
             
         }
+        
+
+
     }
     
     /*

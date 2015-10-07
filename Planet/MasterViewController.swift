@@ -75,6 +75,14 @@ class MasterViewController: UITableViewController {
         settingsButton.setTitle("o", forState: UIControlState.Normal)
         bottomBar.addSubview(settingsButton)
         
+        let addClassButton = UIButton(frame: CGRectMake(0, 0, 800, BOTTOMBARHEIGHT))
+       // calendarButton.center = CGPointMake()
+        addClassButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        addClassButton.setTitle("+", forState: UIControlState.Normal)
+        bottomBar.addSubview(addClassButton)
+        
+        addClassButton.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
+        
         objects = [15,16,17,18,19,15,16,15,16,17,18,19,15,16,15,16,17,18,19,15,16]
         days = ["Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday"]
         events = [2,4,1,2,3,2,0,2,3,1,2,4,2,1,2,4,1,3,1,2,1]
@@ -85,8 +93,26 @@ class MasterViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension;
         
         
-        createTestDays()
+       // createTestDays()
         createDays()
+    }
+    
+    func pressed(sender: UIButton!) {
+        
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("IntroAddAssignment") //Uses the view created in the sotryboard so we have autolayout
+        
+//        let navControl = UINavigationController(rootViewController: viewController)
+//        
+//        navControl.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        
+        self.presentViewController(viewController, animated: true) { () -> Void in
+            
+        }
+
+        
+        
     }
 
     override func viewWillAppear(animated: Bool) {

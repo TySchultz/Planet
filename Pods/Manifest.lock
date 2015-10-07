@@ -1,10 +1,18 @@
 PODS:
   - AKPickerView-Swift (1.0.0)
+  - Realm (0.95.2):
+    - Realm/Headers (= 0.95.2)
+  - Realm/Headers (0.95.2)
+  - RealmSwift (0.95.2):
+    - Realm (= 0.95.2)
 
 DEPENDENCIES:
   - AKPickerView-Swift
+  - RealmSwift
 
 SPEC CHECKSUMS:
   AKPickerView-Swift: 933897031753447302cf3167a0a5c738a58b219c
+  Realm: 4c026902041bb39c4bd083ebc5e88f4f17973d72
+  RealmSwift: ac7822fe7ab8dca7fa979f4d576793b111d6dce1
 
 COCOAPODS: 0.38.2

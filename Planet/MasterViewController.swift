@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RealmSwift
+
 
 class MasterViewController: UITableViewController {
 
@@ -16,6 +18,8 @@ class MasterViewController: UITableViewController {
     var things    = [AnyObject]()
 
     var events  = [Int]()
+    
+    var currentEvents :Results<(Event)>?
 
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var footerView: UIView!
@@ -79,6 +83,10 @@ class MasterViewController: UITableViewController {
         
         tableView.estimatedRowHeight = 80.0;
         tableView.rowHeight = UITableViewAutomaticDimension;
+        
+        
+        createTestDays()
+        createDays()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -132,13 +140,10 @@ class MasterViewController: UITableViewController {
             subv.removeFromSuperview()
         }
         
-        
         for subv in cell.circleStack.arrangedSubviews {
             subv.removeFromSuperview()
         }
         
-        let size :CGFloat = 10
-
         for var i = 0; i < events[indexPath.row]; i++ {
             let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
             label.text = things[indexPath.row] as? String
@@ -159,12 +164,6 @@ class MasterViewController: UITableViewController {
             circle.widthAnchor.constraintEqualToConstant(8).active = true
             cell.circleStack.addArrangedSubview(circle)
         }
-        
-        
-
-        
-
-        
         return cell
     }
 
@@ -183,6 +182,22 @@ class MasterViewController: UITableViewController {
     }
     
     
+    func createDays(){
+        let realm = try? Realm()
+        currentEvents = realm?.objects(Event)
+    }
+    
+    
+    func createTestDays(){
+        let newEvent = Event()
+        newEvent.name = "testEvent"
+        newEvent.serverID = "testEvent"
+
+        let realm = try? Realm()
+        realm!.write({ () -> Void in
+            realm!.add(newEvent)
+        })
+    }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         

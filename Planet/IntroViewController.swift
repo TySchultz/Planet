@@ -9,8 +9,6 @@
 import UIKit
 
 class IntroViewController: UIViewController {
-
-    
     
     @IBOutlet weak var circlesStack: UIStackView!
     @IBOutlet weak var classesStack: UIStackView!
@@ -53,20 +51,30 @@ class IntroViewController: UIViewController {
         label.heightAnchor.constraintEqualToConstant(size).active = true //Makes the height be at least 16.0 tall
         label.backgroundColor = UIColor.whiteColor()
         label.hidden = true
+        label.alpha = 0.0
         self.classesStack.addArrangedSubview(label)
         
         
         let circle = UIView(frame: CGRectMake(0, 0, size, size))
         circle.layer.cornerRadius = size/2
         circle.backgroundColor = color
-        circle.layer.masksToBounds = true //This is like the photoshop thing. if we dont have it the corner radius wont show up
+        circle.layer.masksToBounds = true
         circle.heightAnchor.constraintEqualToConstant(size).active = true
         circle.widthAnchor.constraintEqualToConstant(size).active = true
-        circle.hidden = true
+        circle.hidden = false
+        circle.alpha = 0.0;
         self.circlesStack.addArrangedSubview(circle)
         
+        UIView.animateWithDuration(0.25, delay: 0.0, options: [.CurveEaseIn], animations: { () -> Void in
+//            circle.hidden = false
+            label.alpha = 1.0
+//            circle.alpha = 1.0
+            label.hidden = false
+            }, completion:nil)
         
-     
+        UIView.animateWithDuration(0.25, delay: 0.25, options: [.CurveEaseIn], animations: { () -> Void in
+            circle.alpha = 1.0
+        }, completion: nil)
     }
     
     @IBAction func doneButton(sender: UIButton) {
@@ -77,25 +85,9 @@ class IntroViewController: UIViewController {
         let navControl = UINavigationController(rootViewController: viewController)
         
         navControl.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-//        navControl.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
 
         self.presentViewController(navControl, animated: true) { () -> Void in
             
         }
-        
-
-
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    
 }

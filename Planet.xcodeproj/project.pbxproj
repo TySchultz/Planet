@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		018D939D1BC5B54B00293F0A /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018D939C1BC5B54B00293F0A /* AddAssignmentViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		100358761BBB5E3B00C4A1AC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100358751BBB5E3B00C4A1AC /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
 		100358781BBB5F8B00C4A1AC /* PLLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100358771BBB5F8B00C4A1AC /* PLLabel.swift */; settings = {ASSET_TAGS = (); }; };
 		107C7B961BC3185F000824AF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C7B951BC3185F000824AF /* Model.swift */; settings = {ASSET_TAGS = (); }; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		018D939C1BC5B54B00293F0A /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		0DA4A3DEB00C34556ADB90E8 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		100358751BBB5E3B00C4A1AC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		100358771BBB5F8B00C4A1AC /* PLLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLLabel.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				10E5C89F1BB9C63400DDE50B /* MasterViewController.swift */,
 				10E5C8A11BB9C63400DDE50B /* DetailViewController.swift */,
 				10E5C8A31BB9C63400DDE50B /* Main.storyboard */,
+				018D939C1BC5B54B00293F0A /* AddAssignmentViewController.swift */,
 				10E5C8A61BB9C63400DDE50B /* Assets.xcassets */,
 				10E5C8A81BB9C63400DDE50B /* LaunchScreen.storyboard */,
 				10E5C8AB1BB9C63400DDE50B /* Info.plist */,
@@ -381,6 +384,7 @@
 				10E5C8A01BB9C63400DDE50B /* MasterViewController.swift in Sources */,
 				108F78871BBB04580075FD24 /* PLButton.swift in Sources */,
 				10E5C8D01BB9CAA000DDE50B /* DayCell.swift in Sources */,
+				018D939D1BC5B54B00293F0A /* AddAssignmentViewController.swift in Sources */,
 				10E5C8DB1BB9D1D100DDE50B /* IntroAddClassViewController.swift in Sources */,
 				10E5C89E1BB9C63400DDE50B /* AppDelegate.swift in Sources */,
 				100358781BBB5F8B00C4A1AC /* PLLabel.swift in Sources */,

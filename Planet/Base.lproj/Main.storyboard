@@ -574,10 +574,10 @@
             </objects>
             <point key="canvasLocation" x="-45" y="129"/>
         </scene>
-        <!--Intro Add Class View Controller-->
+        <!--Add Assignment View Controller-->
         <scene sceneID="lnA-Cq-LuR">
             <objects>
-                <viewController storyboardIdentifier="IntroAddAssignment" id="umS-u5-6ih" customClass="IntroAddClassViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddAssignment" id="umS-u5-6ih" customClass="AddAssignmentViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8rC-CW-q3B"/>
                         <viewControllerLayoutGuide type="bottom" id="VlA-9F-lHp"/>
@@ -680,6 +680,6 @@
         <image name="closeButton" width="56" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="Tll-UG-LXB"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -101,7 +101,7 @@ class MasterViewController: UITableViewController {
         
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
-        let viewController = storyboard.instantiateViewControllerWithIdentifier("AddAssignment") //Uses the view created in the sotryboard so we have autolayout
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("AddAssignment") as! AddAssignmentViewController //Uses the view created in the sotryboard so we have autolayout
         
 //        let navControl = UINavigationController(rootViewController: viewController)
 //        

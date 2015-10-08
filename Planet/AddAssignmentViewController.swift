@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddAssignmentViewController: UIViewController {
+    
+    
+    @IBOutlet weak var classStack: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+    addButtonsToStack()
 
         // Do any additional setup after loading the view.
     }
@@ -22,6 +29,26 @@ class AddAssignmentViewController: UIViewController {
     }
     
 
+    
+    
+    func addButtonsToStack(){
+        
+        
+        let realme = try? Realm()
+        
+        let allCourses = realme!.objects(Course)
+
+        for singleCourse in allCourses {
+            let button = UIButton(frame: CGRectMake(0, 0, 75, 42))
+            button.backgroundColor = UIColor.blueColor()
+            button.setTitle(singleCourse.name, forState: UIControlState.Normal)
+            button.layer.cornerRadius = 18
+            button.addTarget(self, action: "classButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            classStack.addArrangedSubview(button)
+        }
+    }
+
+    
     /*
     // MARK: - Navigation
 

@@ -586,6 +586,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zlf-Xo-puv">
                                 <rect key="frame" x="245" y="200" width="110" height="200"/>
@@ -595,11 +596,22 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uiZ-m5-a5N">
                                 <rect key="frame" x="535" y="20" width="45" height="45"/>
                                 <animations/>
+=======
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uiZ-m5-a5N">
+                                <rect key="frame" x="535" y="20" width="45" height="45"/>
+                                <animations/>
+>>>>>>> parent of 28fea6b... Added logic for making classes show as buttons when you click +
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="Kwy-9Q-016"/>
                                     <constraint firstAttribute="height" constant="45" id="fLb-vv-gOw"/>
                                 </constraints>
                                 <state key="normal" image="closeButton"/>
+<<<<<<< HEAD
+=======
+                                <connections>
+                                    <action selector="closeViewPressed:" destination="umS-u5-6ih" eventType="touchUpInside" id="gys-Bu-efb"/>
+                                </connections>
+>>>>>>> parent of 28fea6b... Added logic for making classes show as buttons when you click +
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceU-Tk-xpX" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                 <rect key="frame" x="236" y="169" width="128" height="36"/>
@@ -617,6 +629,12 @@
                                         <real key="value" value="18"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+<<<<<<< HEAD
+=======
+                                <connections>
+                                    <action selector="submitClass:" destination="umS-u5-6ih" eventType="touchUpInside" id="cu7-dJ-KA8"/>
+                                </connections>
+>>>>>>> parent of 28fea6b... Added logic for making classes show as buttons when you click +
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6NP-O0-rja" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                 <rect key="frame" x="236" y="235" width="128" height="36"/>
@@ -634,6 +652,12 @@
                                         <real key="value" value="18"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+<<<<<<< HEAD
+=======
+                                <connections>
+                                    <action selector="submitClass:" destination="umS-u5-6ih" eventType="touchUpInside" id="Pan-dr-UHl"/>
+                                </connections>
+>>>>>>> parent of 28fea6b... Added logic for making classes show as buttons when you click +
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRB-or-nZ2" customClass="PLButton" customModule="Planet" customModuleProvider="target">
                                 <rect key="frame" x="236" y="310" width="128" height="36"/>
@@ -651,19 +675,32 @@
                                         <real key="value" value="18"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+<<<<<<< HEAD
                             </button>
 >>>>>>> Stashed changes
+=======
+                                <connections>
+                                    <action selector="submitClass:" destination="umS-u5-6ih" eventType="touchUpInside" id="3fG-62-zzS"/>
+                                </connections>
+                            </button>
+>>>>>>> parent of 28fea6b... Added logic for making classes show as buttons when you click +
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                        <constraints>
+                            <constraint firstItem="uiZ-m5-a5N" firstAttribute="top" secondItem="8rC-CW-q3B" secondAttribute="bottom" id="Ntl-Kl-UdT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uiZ-m5-a5N" secondAttribute="trailing" id="Tl8-Yv-BbM"/>
+                            <constraint firstItem="ceU-Tk-xpX" firstAttribute="centerX" secondItem="YMb-HD-Rmn" secondAttribute="centerX" id="uQc-ab-NhB"/>
+                        </constraints>
                     </view>
 <<<<<<< Updated upstream
                     <connections>
-                        <outlet property="classStack" destination="zlf-Xo-puv" id="OAl-xm-7rD"/>
+                        <outlet property="closeView" destination="uiZ-m5-a5N" id="eul-VV-fWb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UFc-5g-dcE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+<<<<<<< HEAD
             <point key="canvasLocation" x="2136" y="-1337"/>
 =======
                 </viewController>
@@ -671,6 +708,9 @@
             </objects>
             <point key="canvasLocation" x="1420" y="-637"/>
 >>>>>>> Stashed changes
+=======
+            <point key="canvasLocation" x="2436" y="-1273"/>
+>>>>>>> parent of 28fea6b... Added logic for making classes show as buttons when you click +
         </scene>
     </scenes>
     <resources>

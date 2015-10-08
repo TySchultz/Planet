@@ -586,13 +586,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="zlf-Xo-puv">
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uOT-F4-jbs">
                                 <rect key="frame" x="245" y="200" width="110" height="200"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bYc-QP-dXG">
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" distribution="equalSpacing" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="zlf-Xo-puv">
+                                                <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+                                                <animations/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </stackView>
+                                        </subviews>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstItem="zlf-Xo-puv" firstAttribute="centerX" secondItem="bYc-QP-dXG" secondAttribute="centerX" id="EQS-Wz-r5D"/>
+                                            <constraint firstItem="zlf-Xo-puv" firstAttribute="centerY" secondItem="bYc-QP-dXG" secondAttribute="centerY" id="SFE-NO-O5H"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-ki-5Qw">
-                                <rect key="frame" x="514" y="51" width="66" height="56"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-ki-5Qw">
+                                <rect key="frame" x="538" y="28" width="42" height="49"/>
                                 <animations/>
                                 <state key="normal" title="x" image="closeButton"/>
                                 <connections>
@@ -604,10 +620,11 @@
                         <color key="backgroundColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
                             <constraint firstItem="hPD-ki-5Qw" firstAttribute="top" secondItem="8rC-CW-q3B" secondAttribute="bottom" constant="31" id="0NT-WN-f2O"/>
-                            <constraint firstItem="zlf-Xo-puv" firstAttribute="leading" secondItem="YMb-HD-Rmn" secondAttribute="leadingMargin" constant="225" id="HBv-6Z-2PZ"/>
-                            <constraint firstItem="zlf-Xo-puv" firstAttribute="top" secondItem="8rC-CW-q3B" secondAttribute="bottom" constant="180" id="X9t-4i-OsM"/>
+                            <constraint firstItem="hPD-ki-5Qw" firstAttribute="top" secondItem="8rC-CW-q3B" secondAttribute="bottom" constant="8" id="2IA-oc-BCT"/>
+                            <constraint firstItem="uOT-F4-jbs" firstAttribute="centerX" secondItem="YMb-HD-Rmn" secondAttribute="centerX" id="Qaw-nV-6M1"/>
+                            <constraint firstItem="uOT-F4-jbs" firstAttribute="centerY" secondItem="YMb-HD-Rmn" secondAttribute="centerY" id="bhx-Xv-gnf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hPD-ki-5Qw" secondAttribute="trailing" id="huY-Re-h89"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="zlf-Xo-puv" secondAttribute="trailing" constant="225" id="ogt-3g-tg0"/>
+                            <constraint firstItem="hPD-ki-5Qw" firstAttribute="trailing" secondItem="YMb-HD-Rmn" secondAttribute="trailingMargin" id="rIR-iB-Yic"/>
                             <constraint firstItem="hPD-ki-5Qw" firstAttribute="trailing" secondItem="YMb-HD-Rmn" secondAttribute="trailingMargin" id="zhZ-BK-xEE"/>
                         </constraints>
                     </view>

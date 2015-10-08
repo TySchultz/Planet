@@ -39,7 +39,7 @@ class AddAssignmentViewController: UIViewController {
         let allCourses = realme!.objects(Course)
 
         for singleCourse in allCourses {
-            let button = UIButton(frame: CGRectMake(0, 0, 140, 250))
+            let button = UIButton(frame: CGRectMake(0, 0, 250, 250))
             button.backgroundColor = PLBlue
             button.setTitle(singleCourse.name, forState: UIControlState.Normal)
             button.layer.cornerRadius = 18

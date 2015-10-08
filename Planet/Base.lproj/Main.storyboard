@@ -586,13 +586,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zlf-Xo-puv">
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="zlf-Xo-puv">
                                 <rect key="frame" x="245" y="200" width="110" height="200"/>
                                 <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-ki-5Qw">
+                                <rect key="frame" x="514" y="51" width="66" height="56"/>
+                                <animations/>
+                                <state key="normal" title="x" image="closeButton"/>
+                                <connections>
+                                    <action selector="closeButtonPressed:" destination="umS-u5-6ih" eventType="touchUpInside" id="SV7-wg-gSs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                        <constraints>
+                            <constraint firstItem="hPD-ki-5Qw" firstAttribute="top" secondItem="8rC-CW-q3B" secondAttribute="bottom" constant="31" id="0NT-WN-f2O"/>
+                            <constraint firstItem="zlf-Xo-puv" firstAttribute="leading" secondItem="YMb-HD-Rmn" secondAttribute="leadingMargin" constant="225" id="HBv-6Z-2PZ"/>
+                            <constraint firstItem="zlf-Xo-puv" firstAttribute="top" secondItem="8rC-CW-q3B" secondAttribute="bottom" constant="180" id="X9t-4i-OsM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hPD-ki-5Qw" secondAttribute="trailing" id="huY-Re-h89"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zlf-Xo-puv" secondAttribute="trailing" constant="225" id="ogt-3g-tg0"/>
+                            <constraint firstItem="hPD-ki-5Qw" firstAttribute="trailing" secondItem="YMb-HD-Rmn" secondAttribute="trailingMargin" id="zhZ-BK-xEE"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="classStack" destination="zlf-Xo-puv" id="OAl-xm-7rD"/>

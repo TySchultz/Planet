@@ -39,8 +39,8 @@ class AddAssignmentViewController: UIViewController {
         let allCourses = realme!.objects(Course)
 
         for singleCourse in allCourses {
-            let button = UIButton(frame: CGRectMake(0, 0, 75, 42))
-            button.backgroundColor = UIColor.blueColor()
+            let button = UIButton(frame: CGRectMake(0, 0, 140, 250))
+            button.backgroundColor = PLBlue
             button.setTitle(singleCourse.name, forState: UIControlState.Normal)
             button.layer.cornerRadius = 18
             button.addTarget(self, action: "classButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -48,6 +48,9 @@ class AddAssignmentViewController: UIViewController {
         }
     }
 
+    @IBAction func closeButtonPressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil) //hide the viewController
+    }
     
     /*
     // MARK: - Navigation

@@ -18,7 +18,7 @@ class AddAssignmentViewController: UIViewController {
         super.viewDidLoad()
         
         
-    addButtonsToStack()
+//    addButtonsToStack()
 
         // Do any additional setup after loading the view.
     }
@@ -30,23 +30,23 @@ class AddAssignmentViewController: UIViewController {
     
 
     
-    
-    func addButtonsToStack(){
-        
-        
-        let realme = try? Realm()
-        
-        let allCourses = realme!.objects(Course)
-
-        for singleCourse in allCourses {
-            let button = UIButton(frame: CGRectMake(0, 0, 250, 250))
-            button.backgroundColor = PLBlue
-            button.setTitle(singleCourse.name, forState: UIControlState.Normal)
-            button.layer.cornerRadius = 18
-            button.addTarget(self, action: "classButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            classStack.addArrangedSubview(button)
-        }
-    }
+//    
+//    func addButtonsToStack(){
+//        
+//        
+//        let realme = try? Realm()
+//        
+//        let allCourses = realme!.objects(Course)
+//
+//        for singleCourse in allCourses {
+//            let button = UIButton(frame: CGRectMake(0, 0, 250, 250))
+//            button.backgroundColor = PLBlue
+//            button.setTitle(singleCourse.name, forState: UIControlState.Normal)
+//            button.layer.cornerRadius = 18
+//            button.addTarget(self, action: "classButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+//            classStack.addArrangedSubview(button)
+//        }
+//    }
 
     @IBAction func closeButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil) //hide the viewController

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '6BDC5851FF6BF7222D268FC2'
-               BlueprintName = 'AKPickerView-Swift'
+               BlueprintIdentifier = 'F31ABAA29B822C2CDF444537'
+               BlueprintName = 'SwiftMoment'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'AKPickerView_Swift.framework'>
+               BuildableName = 'SwiftMoment.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

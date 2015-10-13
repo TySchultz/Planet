@@ -12,7 +12,7 @@ import RealmSwift
 
 class MasterViewController: UITableViewController {
 
-    var detailViewController: DetailViewController? = nil
+//    var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
     var days    = [AnyObject]()
     var things    = [AnyObject]()
@@ -33,55 +33,61 @@ class MasterViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let navImage = UIImageView(frame: CGRectMake(0, 0, 32, 32))
+        navImage.image = UIImage(named: "navBarImage")
+        navImage.center = CGPointMake((self.navigationController?.navigationBar.center.x)!, (self.navigationController?.navigationBar.center.y)!-20)
+        self.navigationController?.navigationBar.addSubview(navImage)
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+//        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+//
+//        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
+//        self.navigationItem.rightBarButtonItem = addButton
+//        if let split = self.splitViewController {
+//            let controllers = split.viewControllers
+//            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+//        }
+        
+        
+//        self.headerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 60)
+//        self.footerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: BOTTOMBARHEIGHT)
 
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-        self.navigationItem.rightBarButtonItem = addButton
-        if let split = self.splitViewController {
-            let controllers = split.viewControllers
-            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-        }
         
+//        
+//        bottomBar = UIView(frame: CGRect(x: 0, y: self.view.frame.size.height-BOTTOMBARHEIGHT, width: self.view.frame.size.width, height: BOTTOMBARHEIGHT))
+//        bottomBar.backgroundColor = PLBlue
+//        self.tableView.addSubview(bottomBar)
+//        self.tableView.bringSubviewToFront(bottomBar)
+//
+//        topBar = UIView(frame: CGRect(x: 30, y: 20, width: self.view.frame.size.width-60, height: TOPBARHEIGHT))
+//        topBar.backgroundColor = PLBlue
+//        topBar.layer.cornerRadius = TOPBARHEIGHT/2
+//        topBar.layer.masksToBounds = true
+//        self.tableView.addSubview(topBar)
+//        self.tableView.bringSubviewToFront(topBar)
+//        
         
-        self.headerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 60)
-        self.footerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: BOTTOMBARHEIGHT)
-
+//        let calendarButton = UIButton(frame: CGRectMake(0, 0, 200, BOTTOMBARHEIGHT))
+//        calendarButton.center = CGPointMake(bottomBar.frame.size.width/2, BOTTOMBARHEIGHT/2)
+//        calendarButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+//        calendarButton.setTitle("Calendar", forState: UIControlState.Normal)
+//        bottomBar.addSubview(calendarButton)
+//        
+//        
+//        let settingsButton = UIButton(frame: CGRectMake(0, 0, 45, BOTTOMBARHEIGHT))
+//        settingsButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+//        settingsButton.setTitle("o", forState: UIControlState.Normal)
+//        bottomBar.addSubview(settingsButton)
+//        
+//        let addClassButton = UIButton(frame: CGRectMake(0, 0, 800, BOTTOMBARHEIGHT))
+//       // calendarButton.center = CGPointMake()
+//        addClassButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+//        addClassButton.setTitle("+", forState: UIControlState.Normal)
+//        bottomBar.addSubview(addClassButton)
         
-        self.navigationController?.navigationBarHidden = true
-        
-        bottomBar = UIView(frame: CGRect(x: 0, y: self.view.frame.size.height-BOTTOMBARHEIGHT, width: self.view.frame.size.width, height: BOTTOMBARHEIGHT))
-        bottomBar.backgroundColor = PLBlue
-        self.tableView.addSubview(bottomBar)
-        self.tableView.bringSubviewToFront(bottomBar)
-        
-        topBar = UIView(frame: CGRect(x: 30, y: 20, width: self.view.frame.size.width-60, height: TOPBARHEIGHT))
-        topBar.backgroundColor = PLBlue
-        topBar.layer.cornerRadius = TOPBARHEIGHT/2
-        topBar.layer.masksToBounds = true
-        self.tableView.addSubview(topBar)
-        self.tableView.bringSubviewToFront(topBar)
-        
-        
-        let calendarButton = UIButton(frame: CGRectMake(0, 0, 200, BOTTOMBARHEIGHT))
-        calendarButton.center = CGPointMake(bottomBar.frame.size.width/2, BOTTOMBARHEIGHT/2)
-        calendarButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        calendarButton.setTitle("Calendar", forState: UIControlState.Normal)
-        bottomBar.addSubview(calendarButton)
-        
-        
-        let settingsButton = UIButton(frame: CGRectMake(0, 0, 45, BOTTOMBARHEIGHT))
-        settingsButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        settingsButton.setTitle("o", forState: UIControlState.Normal)
-        bottomBar.addSubview(settingsButton)
-        
-        let addClassButton = UIButton(frame: CGRectMake(0, 0, 800, BOTTOMBARHEIGHT))
-       // calendarButton.center = CGPointMake()
-        addClassButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        addClassButton.setTitle("+", forState: UIControlState.Normal)
-        bottomBar.addSubview(addClassButton)
-        
-        addClassButton.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
+//        addClassButton.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
         
         objects = [15,16,17,18,19,15,16,15,16,17,18,19,15,16,15,16,17,18,19,15,16]
         days = ["Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday"]
@@ -132,19 +138,19 @@ class MasterViewController: UITableViewController {
 //    }
 
     // MARK: - Segues
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
-                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                controller.navigationItem.leftItemsSupplementBackButton = true
-            }
-        }
-    }
-    
+//
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "showDetail" {
+//            if let indexPath = self.tableView.indexPathForSelectedRow {
+//                let object = objects[indexPath.row] as! NSDate
+//                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+//                controller.detailItem = object
+//                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+//                controller.navigationItem.leftItemsSupplementBackButton = true
+//            }
+//        }
+//    }
+//    
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -229,15 +235,12 @@ class MasterViewController: UITableViewController {
         
         let yPosition = scrollView.contentOffset.y
         
-        var frame = bottomBar.frame
-        frame.origin.y = yPosition + self.view.frame.size.height - BOTTOMBARHEIGHT
-        bottomBar.frame = frame
-        
-        var frame2 = topBar.frame
-        frame2.origin.y = yPosition + TOPBARHEIGHT
-        topBar.frame = frame2
-        
-        
+//        var frame = bottomBar.frame
+//        frame.origin.y = yPosition + self.view.frame.size.height - BOTTOMBARHEIGHT
+//        bottomBar.frame = frame
+//        var frame2 = topBar.frame
+//        frame2.origin.y = yPosition + TOPBARHEIGHT
+//        topBar.frame = frame2
     }
 
 

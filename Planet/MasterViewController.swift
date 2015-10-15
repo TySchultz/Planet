@@ -28,6 +28,8 @@ class MasterViewController: UITableViewController {
     var topBar :UIView!
     
     
+    var count = 0
+    
     let BOTTOMBARHEIGHT :CGFloat = 45.0
     let TOPBARHEIGHT :CGFloat = 40.0
     
@@ -101,8 +103,43 @@ class MasterViewController: UITableViewController {
         
        // createTestDays()
         createDays()
+        
+//        for _ in 1...5{
+//            createTestEvents()
+//        }
     }
     
+//    
+//    func createTestEvents(){
+//        //Creates a new course
+//        let newEvent = Event()
+//        newEvent.name = "elkj"
+//        newEvent.serverID = "\(count)"
+//        newEvent.date =
+//        
+//
+//        let realme = try? Realm()
+//    
+//        //Creates the new course object and add it to our database.
+//        realme!.write({ () -> Void in
+//            realme!.add(newEvent)
+//        })
+//    }
+//    
+//
+//    
+//    // Person model
+//    class Event: Object {
+//        dynamic var name = ""
+//        dynamic var date = NSDate(timeIntervalSince1970: 1)
+//        dynamic var course: Course!
+//        dynamic var serverID = ""
+//        
+//        override static func primaryKey() -> String? {
+//            return "serverID"
+//        }
+//    }
+//    
     func pressed(sender: UIButton!) {
         
         

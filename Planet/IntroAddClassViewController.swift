@@ -113,7 +113,7 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
                 
                 //Hides this view. When it hides at the completion call the add class method
                 self.dismissViewControllerAnimated(true) { () -> Void in
-                    self.parent.addClass(self.classNameField.text!, color: self.oldButton.backgroundColor!)
+//                    self.parent.addClass(self.classNameField.text!, color: self.oldButton.backgroundColor!)
                 }
             }else{
                 classNameHDR.text = "Already used class name"

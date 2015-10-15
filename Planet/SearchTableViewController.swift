@@ -8,24 +8,244 @@
 
 import UIKit
 
+import RealmSwift
+
 class SearchTableViewController: UITableViewController {
 
     @IBOutlet weak var header: UIView!
+    
+    @IBOutlet weak var typeStack: UIStackView!
+    @IBOutlet weak var coursesStack: UIStackView!
+    
+    var currentTypeStackIndex = 0
+    var currentCourseStackIndex = 0
+    
+    
+    var events = []
+
+
+    @IBOutlet weak var navScrollView: UIScrollView!
+    @IBOutlet weak var kkk: UIView!
+    @IBOutlet weak var navStackView: UIStackView!
+    let types = ["Test","Quiz","Homework","Project","Presentation"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         header.frame = CGRectMake(0, 0, view.frame.size.width, 400)
-        header.backgroundColor = PLBlue
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        header.backgroundColor = UIColor.whiteColor()
+        
+        
+        
+        
+//        navScrollView = UIScrollView(frame: CGRectMake(20, 0, view.frame.size.width-40, 40))
+        kkk.frame = CGRectMake(0, 40, view.frame.size.width-40, 35)
+        
+        
+        setup()
     }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+         setup()
+    }
+    
+    func setup () {
+        
+        currentTypeStackIndex = 0
+        currentCourseStackIndex = 0
+        
+        clearOutStackView(typeStack)
+        clearOutStackView(coursesStack)
+        
+        let realme = try? Realm()
+        
+        typeStack.tag = 1
+        coursesStack.tag = 0
+        
+        let allCourses = realme!.objects(Course)
+        for course in allCourses  {
+            addButtonToStack(course.name, stackView: 	coursesStack)
+        }
+        
+        for type in types {
+            addButtonToStack(type, stackView: typeStack)
+        }
+    
+    
+    }
+    
+    
+    func clearOutStackView(stack : UIStackView){
+        for view in stack.arrangedSubviews {
+            stack.removeArrangedSubview(view)
+            view.removeFromSuperview()
+        }
+    }
+    
+    
+  
+    
+    
+    func validAddToStack(stack : UIStackView, let stackNumber : Int) -> Bool {
+        
+        var currentWidth :CGFloat = 0.0
+        let viewWidth = view.frame.size.width - 150
+        for view in stack.arrangedSubviews {
+            currentWidth += view.frame.size.width + 8
+        }
+        
+        if currentWidth > viewWidth {
+            if stackNumber == 0 {
+                currentCourseStackIndex += 1
+            }else{
+                currentTypeStackIndex += 1
+            }
+            return false
+        }
+        return true
+    }
+    
+    func addButtonToStack(type : String, stackView : UIStackView){
+        let label = createButton(type)
+        
+        var currentStackIndex = 0
+        if stackView.tag == 0 {
+            currentStackIndex = currentCourseStackIndex
+        }else{
+            currentStackIndex = currentTypeStackIndex
+        }
+        
+        if stackView.arrangedSubviews.count == 0 {
+            let newStack = UIStackView(frame: CGRectMake(0, 0, 200, 10))
+            newStack.axis = .Horizontal
+            newStack.alignment = .Leading
+            newStack.spacing = 8.0
+            stackView.addArrangedSubview(newStack)
+            newStack.addArrangedSubview(label)
+        }else{
+            let currentStack = stackView.arrangedSubviews[currentStackIndex] as! UIStackView
+            currentStack.addArrangedSubview(label)
+            if !validAddToStack(currentStack,stackNumber: stackView.tag) {
+                currentStack.removeArrangedSubview(label)
+                let newStack = UIStackView(frame: CGRectMake(0, 0, 200, 10))
+                newStack.axis = .Horizontal
+                newStack.alignment = .Fill
+                newStack.distribution = .EqualSpacing
+                newStack.spacing = 8.0
+                stackView.addArrangedSubview(newStack)
+                newStack.addArrangedSubview(label)
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    newStack.addArrangedSubview(label)
+                })
+            }
+        }
+        
+    }
+    
+    func createButton(title : String) -> UIButton{
+        let height :CGFloat = 30.0
+        let label = UIButton(frame: CGRectMake(0, 0, 100, height))
+        label.setTitle(title, forState: UIControlState.Normal)
+        label.titleLabel?.font = UIFont(name: "Avenir Book", size: 15)
+        label.backgroundColor = PLBlue
+        label.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        label.layer.cornerRadius = label.frame.size.height/2
+        label.layer.masksToBounds = true
+        label.titleLabel?.textAlignment = NSTextAlignment.Center
+        label.sizeToFit()
+        label.heightAnchor.constraintEqualToConstant(height).active = true
+        label.widthAnchor.constraintEqualToConstant(label.frame.size.width+30).active = true
+        label.alpha = 0.3
+        label.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        return label
+    }
+    
+    
+    func buttonPressed(sender : UIButton){
+    
+        
+        //button in header is tapped and not selected
+        if sender.tag == 0 {
+            sender.alpha = 1.0
+            sender.tag = 1
+            
+            let newButton = createButton((sender.titleLabel?.text)!)
+            newButton.alpha = 1.0
+            newButton.tag = 2
+            newButton.hidden = true
+            self.navStackView.addArrangedSubview(newButton)
+            
+            let size = navScrollView.contentSize
+            navScrollView.contentSize = CGSizeMake(size.width+newButton.frame.size.width+8, 30)
+            
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+                newButton.hidden = false
+            })
+        }
+        //Button in header is tapped and already selected
+        else if sender.tag == 1 {
+            sender.alpha = 0.3
+            sender.tag = 0
+            
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+//                sender.alpha = 0.3
+                }, completion: { (Bool) -> Void in
+//                    sender.removeFromSuperview()
+                    self.removeFromStacks(sender)
+            })
+        }
+        //button in navigation bar is tapped
+        else if sender.tag == 2 {
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+                sender.hidden = true
+                self.removeFromStacks(sender)
 
+            }, completion: { (Bool) -> Void in
+                sender.removeFromSuperview()
+//                self.removeFromStacks(sender)
+            })
+        }
+    }
+    
+    func removeFromStacks (sender : UIButton){
+        for  stack in typeStack.arrangedSubviews as! [UIStackView] {
+            for button in stack.arrangedSubviews as! [UIButton] {
+                if button.titleLabel?.text == sender.titleLabel?.text{
+                    UIView.animateWithDuration(0.2, animations: { () -> Void in
+                        button.alpha = 0.3
+                        button.tag = 0
+                    })
+                    break
+                }
+            }
+        }
+        
+        for stack in coursesStack.arrangedSubviews as! [UIStackView] {
+            for button in stack.arrangedSubviews as! [UIButton] {
+                if button.titleLabel?.text == sender.titleLabel?.text{
+                    UIView.animateWithDuration(0.2, animations: { () -> Void in
+                        button.alpha = 0.3
+                        button.tag = 0
+                    })
+                    break
+                }
+            }
+        }
+        for button in navStackView.arrangedSubviews as! [UIButton] {
+            if button.titleLabel?.text == sender.titleLabel?.text{
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    button.hidden = true
+                    }, completion: { (Bool) -> Void in
+                        button.removeFromSuperview()
+                })
+                break
+            }
+            
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

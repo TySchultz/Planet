@@ -18,7 +18,7 @@ class MasterViewController: UITableViewController {
 
     var events  = [Int]()
     
-    var currentEvents :Results<(Event)>?
+    var currentEvents : NSMutableArray!
 
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var footerView: UIView!
@@ -37,33 +37,69 @@ class MasterViewController: UITableViewController {
         
         
         let realme = try? Realm()
-        currentEvents = realme!.objects(Event).sorted("date")
+//        currentEvents = realme!.objects(Event).sorted("date")
         
         
         let navImage = UIImageView(frame: CGRectMake(0, 0, 32, 32))
         navImage.image = UIImage(named: "navBarImage")
         navImage.center = CGPointMake((self.navigationController?.navigationBar.center.x)!, (self.navigationController?.navigationBar.center.y)!-20)
         self.navigationController?.navigationBar.addSubview(navImage)
-        
-   
-        
-        objects = [15,16,17,18,19,15,16,15,16,17,18,19,15,16,15,16,17,18,19,15,16]
-        days = ["Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday"]
-        events = [2,4,1,2,3,2,0,2,3,1,2,4,2,1,2,4,1,3,1,2,1]
-        things = ["Test","HW","QUIZ","Presentation","Project","Midterm","Essay","Test","HW","QUIZ","Presentation","Project","Midterm","Essay","Test","HW","QUIZ","Presentation","Project","Midterm","Essay"]
+
 
         
         tableView.estimatedRowHeight = 80.0;
         tableView.rowHeight = UITableViewAutomaticDimension;
-        
+        currentEvents = getDays()
     }
+    
+    func getDays() -> NSMutableArray{
+        let realme = try? Realm()
+        let days = realme!.objects(Event).sorted("date")
+        days.dropFirst()
+        
+        var allDays :NSMutableArray = []
+        var singleCell :NSMutableArray = []
+        let first = days.first
+
+        allDays.addObject(singleCell)
+        singleCell.addObject(first!)
+        var currentIndex = 0
+        
+        for day in days  {
+            // if same date then add to current array
+            let array = allDays[currentIndex] as! NSMutableArray
+            let firstObject = array.firstObject as! Event
+            if checkForSameDate(firstObject.date, secondDate: day.date){
+                allDays[currentIndex].addObject(day)
+            }
+            //If not then create new array and add to that array
+            else{
+                var newCell :NSMutableArray = []
+                newCell.addObject(day)
+                allDays.addObject(newCell)
+                currentIndex++
+            }
+        }
+        
+        return allDays
+    }
+    
+    func checkForSameDate(firstDate : NSDate, secondDate : NSDate) -> Bool{
+        
+        if firstDate.day == secondDate.day{
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
 
     override func viewWillAppear(animated: Bool) {
 //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         
-        let realme = try? Realm()
-        currentEvents = realme!.objects(Event).sorted("date")
+        currentEvents = getDays()
         self.tableView.reloadData()
     }
 
@@ -85,12 +121,13 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> DayCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DayCell", forIndexPath: indexPath) as! DayCell
 
-        let singleEvent = currentEvents![indexPath.row]
+        let singleDay = currentEvents![indexPath.row] as! NSMutableArray
+        let firstObject = singleDay.firstObject as! Event
         
-        let dateDay = singleEvent.date.toString(format: DateFormat.Custom("EEEE"))
+        let dateDay = firstObject.date.toString(format: DateFormat.Custom("EEEE"))
         
         cell.dayTitle.text  = "\(dateDay)"
-        cell.dayNumber.text = "\(singleEvent.date.day)"
+        cell.dayNumber.text = "\(firstObject.date.day)"
         
         for subv in cell.eventStack.arrangedSubviews {
             subv.removeFromSuperview()
@@ -100,26 +137,23 @@ class MasterViewController: UITableViewController {
             subv.removeFromSuperview()
         }
         
-//        for var i = 0; i < events[indexPath.row]; i++ {
-            let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
-            label.text = "\(singleEvent.type) - \(singleEvent.course.name)"
-            label.font = UIFont(name: "Avenir Book", size: 15.0)
-            label.heightAnchor.constraintEqualToConstant(20).active = true
-            cell.eventStack.addArrangedSubview(label)
-            
-            
-            let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
-            circle.layer.cornerRadius = 4
-            if events[indexPath.row] == 1{
-                circle.backgroundColor = PLBlue
-            }else {
+        for item in singleDay {
+            if let event = item as? Event {
+                let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
+                label.text = "\(event.type) - \(event.course.name)"
+                label.font = UIFont(name: "Avenir Book", size: 15.0)
+                label.heightAnchor.constraintEqualToConstant(20).active = true
+                cell.eventStack.addArrangedSubview(label)
+                
+                let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
+                circle.layer.cornerRadius = 4
                 circle.backgroundColor = PLPurple
+                circle.layer.masksToBounds = true
+                circle.heightAnchor.constraintEqualToConstant(20).active = true
+                circle.widthAnchor.constraintEqualToConstant(8).active = true
+                cell.circleStack.addArrangedSubview(circle)
             }
-            circle.layer.masksToBounds = true
-            circle.heightAnchor.constraintEqualToConstant(20).active = true
-            circle.widthAnchor.constraintEqualToConstant(8).active = true
-            cell.circleStack.addArrangedSubview(circle)
-//        }
+        }
         return cell
     }
 
@@ -136,35 +170,7 @@ class MasterViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-    
-    
-    func createDays(){
-        let realm = try? Realm()
-        currentEvents = realm?.objects(Event)
-    }
-    
-    
-    func createTestDays(){
-        let newEvent = Event()
-        newEvent.serverID = "testEvent"
-
-        let realm = try? Realm()
-        realm!.write({ () -> Void in
-            realm!.add(newEvent)
-        })
-    }
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        
-        let yPosition = scrollView.contentOffset.y
-        
-//        var frame = bottomBar.frame
-//        frame.origin.y = yPosition + self.view.frame.size.height - BOTTOMBARHEIGHT
-//        bottomBar.frame = frame
-//        var frame2 = topBar.frame
-//        frame2.origin.y = yPosition + TOPBARHEIGHT
-//        topBar.frame = frame2
-    }
+  
 
 
 }

@@ -9,6 +9,8 @@
 import UIKit
 
 import RealmSwift
+import SwiftDate
+
 
 class SearchTableViewController: UITableViewController {
 
@@ -20,15 +22,15 @@ class SearchTableViewController: UITableViewController {
     var currentTypeStackIndex = 0
     var currentCourseStackIndex = 0
     
-    
-    var events = []
+    var currentEvents : NSMutableArray!
+
 
 
     @IBOutlet weak var navScrollView: UIScrollView!
     //TODO: change this name
     @IBOutlet weak var kkk: UIView!
     @IBOutlet weak var navStackView: UIStackView!
-    let types = ["Test","Quiz","Homework","Project","Presentation"]
+    let types = ["Test","Quiz","Homework","Project","Presentation","Meeting"]
     
     
     override func viewDidLoad() {
@@ -39,6 +41,9 @@ class SearchTableViewController: UITableViewController {
         
         kkk.frame = CGRectMake(0, 40, view.frame.size.width-40, 35)
         
+        tableView.estimatedRowHeight = 80.0;
+        tableView.rowHeight = UITableViewAutomaticDimension;
+
         setup()
     }
     
@@ -75,6 +80,8 @@ class SearchTableViewController: UITableViewController {
         for type in types {
             addButtonToStack(type, stackView: typeStack)
         }
+        
+        currentEvents = []
     }
     
     
@@ -208,6 +215,8 @@ class SearchTableViewController: UITableViewController {
 //                self.removeFromStacks(sender)
             })
         }
+        
+        reloadDays()
     }
     
     func removeFromStacks (sender : UIButton){
@@ -253,70 +262,180 @@ class SearchTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return (currentEvents?.count)!
     }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> DayCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("DayCell", forIndexPath: indexPath) as! DayCell
+        
+        let singleDay = currentEvents![indexPath.row] as! NSMutableArray
+        let firstObject = singleDay.firstObject as! Event
+        
+        let dateDay = firstObject.date.toString(format: DateFormat.Custom("EEEE"))
+        
+        cell.dayTitle.text  = "\(dateDay)"
+        cell.dayNumber.text = "\(firstObject.date.day)"
+        
+        for subv in cell.eventStack.arrangedSubviews {
+            subv.removeFromSuperview()
+        }
+        
+        for subv in cell.circleStack.arrangedSubviews {
+            subv.removeFromSuperview()
+        }
+        
+        for item in singleDay {
+            if let event = item as? Event {
+                let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
+                label.text = "\(event.type) - \(event.course.name)"
+                label.font = UIFont(name: "Avenir Book", size: 15.0)
+                label.heightAnchor.constraintEqualToConstant(20).active = true
+                cell.eventStack.addArrangedSubview(label)
+                
+                let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
+                circle.layer.cornerRadius = 4
+                circle.backgroundColor = PLPurple
+                circle.layer.masksToBounds = true
+                circle.heightAnchor.constraintEqualToConstant(20).active = true
+                circle.widthAnchor.constraintEqualToConstant(8).active = true
+                cell.circleStack.addArrangedSubview(circle)
+            }
+        }
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    
+    func filterCourses() -> String {
+        var courseString = ""
+        for item in coursesStack.arrangedSubviews {
+            if let stack = item as? UIStackView{
+                for i in stack.arrangedSubviews {
+                    if let button = i as? UIButton where button.alpha == 1.0 {
+                        var tmpString = ""
+                        if courseString == "" {
+                            tmpString = "course.name = " + "'" + (button.titleLabel?.text)! + "'"
+                        }else{
+                            tmpString = " OR course.name = " + "'" + (button.titleLabel?.text)! + "'"
+                        }
+                        courseString.appendContentsOf(tmpString)
+                    }
+                }
+            }
+        }
+        
+        return courseString
     }
-    */
+    
+    func filterType() -> String{
+        var typeString = ""
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        for item in typeStack.arrangedSubviews {
+            if let stack = item as? UIStackView{
+                for i in stack.arrangedSubviews {
+                    if let button = i as? UIButton where button.alpha == 1.0 {
+                        var tmpString = ""
+                        if typeString == "" {
+                            tmpString = "type = " + "'" + (button.titleLabel?.text)! + "'"
+                        }else{
+                            tmpString = " OR type = " + "'" + (button.titleLabel?.text)! + "'"
+                        }
+                        typeString.appendContentsOf(tmpString)
+                    }
+                }
+            }
+        }
+        
+        return  typeString
     }
-    */
+    
+ 
+  
+    
+    func getFilteredDays() -> Results<Event> {
+        
+        let courseFilter = filterCourses()
+        let typeFilter = filterType()
+        
+        
+        let realme = try? Realm()
+        var days = realme!.objects(Event).sorted("date")
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        
+        //Both course and type
+        if courseFilter != "" && typeFilter != "" {
+            days = days.filter(courseFilter).sorted("date")
+            days = days.filter(typeFilter).sorted("date")
 
+        }
+        //Only course
+        else if courseFilter != "" && typeFilter == "" {
+            days = days.filter(courseFilter).sorted("date")
+
+        }
+        //only type
+        else if courseFilter == ""  && typeFilter != ""  {
+            days = days.filter(typeFilter).sorted("date")
+        }else{
+            days = days.filter("type = 'NONE'")
+        }
+        //None
+        
+        return days
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    func reloadDays(){
+        
+        
+        let days = getFilteredDays()
+        if days.count > 0{
+            let allDays :NSMutableArray = []
+            let singleCell :NSMutableArray = []
+            let first = days.first
+            allDays.addObject(singleCell)
+            singleCell.addObject(first!)
+            var currentIndex = 0
+            
+            for day in days  {
+                // if same date then add to current array
+                let array = allDays[currentIndex] as! NSMutableArray
+                let firstObject = array.firstObject as! Event
+                if checkForSameDate(firstObject.date, secondDate: day.date){
+                    allDays[currentIndex].addObject(day)
+                }
+                    //If not then create new array and add to that array
+                else{
+                    let newCell :NSMutableArray = []
+                    newCell.addObject(day)
+                    allDays.addObject(newCell)
+                    currentIndex++
+                }
+            }
+            currentEvents = allDays
+        }else{
+            currentEvents = []
+        }
+        
+        tableView.reloadData()
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func checkForSameDate(firstDate : NSDate, secondDate : NSDate) -> Bool{
+        
+        if firstDate.day == secondDate.day{
+            return true
+        } else {
+            return false
+        }
     }
-    */
+    
+    
+
+    
+    
 
 }

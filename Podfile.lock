@@ -1,21 +1,27 @@
 PODS:
   - AKPickerView-Swift (1.0.0)
+  - CVCalendar (1.2.6)
   - Realm (0.95.2):
     - Realm/Headers (= 0.95.2)
   - Realm/Headers (0.95.2)
   - RealmSwift (0.95.2):
     - Realm (= 0.95.2)
+  - SwiftDate (1.2)
   - SwiftMoment (0.2)
 
 DEPENDENCIES:
   - AKPickerView-Swift
+  - CVCalendar (~> 1.2.6)
   - RealmSwift
+  - SwiftDate
   - SwiftMoment
 
 SPEC CHECKSUMS:
   AKPickerView-Swift: 933897031753447302cf3167a0a5c738a58b219c
+  CVCalendar: 284cf74f90f5d9e8d737f91055372b674e0ec027
   Realm: 4c026902041bb39c4bd083ebc5e88f4f17973d72
   RealmSwift: ac7822fe7ab8dca7fa979f4d576793b111d6dce1
+  SwiftDate: 49ebd4efb5f82336cfc2b1d8a6622f47d4b17370
   SwiftMoment: b1bf1b5708b4bc99db47697e32683430d7c19759
 
 COCOAPODS: 0.39.0

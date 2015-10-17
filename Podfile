@@ -4,3 +4,5 @@ use_frameworks!
 pod 'AKPickerView-Swift'
 pod 'RealmSwift'
 pod 'SwiftMoment'
+pod 'CVCalendar', '~> 1.2.6'
+pod 'SwiftDate'

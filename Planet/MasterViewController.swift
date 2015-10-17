@@ -8,8 +8,7 @@
 
 import UIKit
 import RealmSwift
-
-
+import SwiftDate
 class MasterViewController: UITableViewController {
 
 //    var detailViewController: DetailViewController? = nil
@@ -36,60 +35,17 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        let realme = try? Realm()
+        currentEvents = realme!.objects(Event).sorted("date")
+        
+        
         let navImage = UIImageView(frame: CGRectMake(0, 0, 32, 32))
         navImage.image = UIImage(named: "navBarImage")
         navImage.center = CGPointMake((self.navigationController?.navigationBar.center.x)!, (self.navigationController?.navigationBar.center.y)!-20)
         self.navigationController?.navigationBar.addSubview(navImage)
         
-        
-        // Do any additional setup after loading the view, typically from a nib.
-//        self.navigationItem.leftBarButtonItem = self.editButtonItem()
-//
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-//        self.navigationItem.rightBarButtonItem = addButton
-//        if let split = self.splitViewController {
-//            let controllers = split.viewControllers
-//            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-//        }
-        
-        
-//        self.headerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 60)
-//        self.footerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: BOTTOMBARHEIGHT)
-
-        
-//        
-//        bottomBar = UIView(frame: CGRect(x: 0, y: self.view.frame.size.height-BOTTOMBARHEIGHT, width: self.view.frame.size.width, height: BOTTOMBARHEIGHT))
-//        bottomBar.backgroundColor = PLBlue
-//        self.tableView.addSubview(bottomBar)
-//        self.tableView.bringSubviewToFront(bottomBar)
-//
-//        topBar = UIView(frame: CGRect(x: 30, y: 20, width: self.view.frame.size.width-60, height: TOPBARHEIGHT))
-//        topBar.backgroundColor = PLBlue
-//        topBar.layer.cornerRadius = TOPBARHEIGHT/2
-//        topBar.layer.masksToBounds = true
-//        self.tableView.addSubview(topBar)
-//        self.tableView.bringSubviewToFront(topBar)
-//        
-        
-//        let calendarButton = UIButton(frame: CGRectMake(0, 0, 200, BOTTOMBARHEIGHT))
-//        calendarButton.center = CGPointMake(bottomBar.frame.size.width/2, BOTTOMBARHEIGHT/2)
-//        calendarButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-//        calendarButton.setTitle("Calendar", forState: UIControlState.Normal)
-//        bottomBar.addSubview(calendarButton)
-//        
-//        
-//        let settingsButton = UIButton(frame: CGRectMake(0, 0, 45, BOTTOMBARHEIGHT))
-//        settingsButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-//        settingsButton.setTitle("o", forState: UIControlState.Normal)
-//        bottomBar.addSubview(settingsButton)
-//        
-//        let addClassButton = UIButton(frame: CGRectMake(0, 0, 800, BOTTOMBARHEIGHT))
-//       // calendarButton.center = CGPointMake()
-//        addClassButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-//        addClassButton.setTitle("+", forState: UIControlState.Normal)
-//        bottomBar.addSubview(addClassButton)
-        
-//        addClassButton.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
+   
         
         objects = [15,16,17,18,19,15,16,15,16,17,18,19,15,16,15,16,17,18,19,15,16]
         days = ["Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday","Thursdsay","Friday","Saturday","Sunday"]
@@ -100,110 +56,41 @@ class MasterViewController: UITableViewController {
         tableView.estimatedRowHeight = 80.0;
         tableView.rowHeight = UITableViewAutomaticDimension;
         
-        
-       // createTestDays()
-        createDays()
-        
-//        for _ in 1...5{
-//            createTestEvents()
-//        }
-    }
-    
-//    
-//    func createTestEvents(){
-//        //Creates a new course
-//        let newEvent = Event()
-//        newEvent.name = "elkj"
-//        newEvent.serverID = "\(count)"
-//        newEvent.date =
-//        
-//
-//        let realme = try? Realm()
-//    
-//        //Creates the new course object and add it to our database.
-//        realme!.write({ () -> Void in
-//            realme!.add(newEvent)
-//        })
-//    }
-//    
-//
-//    
-//    // Person model
-//    class Event: Object {
-//        dynamic var name = ""
-//        dynamic var date = NSDate(timeIntervalSince1970: 1)
-//        dynamic var course: Course!
-//        dynamic var serverID = ""
-//        
-//        override static func primaryKey() -> String? {
-//            return "serverID"
-//        }
-//    }
-//    
-    func pressed(sender: UIButton!) {
-        
-        
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
-        let viewController = storyboard.instantiateViewControllerWithIdentifier("AddAssignment") //Uses the view created in the sotryboard so we have autolayout
-        
-//        let navControl = UINavigationController(rootViewController: viewController)
-//        
-//        navControl.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-        
-        self.presentViewController(viewController, animated: true) { () -> Void in
-            
-        }
-
-        
-        
     }
 
     override func viewWillAppear(animated: Bool) {
 //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
+        
+        let realme = try? Realm()
+        currentEvents = realme!.objects(Event).sorted("date")
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//
-//    func insertNewObject(sender: AnyObject) {
-//        objects.insert(NSDate(), atIndex: 0)
-//        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-//        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-//    }
 
-    // MARK: - Segues
-//
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "showDetail" {
-//            if let indexPath = self.tableView.indexPathForSelectedRow {
-//                let object = objects[indexPath.row] as! NSDate
-//                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-//                controller.detailItem = object
-//                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-//                controller.navigationItem.leftItemsSupplementBackButton = true
-//            }
-//        }
-//    }
-//    
-    // MARK: - Table View
+    //MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return (currentEvents?.count)!
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> DayCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DayCell", forIndexPath: indexPath) as! DayCell
 
-//        cell.dayNumber.text = "15"
-        cell.dayTitle.text  = "\(days[indexPath.row])"
-        cell.dayNumber.text = "\(objects[indexPath.row])"
+        let singleEvent = currentEvents![indexPath.row]
+        
+        let dateDay = singleEvent.date.toString(format: DateFormat.Custom("EEEE"))
+        
+        cell.dayTitle.text  = "\(dateDay)"
+        cell.dayNumber.text = "\(singleEvent.date.day)"
         
         for subv in cell.eventStack.arrangedSubviews {
             subv.removeFromSuperview()
@@ -213,9 +100,9 @@ class MasterViewController: UITableViewController {
             subv.removeFromSuperview()
         }
         
-        for var i = 0; i < events[indexPath.row]; i++ {
+//        for var i = 0; i < events[indexPath.row]; i++ {
             let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
-            label.text = things[indexPath.row] as? String
+            label.text = "\(singleEvent.type) - \(singleEvent.course.name)"
             label.font = UIFont(name: "Avenir Book", size: 15.0)
             label.heightAnchor.constraintEqualToConstant(20).active = true
             cell.eventStack.addArrangedSubview(label)
@@ -232,7 +119,7 @@ class MasterViewController: UITableViewController {
             circle.heightAnchor.constraintEqualToConstant(20).active = true
             circle.widthAnchor.constraintEqualToConstant(8).active = true
             cell.circleStack.addArrangedSubview(circle)
-        }
+//        }
         return cell
     }
 
@@ -259,7 +146,6 @@ class MasterViewController: UITableViewController {
     
     func createTestDays(){
         let newEvent = Event()
-        newEvent.name = "testEvent"
         newEvent.serverID = "testEvent"
 
         let realm = try? Realm()

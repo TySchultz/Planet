@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CVCalendar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -24,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SwiftDate.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftMoment.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,12 +42,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>36AD7FE00A70E0756D5FBBA7F9B82A3B</key>
+		<key>17183A36F3EB38884D6DD0A4B212418F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7637FE1145E4A1C6B04C2B29B7877219</key>
+		<key>3433AFEE9E4B31DC02F2AD0B574CDB3E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D0E8873F81AEAF05505505EDDBFCFE4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,12 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C3FC5397570CB7DCD76E91C4ECD443FC</key>
+		<key>8E2B638F40C6AE3ED41E501E0D1D63E6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D54917B3E67B1D93E4A5E1968325F868</key>
+		<key>BA14B622689766F6B8A4F42FD9DE552F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CD60C3064CC05C707F00DBADBFD7C3C8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

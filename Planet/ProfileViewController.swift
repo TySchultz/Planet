@@ -20,6 +20,9 @@ class ProfileViewController: UIViewController {
     
     var index = 0
     
+    
+    var currentCourses : Results<Course>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,8 +44,8 @@ class ProfileViewController: UIViewController {
         
         let realme = try? Realm()
         
-        let allCourses = realme!.objects(Course)
-        for course in allCourses  {
+        currentCourses = realme!.objects(Course)
+        for course in currentCourses  {
             addCourses(course)
         }
     }
@@ -112,24 +115,23 @@ class ProfileViewController: UIViewController {
     }
     
     func deleteButtonPressed(sender : UIButton) {
-        let realme = try? Realm()
+        let realme = try! Realm()
 
         var tmpIndex = 0
         
-        let allCourses = realme!.objects(Course)
-        for course in allCourses  {
+        print("count: \(currentCourses.count)"   )
+
+        for course in currentCourses  {
             if tmpIndex == sender.tag{
-                realme?.beginWrite()
-                    print("deleting: \(course.name)"   )
-                    realme?.delete(course)
-                realme?.commitWrite()
-             
+                
+                try! realme.write {
+                    realme.delete(course)
+                }
                 break
             }else{
                 tmpIndex++
             }
         }
-        
         
         let label = coursesStack.arrangedSubviews[sender.tag]
         let circle = colorStack.arrangedSubviews[sender.tag]

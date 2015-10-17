@@ -25,6 +25,7 @@ class SearchTableViewController: UITableViewController {
 
 
     @IBOutlet weak var navScrollView: UIScrollView!
+    //TODO: change this name
     @IBOutlet weak var kkk: UIView!
     @IBOutlet weak var navStackView: UIStackView!
     let types = ["Test","Quiz","Homework","Project","Presentation"]
@@ -36,19 +37,19 @@ class SearchTableViewController: UITableViewController {
         header.frame = CGRectMake(0, 0, view.frame.size.width, 400)
         header.backgroundColor = UIColor.whiteColor()
         
-        
-        
-        
-//        navScrollView = UIScrollView(frame: CGRectMake(20, 0, view.frame.size.width-40, 40))
         kkk.frame = CGRectMake(0, 40, view.frame.size.width-40, 35)
-        
         
         setup()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        setup()
+    }
     
-    override func viewDidAppear(animated: Bool) {
-         setup()
+    override func viewDidDisappear(animated: Bool) {
+        clearOutStackView(typeStack)
+        clearOutStackView(coursesStack)
+        clearOutStackView(navStackView)
     }
     
     func setup () {
@@ -58,6 +59,8 @@ class SearchTableViewController: UITableViewController {
         
         clearOutStackView(typeStack)
         clearOutStackView(coursesStack)
+        clearOutStackView(navStackView)
+
         
         let realme = try? Realm()
         
@@ -72,8 +75,6 @@ class SearchTableViewController: UITableViewController {
         for type in types {
             addButtonToStack(type, stackView: typeStack)
         }
-    
-    
     }
     
     
@@ -145,7 +146,7 @@ class SearchTableViewController: UITableViewController {
     }
     
     func createButton(title : String) -> UIButton{
-        let height :CGFloat = 30.0
+        let height :CGFloat = 24.0
         let label = UIButton(frame: CGRectMake(0, 0, 100, height))
         label.setTitle(title, forState: UIControlState.Normal)
         label.titleLabel?.font = UIFont(name: "Avenir Book", size: 15)

@@ -8,15 +8,17 @@
 
 import RealmSwift
 
-class Model: Object {
-    
-// Specify properties to ignore (Realm won't persist these)
-    
-//  override static func ignoredProperties() -> [String] {
-//    return []
-//  }
 
+enum EventType : String {
+    case TEST = "Test"
+    case QUIZ = "Quiz"
+    case HW = "HW"
+    case PROJECT = "Project"
+    case PRESENTATION = "Presentation"
+    case MEETING = "Meeting"
 }
+
+
 
 class Course: Object {
     dynamic var name = ""
@@ -34,12 +36,57 @@ class Course: Object {
 
 // Person model
 class Event: Object {
-    dynamic var name = ""
     dynamic var date = NSDate(timeIntervalSince1970: 1)
     dynamic var course: Course!
     dynamic var serverID = ""
-    
+    dynamic var type = "Test"
+    var typeEnum: EventType {
+        get {
+            return EventType(rawValue: self.type)!
+        }
+        set {
+            self.type = newValue.rawValue
+        }
+    }
     override static func primaryKey() -> String? {
         return "serverID"
     }
+//    
+//    func stringForType(type :EventType) -> String{
+//        
+//        switch type{
+//            case .TEST:
+//                return "Test"
+//            case .QUIZ:
+//                return "Quiz"
+//            case .HW:
+//                return "HW"
+//            case .PROJECT:
+//                return "Project"
+//            case .PRESENTATION:
+//                return "Presentation"
+//            case .MEETING:
+//                return "Meeting"
+//        }
+//    }
+//    
+//    func typeForString(type :String) -> EventType{
+//        
+//        switch type{
+//        case "Test":
+//            return .TEST
+//        case "Quiz":
+//            return .QUIZ
+//        case "HW":
+//            return .HW
+//        case "Project":
+//            return .PROJECT
+//        case "Presentation":
+//            return .PRESENTATION
+//        case "Meeting":
+//            return .MEETING
+//        default:
+//            return .TEST
+//        }
+//    }
 }

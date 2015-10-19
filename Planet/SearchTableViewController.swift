@@ -23,9 +23,7 @@ class SearchTableViewController: UITableViewController {
     var currentCourseStackIndex = 0
     
     var currentEvents : NSMutableArray!
-
-
-
+    
     @IBOutlet weak var navScrollView: UIScrollView!
     //TODO: change this name
     @IBOutlet weak var kkk: UIView!
@@ -74,11 +72,11 @@ class SearchTableViewController: UITableViewController {
         
         let allCourses = realme!.objects(Course)
         for course in allCourses  {
-            addButtonToStack(course.name, stackView: 	coursesStack)
+            addButtonToStack(course.name, color:course.color, stackView: 	coursesStack)
         }
         
         for type in types {
-            addButtonToStack(type, stackView: typeStack)
+            addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
         }
         
         currentEvents = []
@@ -115,9 +113,9 @@ class SearchTableViewController: UITableViewController {
         return true
     }
     
-    func addButtonToStack(type : String, stackView : UIStackView){
+    func addButtonToStack(type : String, color : String, stackView : UIStackView){
         let label = createButton(type)
-        
+        label.backgroundColor = Course().colorForType(ColorType(rawValue: color)!)
         var currentStackIndex = 0
         if stackView.tag == 0 {
             currentStackIndex = currentCourseStackIndex
@@ -183,6 +181,7 @@ class SearchTableViewController: UITableViewController {
             newButton.alpha = 1.0
             newButton.tag = 2
             newButton.hidden = true
+            newButton.backgroundColor = sender.backgroundColor
             self.navStackView.addArrangedSubview(newButton)
             
             let size = navScrollView.contentSize

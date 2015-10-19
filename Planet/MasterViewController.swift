@@ -55,32 +55,32 @@ class MasterViewController: UITableViewController {
     func getDays() -> NSMutableArray{
         let realme = try? Realm()
         let days = realme!.objects(Event).sorted("date")
-        days.dropFirst()
+//        days.dropFirst()
         
-        var allDays :NSMutableArray = []
+        var allDays    :NSMutableArray = []
         var singleCell :NSMutableArray = []
-        let first = days.first
-
-        allDays.addObject(singleCell)
-        singleCell.addObject(first!)
-        var currentIndex = 0
-        
-        for day in days  {
-            // if same date then add to current array
-            let array = allDays[currentIndex] as! NSMutableArray
-            let firstObject = array.firstObject as! Event
-            if checkForSameDate(firstObject.date, secondDate: day.date){
-                allDays[currentIndex].addObject(day)
-            }
-            //If not then create new array and add to that array
-            else{
-                var newCell :NSMutableArray = []
-                newCell.addObject(day)
-                allDays.addObject(newCell)
-                currentIndex++
+        if let first = days.first {
+            allDays.addObject(singleCell)
+            singleCell.addObject(first)
+            var currentIndex = 0
+            
+            for day in days  {
+                // if same date then add to current array
+                let array = allDays[currentIndex] as! NSMutableArray
+                let firstObject = array.firstObject as! Event
+                if checkForSameDate(firstObject.date, secondDate: day.date){
+                    allDays[currentIndex].addObject(day)
+                }
+                    //If not then create new array and add to that array
+                else{
+                    var newCell :NSMutableArray = []
+                    newCell.addObject(day)
+                    allDays.addObject(newCell)
+                    currentIndex++
+                }
             }
         }
-        
+   
         return allDays
     }
     
@@ -147,7 +147,7 @@ class MasterViewController: UITableViewController {
                 
                 let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
                 circle.layer.cornerRadius = 4
-                circle.backgroundColor = PLPurple
+                circle.backgroundColor =  Course().colorForType(ColorType(rawValue: event.course.color)!)
                 circle.layer.masksToBounds = true
                 circle.heightAnchor.constraintEqualToConstant(20).active = true
                 circle.widthAnchor.constraintEqualToConstant(8).active = true

@@ -66,11 +66,11 @@ class AddAssignmentViewController: UIViewController {
         
         let allCourses = realme!.objects(Course)
         for course in allCourses  {
-            addButtonToStack(course.name, stackView: classStack)
+            addButtonToStack(course.name,color:course.color, stackView: classStack)
         }
         
         for type in types {
-            addButtonToStack(type, stackView: typeStack)
+            addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
         }
     }
     
@@ -102,9 +102,10 @@ class AddAssignmentViewController: UIViewController {
         return true
     }
     
-    func addButtonToStack(type : String, stackView : UIStackView){
+    func addButtonToStack(type : String,color : String, stackView : UIStackView){
         let label = createButton(type, type: stackView.tag)
-        
+        label.backgroundColor = Course().colorForType(ColorType(rawValue: color)!)
+
         var currentStackIndex = 0
         if stackView.tag == 0 {
             currentStackIndex = currentCourseStackIndex

@@ -75,6 +75,25 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
 
 
     @IBOutlet weak var closeView: UIButton!
+    
+    func typeForColor(color : UIColor) -> ColorType {
+        switch color{
+        case PLBlue:
+            return .PLCOLOR_BLUE
+        case PLGreen:
+            return .PLCOLOR_GREEN
+        case PLPurple:
+            return .PLCOLOR_PURPLE
+        case PLGray:
+            return .PLCOLOR_GRAY
+        case PLBlack:
+            return .PLCOLOR_BLACK
+        case PLOrange:
+            return .PLCOLOR_ORANGE
+        default:
+            return .PLCOLOR_BLUE
+        }
+    }
 
     @IBAction func submitClass(sender: UIButton) {
         //Checks to see if we have a color selected
@@ -91,7 +110,9 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
             let newCourse = Course()
             newCourse.name = self.classNameField.text!
             newCourse.serverID = self.classNameField.text!
-            
+            let color = typeForColor(oldButton.backgroundColor!)
+            newCourse.color = color.rawValue
+
             let realme = try? Realm()
             
             var alreadyCreated = false

@@ -19,20 +19,56 @@ enum EventType : String {
 }
 
 
+enum ColorType : String {
+    case PLCOLOR_BLUE = "PLBLUE"
+    case PLCOLOR_GREEN = "PLGREEN"
+    case PLCOLOR_PURPLE = "PLPURPLE"
+    case PLCOLOR_GRAY = "PLGRAY"
+    case PLCOLOR_BLACK = "PLBLACK"
+    case PLCOLOR_ORANGE = "PLORANGE"
+}
+
 
 class Course: Object {
+  
     dynamic var name = ""
     dynamic var time = NSDate(timeIntervalSince1970: 1)
     dynamic var color = ""
     let events = List<Event>()
     dynamic var serverID  = ""
+    var colorEnum: ColorType {
+        get {
+            return ColorType(rawValue: self.color)!
+        }
+        set {
+            self.color = newValue.rawValue
+        }
+    }
     
+    
+    
+    func colorForType(type : ColorType) -> UIColor {
+        switch type{
+        case .PLCOLOR_BLUE:
+            return PLBlue
+        case .PLCOLOR_GREEN:
+            return PLGreen
+        case .PLCOLOR_PURPLE:
+            return PLPurple
+        case .PLCOLOR_GRAY:
+            return PLGray
+        case .PLCOLOR_BLACK:
+            return PLBlack
+        case .PLCOLOR_ORANGE:
+            return PLOrange
+        }
+    }
+    
+
     override static func primaryKey() -> String? {
         return "serverID"
     }
 }
-
-
 
 // Person model
 class Event: Object {
@@ -51,42 +87,5 @@ class Event: Object {
     override static func primaryKey() -> String? {
         return "serverID"
     }
-//    
-//    func stringForType(type :EventType) -> String{
-//        
-//        switch type{
-//            case .TEST:
-//                return "Test"
-//            case .QUIZ:
-//                return "Quiz"
-//            case .HW:
-//                return "HW"
-//            case .PROJECT:
-//                return "Project"
-//            case .PRESENTATION:
-//                return "Presentation"
-//            case .MEETING:
-//                return "Meeting"
-//        }
-//    }
-//    
-//    func typeForString(type :String) -> EventType{
-//        
-//        switch type{
-//        case "Test":
-//            return .TEST
-//        case "Quiz":
-//            return .QUIZ
-//        case "HW":
-//            return .HW
-//        case "Project":
-//            return .PROJECT
-//        case "Presentation":
-//            return .PRESENTATION
-//        case "Meeting":
-//            return .MEETING
-//        default:
-//            return .TEST
-//        }
-//    }
+
 }

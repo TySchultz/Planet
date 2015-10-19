@@ -46,6 +46,7 @@ class ProfileViewController: UIViewController {
         
         currentCourses = realme!.objects(Course)
         for course in currentCourses  {
+      
             addCourses(course)
         }
     }
@@ -64,7 +65,7 @@ class ProfileViewController: UIViewController {
             deleteStack.hidden = true
     }
     
-    
+
     func addCourses(c : Course){
         let label = UILabel(frame: CGRectMake(0, 0, 100, 30))
         label.text = c.name
@@ -77,7 +78,7 @@ class ProfileViewController: UIViewController {
         let size :CGFloat = 20
         let circle = UIView(frame: CGRectMake(0, 0, size, size))
         circle.layer.cornerRadius = size/2
-        circle.backgroundColor = PLBlue
+        circle.backgroundColor = c.colorForType(ColorType(rawValue: c.color)!)
         circle.layer.masksToBounds = true
         circle.heightAnchor.constraintEqualToConstant(size).active = true
         circle.widthAnchor.constraintEqualToConstant(size).active = true

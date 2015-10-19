@@ -299,7 +299,8 @@ class SearchTableViewController: UITableViewController {
                 
                 let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
                 circle.layer.cornerRadius = 4
-                circle.backgroundColor = PLPurple
+                circle.backgroundColor = Course().colorForType(ColorType(rawValue: event.course.color)!)
+
                 circle.layer.masksToBounds = true
                 circle.heightAnchor.constraintEqualToConstant(20).active = true
                 circle.widthAnchor.constraintEqualToConstant(8).active = true

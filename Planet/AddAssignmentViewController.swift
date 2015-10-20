@@ -22,7 +22,8 @@ class AddAssignmentViewController: UIViewController {
     var currentCourseName = ""
     var currentEventType = ""
 
-    
+    var currentDayAdditions = 0
+
     var currentTypeStackIndex = 0
     var currentCourseStackIndex = 0
     
@@ -243,7 +244,6 @@ class AddAssignmentViewController: UIViewController {
                     }
                 }
             }
-            
         }
     }
     
@@ -258,6 +258,7 @@ class AddAssignmentViewController: UIViewController {
                 UIView.animateWithDuration(0.1, animations: { () -> Void in
                         button.hidden = false
                         button.alpha = 0.3
+                        button.tag = 0
                         }, completion: { (Bool) -> Void in
                 })
                 }
@@ -296,7 +297,7 @@ class AddAssignmentViewController: UIViewController {
         
         //Creates a new course
         let newEvent = Event()
-        newEvent.date = NSDate().dateByAddingTimeInterval(0)
+        newEvent.date = NSDate(timeIntervalSinceNow: 0).add(years: 0, months: 0, weeks: 0, days: currentDayAdditions, hours: 0, minutes: 0, seconds: 0)
         newEvent.serverID = randomStringWithLength(12) as String
         newEvent.type = currentEventType
 
@@ -327,6 +328,12 @@ class AddAssignmentViewController: UIViewController {
         return randomString
     }
  
+    @IBAction func addDayButtonPressed(sender: UIButton) {
+        
+        currentDayAdditions = sender.tag
+        sender.backgroundColor = PLBlue
+    }
+    
     
     /*
     // MARK: - Navigation

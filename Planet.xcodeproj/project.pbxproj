@@ -13,12 +13,6 @@
 		106E94DD1BCD754000932D98 /* PLNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94DC1BCD754000932D98 /* PLNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
 		106E94DF1BCD7BBB00932D98 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		106E94E21BCD7BDF00932D98 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		106E94EA1BCD7D4400932D98 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94E41BCD7D4400932D98 /* CalendarView.swift */; settings = {ASSET_TAGS = (); }; };
-		106E94EB1BCD7D4400932D98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94E51BCD7D4400932D98 /* ContentView.swift */; settings = {ASSET_TAGS = (); }; };
-		106E94EC1BCD7D4400932D98 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94E61BCD7D4400932D98 /* DayView.swift */; settings = {ASSET_TAGS = (); }; };
-		106E94ED1BCD7D4400932D98 /* EasyCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94E71BCD7D4400932D98 /* EasyCast.swift */; settings = {ASSET_TAGS = (); }; };
-		106E94EE1BCD7D4400932D98 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94E81BCD7D4400932D98 /* MonthView.swift */; settings = {ASSET_TAGS = (); }; };
-		106E94EF1BCD7D4400932D98 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94E91BCD7D4400932D98 /* WeekView.swift */; settings = {ASSET_TAGS = (); }; };
 		107C7B961BC3185F000824AF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C7B951BC3185F000824AF /* Model.swift */; };
 		108F78871BBB04580075FD24 /* PLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108F78861BBB04580075FD24 /* PLButton.swift */; };
 		10C490821BCD72C100F9F01D /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C490811BCD72C100F9F01D /* CalendarViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -61,12 +55,6 @@
 		106E94DC1BCD754000932D98 /* PLNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLNavigationController.swift; sourceTree = "<group>"; };
 		106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		106E94E41BCD7D4400932D98 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		106E94E51BCD7D4400932D98 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		106E94E61BCD7D4400932D98 /* DayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
-		106E94E71BCD7D4400932D98 /* EasyCast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyCast.swift; sourceTree = "<group>"; };
-		106E94E81BCD7D4400932D98 /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
-		106E94E91BCD7D4400932D98 /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		107C7B951BC3185F000824AF /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		108F78861BBB04580075FD24 /* PLButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLButton.swift; sourceTree = "<group>"; };
 		10C490811BCD72C100F9F01D /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -138,19 +126,6 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		106E94E31BCD7D3900932D98 /* CalendarView */ = {
-			isa = PBXGroup;
-			children = (
-				106E94E41BCD7D4400932D98 /* CalendarView.swift */,
-				106E94E51BCD7D4400932D98 /* ContentView.swift */,
-				106E94E61BCD7D4400932D98 /* DayView.swift */,
-				106E94E71BCD7D4400932D98 /* EasyCast.swift */,
-				106E94E81BCD7D4400932D98 /* MonthView.swift */,
-				106E94E91BCD7D4400932D98 /* WeekView.swift */,
-			);
-			name = CalendarView;
-			sourceTree = "<group>";
-		};
 		10E5C8911BB9C63400DDE50B = {
 			isa = PBXGroup;
 			children = (
@@ -176,7 +151,6 @@
 		10E5C89C1BB9C63400DDE50B /* Planet */ = {
 			isa = PBXGroup;
 			children = (
-				106E94E31BCD7D3900932D98 /* CalendarView */,
 				100358751BBB5E3B00C4A1AC /* Constants.swift */,
 				10E5C89D1BB9C63400DDE50B /* AppDelegate.swift */,
 				106E94E01BCD7BC200932D98 /* Controllers */,
@@ -422,21 +396,15 @@
 			files = (
 				10E5C8D91BB9D11000DDE50B /* IntroViewController.swift in Sources */,
 				107C7B961BC3185F000824AF /* Model.swift in Sources */,
-				106E94EA1BCD7D4400932D98 /* CalendarView.swift in Sources */,
-				106E94EF1BCD7D4400932D98 /* WeekView.swift in Sources */,
 				10E5C8A01BB9C63400DDE50B /* MasterViewController.swift in Sources */,
 				106E94DF1BCD7BBB00932D98 /* SearchTableViewController.swift in Sources */,
 				108F78871BBB04580075FD24 /* PLButton.swift in Sources */,
 				10E5C8D01BB9CAA000DDE50B /* DayCell.swift in Sources */,
-				106E94EB1BCD7D4400932D98 /* ContentView.swift in Sources */,
-				106E94ED1BCD7D4400932D98 /* EasyCast.swift in Sources */,
 				10D8F3111BCD6FB600030FFA /* PLTabBarController.swift in Sources */,
 				018D939D1BC5B54B00293F0A /* AddAssignmentViewController.swift in Sources */,
-				106E94EE1BCD7D4400932D98 /* MonthView.swift in Sources */,
 				10E5C8DB1BB9D1D100DDE50B /* IntroAddClassViewController.swift in Sources */,
 				10E5C89E1BB9C63400DDE50B /* AppDelegate.swift in Sources */,
 				100358781BBB5F8B00C4A1AC /* PLLabel.swift in Sources */,
-				106E94EC1BCD7D4400932D98 /* DayView.swift in Sources */,
 				10C490821BCD72C100F9F01D /* CalendarViewController.swift in Sources */,
 				106E94E21BCD7BDF00932D98 /* ProfileViewController.swift in Sources */,
 				106E94DD1BCD754000932D98 /* PLNavigationController.swift in Sources */,

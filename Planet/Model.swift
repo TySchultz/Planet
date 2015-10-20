@@ -72,7 +72,7 @@ class Course: Object {
 
 // Person model
 class Event: Object {
-    dynamic var date = NSDate(timeIntervalSince1970: 1)
+    dynamic var date :NSDate = NSDate(timeIntervalSince1970: 1)
     dynamic var course: Course!
     dynamic var serverID = ""
     dynamic var type = "Test"

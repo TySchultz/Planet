@@ -8,34 +8,50 @@
 
 import UIKit
 import SwiftMoment
-class CalendarViewController: UITableViewController, CalendarViewDelegate {
+import CVCalendar
+import SwiftDate
+import RealmSwift
+
+class CalendarViewController: UITableViewController {
 
     @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var calendarView: CalendarView!
-    
-    var date: Moment! {
-        didSet {
-            title = date.format("MMMM d, yyyy")
-        }
-    }
+    @IBOutlet weak var calendarView: CVCalendarView!
+    @IBOutlet weak var menuView: CVCalendarMenuView!
 
-    func calendarDidSelectDate(date: Moment) {
-        self.date = date
-    }
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var daysOutSwitch: UISwitch!
+
+    var currentEvents : NSMutableArray!
+    var currentDate : NSDate!
+
     
-    func calendarDidPageToDate(date: Moment) {
-        self.date = date
-    }
-    
+    @IBOutlet weak var navView: UIView!
+    var shouldShowDaysOut = true
+    var animationFinished = true
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        headerView.frame = CGRectMake(0, 0, view.frame.size.width, 300)
+        headerView.frame = CGRectMake(0, 0, view.frame.size.width, 340)
         headerView.backgroundColor = UIColor.whiteColor()
+        navView.frame = CGRectMake(0, 40, view.frame.size.width-40, 35)
+
+        calendarView.frame = CGRectMake(0, 0, headerView.frame.size.width-16, 300)
+        menuView.frame = CGRectMake(0, 0, headerView.frame.size.width-16, 32)
         
-        date = moment()
-        calendarView.delegate = self
+        
+
+        monthLabel.text = CVDate(date: NSDate()).globalDescription
+        
+        currentDate = NSDate(timeIntervalSinceNow: 0)
+        
+        tableView.estimatedRowHeight = 80.0;
+        tableView.rowHeight = UITableViewAutomaticDimension;
+
+        currentEvents = getDays()
+//        calendarView.calendarAppearanceDelegate = self
+//        calendarView.calendarDelegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -48,76 +64,279 @@ class CalendarViewController: UITableViewController, CalendarViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
-    // MARK: - Table view data source
-
+        calendarView.commitCalendarViewUpdate()
+        menuView.commitMenuViewUpdate()
+    }
+    //MARK: - Table View
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return (currentEvents?.count)!
     }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> DayCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("DayCell", forIndexPath: indexPath) as! DayCell
+        
+        let singleDay = currentEvents![indexPath.row] as! NSMutableArray
+        let firstObject = singleDay.firstObject as! Event
+        
+        let dateDay = firstObject.date.toString(format: DateFormat.Custom("EEEE"))
+        
+        cell.dayTitle.text  = "\(dateDay)"
+        cell.dayNumber.text = "\(firstObject.date.day)"
+        
+        for subv in cell.eventStack.arrangedSubviews {
+            subv.removeFromSuperview()
+        }
+        
+        for subv in cell.circleStack.arrangedSubviews {
+            subv.removeFromSuperview()
+        }
+        
+        for item in singleDay {
+            if let event = item as? Event {
+                let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
+                label.text = "\(event.type) - \(event.course.name)"
+                label.font = UIFont(name: "Avenir Book", size: 15.0)
+                label.heightAnchor.constraintEqualToConstant(20).active = true
+                cell.eventStack.addArrangedSubview(label)
+                
+                let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
+                circle.layer.cornerRadius = 4
+                circle.backgroundColor =  Course().colorForType(ColorType(rawValue: event.course.color)!)
+                circle.layer.masksToBounds = true
+                circle.heightAnchor.constraintEqualToConstant(20).active = true
+                circle.widthAnchor.constraintEqualToConstant(8).active = true
+                cell.circleStack.addArrangedSubview(circle)
+            }
+        }
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    
+    func getDays() -> NSMutableArray{
+        let realme = try? Realm()
+        NSDate(timeIntervalSinceNow: 0)
+        
+        let days = realme!.objects(Event).filter("date >= %@", currentDate)        //        days.dropFirst()
+        
+        var allDays    :NSMutableArray = []
+        var singleCell :NSMutableArray = []
+        if let first = days.first {
+            allDays.addObject(singleCell)
+            singleCell.addObject(first)
+            var currentIndex = 0
+            
+            for day in days  {
+                // if same date then add to current array
+                let array = allDays[currentIndex] as! NSMutableArray
+                let firstObject = array.firstObject as! Event
+                if checkForSameDate(firstObject.date, secondDate: day.date){
+                    allDays[currentIndex].addObject(day)
+                }
+                    //If not then create new array and add to that array
+                else{
+                    var newCell :NSMutableArray = []
+                    newCell.addObject(day)
+                    allDays.addObject(newCell)
+                    currentIndex++
+                }
+            }
+        }
+        
+        return allDays
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func checkForSameDate(firstDate : NSDate, secondDate : NSDate) -> Bool{
+        
+        if firstDate.day == secondDate.day{
+            return true
+        } else {
+            return false
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
+    
+    
+    func didSelectDayView(dayView: DayView) {
+        let date = dayView.date
+        currentDate = dayView.date.convertedDate()
+        currentEvents = getDays()
+        tableView.reloadData()
+        print("\(calendarView.presentedDate.commonDescription) is selected!")
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
+
+extension CalendarViewController: CVCalendarViewDelegate, CVCalendarMenuViewDelegate {
+    
+    /// Required method to implement!
+    func presentationMode() -> CalendarMode {
+        return .MonthView
+    }
+    
+    /// Required method to implement!
+    func firstWeekday() -> Weekday {
+        return .Sunday
+    }
+    
+    // MARK: Optional methods
+    
+    func shouldShowWeekdaysOut() -> Bool {
+        return shouldShowDaysOut
+    }
+    
+    func shouldAnimateResizing() -> Bool {
+        return true // Default value is true
+    }
+    
+    func didSelectDayView(dayView: CVCalendarDayView, animationDidFinish: Bool) {
+        let date = dayView.date
+        print("\(calendarView.presentedDate.commonDescription) is selected!")
+    }
+    
+    func presentedDateUpdated(date: CVDate) {
+        if monthLabel.text != date.globalDescription && self.animationFinished {
+            let updatedMonthLabel = UILabel()
+            updatedMonthLabel.textColor = monthLabel.textColor
+            updatedMonthLabel.font = monthLabel.font
+            updatedMonthLabel.textAlignment = .Center
+            updatedMonthLabel.text = date.globalDescription
+            updatedMonthLabel.sizeToFit()
+            updatedMonthLabel.alpha = 0
+            updatedMonthLabel.center = self.monthLabel.center
+            
+            let offset = CGFloat(48)
+            updatedMonthLabel.transform = CGAffineTransformMakeTranslation(0, offset)
+            updatedMonthLabel.transform = CGAffineTransformMakeScale(1, 0.1)
+            
+            UIView.animateWithDuration(0.35, delay: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+                self.animationFinished = false
+                self.monthLabel.transform = CGAffineTransformMakeTranslation(0, -offset)
+                self.monthLabel.transform = CGAffineTransformMakeScale(1, 0.1)
+                self.monthLabel.alpha = 0
+                
+                updatedMonthLabel.alpha = 1
+                updatedMonthLabel.transform = CGAffineTransformIdentity
+                
+                }) { _ in
+                    
+                    self.animationFinished = true
+                    self.monthLabel.frame = updatedMonthLabel.frame
+                    self.monthLabel.text = updatedMonthLabel.text
+                    self.monthLabel.transform = CGAffineTransformIdentity
+                    self.monthLabel.alpha = 1
+                    updatedMonthLabel.removeFromSuperview()
+            }
+            
+            self.view.insertSubview(updatedMonthLabel, aboveSubview: self.monthLabel)
+        }
+    }
+    
+    func topMarker(shouldDisplayOnDayView dayView: CVCalendarDayView) -> Bool {
+        return true
+    }
+    
+    func dotMarker(shouldShowOnDayView dayView: CVCalendarDayView) -> Bool {
+        let day = dayView.date.day
+        let randomDay = Int(arc4random_uniform(31))
+        if day == randomDay {
+            return true
+        }
+        
+        return false
+    }
+    
+    func dotMarker(colorOnDayView dayView: CVCalendarDayView) -> [UIColor] {
+        let day = dayView.date.day
+        
+        let red = CGFloat(arc4random_uniform(600) / 255)
+        let green = CGFloat(arc4random_uniform(600) / 255)
+        let blue = CGFloat(arc4random_uniform(600) / 255)
+        
+        let color = UIColor(red: red, green: green, blue: blue, alpha: 1)
+        
+        let numberOfDots = Int(arc4random_uniform(3) + 1)
+        switch(numberOfDots) {
+        case 2:
+            return [color, color]
+        case 3:
+            return [color, color, color]
+        default:
+            return [color] // return 1 dot
+        }
+    }
+    
+    func dotMarker(shouldMoveOnHighlightingOnDayView dayView: CVCalendarDayView) -> Bool {
+        return true
+    }
+    
+    func dotMarker(sizeOnDayView dayView: DayView) -> CGFloat {
+        return 13
+    }
+    
+    
+    func weekdaySymbolType() -> WeekdaySymbolType {
+        return .Short
+    }
+    
+}
+
+
+extension CalendarViewController: CVCalendarViewAppearanceDelegate {
+    func dayLabelPresentWeekdayInitallyBold() -> Bool {
+        return false
+    }
+    
+    func spaceBetweenDayViews() -> CGFloat {
+        return 0
+    }
+}
+
+
+// MARK: - IB Actions
+
+extension CalendarViewController {
+    @IBAction func switchChanged(sender: UISwitch) {
+        if sender.on {
+            calendarView.changeDaysOutShowingState(false)
+            shouldShowDaysOut = true
+        } else {
+            calendarView.changeDaysOutShowingState(true)
+            shouldShowDaysOut = false
+        }
+    }
+    
+    @IBAction func todayMonthView() {
+        calendarView.toggleCurrentDayView()
+    }
+    
+    /// Switch to WeekView mode.
+    @IBAction func toWeekView(sender: AnyObject) {
+        calendarView.changeMode(.WeekView)
+    }
+    
+    /// Switch to MonthView mode.
+    @IBAction func toMonthView(sender: AnyObject) {
+        calendarView.changeMode(.MonthView)
+    }
+    
+    @IBAction func loadPrevious(sender: AnyObject) {
+        calendarView.loadPreviousView()
+    }
+    
+    
+    @IBAction func loadNext(sender: AnyObject) {
+        calendarView.loadNextView()
+    }
+}
 
 
 

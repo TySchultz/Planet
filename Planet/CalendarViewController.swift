@@ -40,11 +40,9 @@ class CalendarViewController: UITableViewController {
         calendarView.frame = CGRectMake(0, 0, headerView.frame.size.width-16, 300)
         menuView.frame = CGRectMake(0, 0, headerView.frame.size.width-16, 32)
         
-        
-
         monthLabel.text = CVDate(date: NSDate()).globalDescription
         
-        currentDate = NSDate(timeIntervalSinceNow: 0)
+        currentDate = NSDate(timeIntervalSinceNow: -60*60)
         
         tableView.estimatedRowHeight = 80.0;
         tableView.rowHeight = UITableViewAutomaticDimension;
@@ -100,7 +98,15 @@ class CalendarViewController: UITableViewController {
             subv.removeFromSuperview()
         }
         
-        for item in singleDay {
+        let sortedDays = singleDay.sortedArrayUsingComparator {
+            (obj1, obj2) -> NSComparisonResult in
+            
+            let p1 = obj1 as! Event
+            let p2 = obj2 as! Event
+            let result = p1.course.name.compare(p2.course.name)
+            return result
+        }
+        for item in sortedDays {
             if let event = item as? Event {
                 let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
                 label.text = "\(event.type) - \(event.course.name)"
@@ -123,12 +129,11 @@ class CalendarViewController: UITableViewController {
     
     func getDays() -> NSMutableArray{
         let realme = try? Realm()
-        NSDate(timeIntervalSinceNow: 0)
         
-        let days = realme!.objects(Event).filter("date >= %@", currentDate)        //        days.dropFirst()
+        let days = realme!.objects(Event).filter("date >= %@", currentDate).sorted("date")
         
-        var allDays    :NSMutableArray = []
-        var singleCell :NSMutableArray = []
+        let allDays    :NSMutableArray = []
+        let singleCell :NSMutableArray = []
         if let first = days.first {
             allDays.addObject(singleCell)
             singleCell.addObject(first)
@@ -143,7 +148,7 @@ class CalendarViewController: UITableViewController {
                 }
                     //If not then create new array and add to that array
                 else{
-                    var newCell :NSMutableArray = []
+                    let newCell :NSMutableArray = []
                     newCell.addObject(day)
                     allDays.addObject(newCell)
                     currentIndex++
@@ -166,8 +171,8 @@ class CalendarViewController: UITableViewController {
     
     
     func didSelectDayView(dayView: DayView) {
-        let date = dayView.date
         currentDate = dayView.date.convertedDate()
+        currentEvents.removeAllObjects()
         currentEvents = getDays()
         tableView.reloadData()
         print("\(calendarView.presentedDate.commonDescription) is selected!")
@@ -204,39 +209,7 @@ extension CalendarViewController: CVCalendarViewDelegate, CVCalendarMenuViewDele
     
     func presentedDateUpdated(date: CVDate) {
         if monthLabel.text != date.globalDescription && self.animationFinished {
-            let updatedMonthLabel = UILabel()
-            updatedMonthLabel.textColor = monthLabel.textColor
-            updatedMonthLabel.font = monthLabel.font
-            updatedMonthLabel.textAlignment = .Center
-            updatedMonthLabel.text = date.globalDescription
-            updatedMonthLabel.sizeToFit()
-            updatedMonthLabel.alpha = 0
-            updatedMonthLabel.center = self.monthLabel.center
-            
-            let offset = CGFloat(48)
-            updatedMonthLabel.transform = CGAffineTransformMakeTranslation(0, offset)
-            updatedMonthLabel.transform = CGAffineTransformMakeScale(1, 0.1)
-            
-            UIView.animateWithDuration(0.35, delay: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
-                self.animationFinished = false
-                self.monthLabel.transform = CGAffineTransformMakeTranslation(0, -offset)
-                self.monthLabel.transform = CGAffineTransformMakeScale(1, 0.1)
-                self.monthLabel.alpha = 0
-                
-                updatedMonthLabel.alpha = 1
-                updatedMonthLabel.transform = CGAffineTransformIdentity
-                
-                }) { _ in
-                    
-                    self.animationFinished = true
-                    self.monthLabel.frame = updatedMonthLabel.frame
-                    self.monthLabel.text = updatedMonthLabel.text
-                    self.monthLabel.transform = CGAffineTransformIdentity
-                    self.monthLabel.alpha = 1
-                    updatedMonthLabel.removeFromSuperview()
-            }
-            
-            self.view.insertSubview(updatedMonthLabel, aboveSubview: self.monthLabel)
+            self.monthLabel.text =  date.globalDescription
         }
     }
     
@@ -299,7 +272,6 @@ extension CalendarViewController: CVCalendarViewAppearanceDelegate {
         return 0
     }
 }
-
 
 // MARK: - IB Actions
 

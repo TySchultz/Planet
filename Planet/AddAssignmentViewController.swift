@@ -16,14 +16,23 @@ class AddAssignmentViewController: UIViewController {
     @IBOutlet weak var classStack: UIStackView!
     @IBOutlet weak var typeStack: UIStackView!
     
+    @IBOutlet weak var createButton: PLButton!
+    //Calendar
+    @IBOutlet weak var calendarView: CVCalendarView!
+    @IBOutlet weak var menuView: CVCalendarMenuView!
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var daysOutSwitch: UISwitch!
+    var shouldShowDaysOut = true
+    var animationFinished = true
+    
+    
     var currentCourses : Results<Course>!
     var chosenCourse : Course!
     
     var currentCourseName = ""
     var currentEventType = ""
-
-    var currentDayAdditions = 0
-
+    var currentDateChoice = NSDate()
+    
     var currentTypeStackIndex = 0
     var currentCourseStackIndex = 0
     
@@ -33,13 +42,12 @@ class AddAssignmentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        calendarView.frame = CGRectMake(0, 0, view.frame.size.width-16, 300)
+
         setup()
     }
     
-    override func viewDidLayoutSubviews() {
-
-    }
+ 
     
     override func viewWillAppear(animated: Bool) {
         setup()
@@ -50,7 +58,14 @@ class AddAssignmentViewController: UIViewController {
         clearOutStackView(classStack)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        calendarView.commitCalendarViewUpdate()
+    }
+    
     func setup () {
+//        calendarView.frame = CGRectMake(0, headerView., headerView.frame.size.width-16, 300)
         
         
         currentTypeStackIndex = 0
@@ -297,7 +312,7 @@ class AddAssignmentViewController: UIViewController {
         
         //Creates a new course
         let newEvent = Event()
-        newEvent.date = NSDate(timeIntervalSinceNow: 0).add(years: 0, months: 0, weeks: 0, days: currentDayAdditions, hours: 0, minutes: 0, seconds: 0)
+        newEvent.date = currentDateChoice
         newEvent.serverID = randomStringWithLength(12) as String
         newEvent.type = currentEventType
 
@@ -317,32 +332,154 @@ class AddAssignmentViewController: UIViewController {
         
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         
-        var randomString : NSMutableString = NSMutableString(capacity: len)
+        let randomString : NSMutableString = NSMutableString(capacity: len)
         
         for (var i=0; i < len; i++){
-            var length = UInt32 (letters.length)
-            var rand = arc4random_uniform(length)
+            let length = UInt32 (letters.length)
+            let rand = arc4random_uniform(length)
             randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
         }
         
         return randomString
     }
- 
-    @IBAction func addDayButtonPressed(sender: UIButton) {
-        
-        currentDayAdditions = sender.tag
-        sender.backgroundColor = PLBlue
-    }
-    
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func didSelectDayView(dayView: DayView) {
+        currentDateChoice = dayView.date.convertedDate()!
+        print("\(calendarView.presentedDate.commonDescription) is selected!")
     }
-    */
-
 }
+
+
+
+
+extension AddAssignmentViewController: CVCalendarViewDelegate, CVCalendarMenuViewDelegate {
+    
+    /// Required method to implement!
+    func presentationMode() -> CalendarMode {
+        return .MonthView
+    }
+    
+    /// Required method to implement!
+    func firstWeekday() -> Weekday {
+        return .Sunday
+    }
+    
+    // MARK: Optional methods
+    
+    func shouldShowWeekdaysOut() -> Bool {
+        return shouldShowDaysOut
+    }
+    
+    func shouldAnimateResizing() -> Bool {
+        return true // Default value is true
+    }
+    
+    func didSelectDayView(dayView: CVCalendarDayView, animationDidFinish: Bool) {
+        let date = dayView.date
+        print("\(calendarView.presentedDate.commonDescription) is selected!")
+    }
+    
+    func presentedDateUpdated(date: CVDate) {
+        if monthLabel.text != date.globalDescription && self.animationFinished {
+            self.monthLabel.text =  date.globalDescription
+        }
+    }
+    
+    func topMarker(shouldDisplayOnDayView dayView: CVCalendarDayView) -> Bool {
+        return true
+    }
+    
+    func dotMarker(shouldShowOnDayView dayView: CVCalendarDayView) -> Bool {
+        let day = dayView.date.day
+        let randomDay = Int(arc4random_uniform(31))
+        if day == randomDay {
+            return true
+        }
+        
+        return false
+    }
+    
+    func dotMarker(colorOnDayView dayView: CVCalendarDayView) -> [UIColor] {
+        let day = dayView.date.day
+        
+        let red = CGFloat(arc4random_uniform(600) / 255)
+        let green = CGFloat(arc4random_uniform(600) / 255)
+        let blue = CGFloat(arc4random_uniform(600) / 255)
+        
+        let color = UIColor(red: red, green: green, blue: blue, alpha: 1)
+        
+        let numberOfDots = Int(arc4random_uniform(3) + 1)
+        switch(numberOfDots) {
+        case 2:
+            return [color, color]
+        case 3:
+            return [color, color, color]
+        default:
+            return [color] // return 1 dot
+        }
+    }
+    
+    func dotMarker(shouldMoveOnHighlightingOnDayView dayView: CVCalendarDayView) -> Bool {
+        return true
+    }
+    
+    func dotMarker(sizeOnDayView dayView: DayView) -> CGFloat {
+        return 13
+    }
+    
+    
+    func weekdaySymbolType() -> WeekdaySymbolType {
+        return .Short
+    }
+    
+}
+
+
+extension AddAssignmentViewController: CVCalendarViewAppearanceDelegate {
+    func dayLabelPresentWeekdayInitallyBold() -> Bool {
+        return false
+    }
+    
+    func spaceBetweenDayViews() -> CGFloat {
+        return 0
+    }
+}
+
+
+// MARK: - IB Actions
+
+extension AddAssignmentViewController {
+    @IBAction func switchChanged(sender: UISwitch) {
+        if sender.on {
+            calendarView.changeDaysOutShowingState(false)
+            shouldShowDaysOut = true
+        } else {
+            calendarView.changeDaysOutShowingState(true)
+            shouldShowDaysOut = false
+        }
+    }
+    
+    @IBAction func todayMonthView() {
+        calendarView.toggleCurrentDayView()
+    }
+    
+    /// Switch to WeekView mode.
+    @IBAction func toWeekView(sender: AnyObject) {
+        calendarView.changeMode(.WeekView)
+    }
+    
+    /// Switch to MonthView mode.
+    @IBAction func toMonthView(sender: AnyObject) {
+        calendarView.changeMode(.MonthView)
+    }
+    
+    @IBAction func loadPrevious(sender: AnyObject) {
+        calendarView.loadPreviousView()
+    }
+    
+    
+    @IBAction func loadNext(sender: AnyObject) {
+        calendarView.loadNextView()
+    }
+}
+

@@ -115,6 +115,8 @@ class ProfileViewController: UIViewController {
         })
     }
     
+    
+    //TODO: Delete all events connected to that course when deleting course
     func deleteButtonPressed(sender : UIButton) {
         let realme = try! Realm()
 

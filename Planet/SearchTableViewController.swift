@@ -90,10 +90,7 @@ class SearchTableViewController: UITableViewController {
         }
     }
     
-    
-  
-    
-    
+
     func validAddToStack(stack : UIStackView, let stackNumber : Int) -> Bool {
         
         var currentWidth :CGFloat = 0.0
@@ -289,7 +286,16 @@ class SearchTableViewController: UITableViewController {
             subv.removeFromSuperview()
         }
         
-        for item in singleDay {
+        let sortedDays = singleDay.sortedArrayUsingComparator {
+            (obj1, obj2) -> NSComparisonResult in
+            
+            let p1 = obj1 as! Event
+            let p2 = obj2 as! Event
+            let result = p1.course.name.compare(p2.course.name)
+            return result
+        }
+        
+        for item in sortedDays {
             if let event = item as? Event {
                 let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
                 label.text = "\(event.type) - \(event.course.name)"

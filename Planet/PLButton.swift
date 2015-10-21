@@ -24,6 +24,20 @@ class PLButton: UIButton {
         }
     }
     
+    @IBInspectable var borderWidth: CGFloat = 0 {
+        didSet {
+            layer.borderWidth = borderWidth
+        }
+    }
+    
+    @IBInspectable var borderColor: CGColorRef! {
+        didSet {
+            layer.borderColor = borderColor
+        }
+    }
+    
+    
+    
     
     /*
     // Only override drawRect: if you perform custom drawing.

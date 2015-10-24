@@ -1,3 +1,3 @@
 # Planet
 
-![Alt text](planetIconDraft.png?raw=true "planetIconDraft.png")
+![Alt text](ReadmeResouces/planetIconDraft.png?raw=true "planetIconDraft.png")

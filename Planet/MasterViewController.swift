@@ -78,9 +78,9 @@ class MasterViewController: UITableViewController {
             addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
         }
         
-        print(self.coursesStack.arrangedSubviews.count * 24)
-        print(self.typeStack.arrangedSubviews.count * 24)
-        let height :CGFloat = (CGFloat(self.coursesStack.arrangedSubviews.count) * 24.0) + (CGFloat(self.typeStack.arrangedSubviews.count) * 24.0) + 48.0
+        print(self.coursesStack.arrangedSubviews.count * 32)
+        print(self.typeStack.arrangedSubviews.count * 32)
+        let height :CGFloat = (CGFloat(self.coursesStack.arrangedSubviews.count) * 32) + (CGFloat(self.typeStack.arrangedSubviews.count) * 32) + 48.0
         header.frame = CGRectMake(0, 0, view.frame.size.width, 100 + height)
 
         
@@ -405,7 +405,7 @@ class MasterViewController: UITableViewController {
     }
     
     func createButton(title : String) -> UIButton{
-        let height :CGFloat = 24.0
+        let height :CGFloat = 32.0
         let label = UIButton(frame: CGRectMake(0, 0, 100, height))
         label.setTitle(title, forState: UIControlState.Normal)
         label.titleLabel?.font = UIFont(name: "Avenir Book", size: 15)
@@ -428,7 +428,7 @@ class MasterViewController: UITableViewController {
         
         //button in header is tapped and not selected
         if sender.tag == 0 {
-            numberOfSelections++
+            numberOfSelections++ 
             navImage.alpha = 0.0
             sender.alpha = 1.0
             sender.tag = 1
@@ -438,6 +438,10 @@ class MasterViewController: UITableViewController {
             newButton.tag = 2
             newButton.hidden = true
             newButton.backgroundColor = sender.backgroundColor
+            newButton.heightAnchor.constraintEqualToConstant(24).active = true
+            newButton.frame = CGRectMake(0, 0, 100, 24.0)
+            newButton.layer.cornerRadius = newButton.frame.size.height/2
+
             self.navStackView.addArrangedSubview(newButton)
             
             let size = navScrollView.contentSize

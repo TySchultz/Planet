@@ -157,7 +157,7 @@ class AddAssignmentViewController: UIViewController {
     }
     
     func createButton(title : String, type: Int) -> UIButton{
-        let height :CGFloat = 24.0
+        let height :CGFloat = 32.0
         let label = UIButton(frame: CGRectMake(0, 0, 100, height))
         label.setTitle(title, forState: UIControlState.Normal)
         label.titleLabel?.font = UIFont(name: "Avenir Book", size: 15)

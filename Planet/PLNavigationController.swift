@@ -18,9 +18,6 @@ class PLNavigationController: UINavigationController {
         self.navigationBar.backgroundColor = UIColor.whiteColor()
         self.navigationBar.barTintColor = UIColor.whiteColor()
         self.navigationBar.opaque = true
-        
-        
-        
         // Do any additional setup after loading the view.
     }
 

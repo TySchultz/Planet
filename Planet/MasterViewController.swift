@@ -41,7 +41,6 @@ class MasterViewController: UITableViewController {
         self.navigationController?.navigationBar.addSubview(navImage)
         
         
-        
         header.frame = CGRectMake(0, 0, view.frame.size.width, 300)
         header.backgroundColor = UIColor.whiteColor()
         
@@ -54,6 +53,8 @@ class MasterViewController: UITableViewController {
         
         setup()
     }
+    
+
     
     func setup () {
         
@@ -83,47 +84,51 @@ class MasterViewController: UITableViewController {
         let height :CGFloat = (CGFloat(self.coursesStack.arrangedSubviews.count) * 32) + (CGFloat(self.typeStack.arrangedSubviews.count) * 32) + 48.0
         header.frame = CGRectMake(0, 0, view.frame.size.width, 100 + height)
 
-        
-//        currentEvents = []
+        //currentEvents = []
     }
     
     func getDays() -> NSMutableArray{
         let realme = try? Realm()
-        let days = realme!.objects(Event).filter("date >= %@", NSDate().dateByAddingTimeInterval(-60*60)).sorted("date")
+        let days = realme!.objects(Event).filter("date >= %@", NSDate().beginningOfDay).sorted("date")
         
         let allDays    :NSMutableArray = []
         let singleCell :NSMutableArray = []
-        if let first = days.first {
+
+        if days.count > 0 {
             allDays.addObject(singleCell)
-            singleCell.addObject(first)
-            var currentIndex = 0
-            
-            for day in days  {
-                // if same date then add to current array
-                let array = allDays[currentIndex] as! NSMutableArray
-                let firstObject = array.firstObject as! Event
-                if checkForSameDate(firstObject.date, secondDate: day.date){
-                    allDays[currentIndex].addObject(day)
-                }
-                    //If not then create new array and add to that array
-                else{
-                    var newCell :NSMutableArray = []
+        }
+        var currentIndex = 0
+        
+        for day in days  {
+            let cell = allDays[currentIndex] as! NSMutableArray
+            //Check if there are no current events in the cell
+            if cell.count > 0 {
+                let object = cell.firstObject as! Event
+                if checkForSameDate(object.date, secondDate: day.date){
+                    cell.addObject(day) //Both are same day so add to same
+                }else{
+                    //If the days do not match up. Create a new cell and add it to the array
+                    //Also increase the counter so that it checks the created cell next time
+                    let newCell :NSMutableArray = []
                     newCell.addObject(day)
                     allDays.addObject(newCell)
                     currentIndex++
                 }
+            }else{
+                cell.addObject(day)
             }
         }
-   
         return allDays
     }
 
     override func viewWillAppear(animated: Bool) {
-//        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        //self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         
         currentEvents = getDays()
         self.tableView.reloadData()
+        setup()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -159,6 +164,7 @@ class MasterViewController: UITableViewController {
         for subv in cell.circleStack.arrangedSubviews {
             subv.removeFromSuperview()
         }
+        
         let sortedDays = singleDay.sortedArrayUsingComparator {
             (obj1, obj2) -> NSComparisonResult in
             
@@ -187,6 +193,17 @@ class MasterViewController: UITableViewController {
         return cell
     }
     
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let testingView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width-100, height: self.view.frame.size.height-200))
+        testingView.backgroundColor = PLBlue
+        testingView.layer.cornerRadius = 8.0
+        testingView.layer.masksToBounds = true
+        testingView.center = self.view.center
+        self.view.addSubview(testingView)
+        
+    }
     
     func filterCourses() -> String {
         var courseString = ""
@@ -405,8 +422,8 @@ class MasterViewController: UITableViewController {
     }
     
     func createButton(title : String) -> UIButton{
-        let height :CGFloat = 32.0
-        let label = UIButton(frame: CGRectMake(0, 0, 100, height))
+        let height :CGFloat = 40.0
+        let label = PLButton(frame: CGRectMake(0, 0, 100, height))
         label.setTitle(title, forState: UIControlState.Normal)
         label.titleLabel?.font = UIFont(name: "Avenir Book", size: 15)
         label.backgroundColor = PLBlue

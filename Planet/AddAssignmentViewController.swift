@@ -25,6 +25,7 @@ class AddAssignmentViewController: UIViewController {
     var shouldShowDaysOut = true
     var animationFinished = true
     
+    @IBOutlet weak var titleLabel: UILabel!
     
     var currentCourses : Results<Course>!
     var chosenCourse : Course!
@@ -42,11 +43,9 @@ class AddAssignmentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        calendarView.frame = CGRectMake(0, 0, view.frame.size.width-16, 300)
 
         setup()
     }
-    
  
     
     override func viewWillAppear(animated: Bool) {
@@ -58,16 +57,28 @@ class AddAssignmentViewController: UIViewController {
         clearOutStackView(classStack)
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+  
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         calendarView.commitCalendarViewUpdate()
+        menuView.commitMenuViewUpdate()
+
     }
     
     func setup () {
 //        calendarView.frame = CGRectMake(0, headerView., headerView.frame.size.width-16, 300)
         
-        
+        titleLabel.text = CVDate(date: NSDate()).globalDescription
+
         currentTypeStackIndex = 0
         currentCourseStackIndex = 0
         
@@ -157,7 +168,7 @@ class AddAssignmentViewController: UIViewController {
     }
     
     func createButton(title : String, type: Int) -> UIButton{
-        let height :CGFloat = 32.0
+        let height :CGFloat = 40.0
         let label = UIButton(frame: CGRectMake(0, 0, 100, height))
         label.setTitle(title, forState: UIControlState.Normal)
         label.titleLabel?.font = UIFont(name: "Avenir Book", size: 15)
@@ -169,7 +180,7 @@ class AddAssignmentViewController: UIViewController {
         label.sizeToFit()
         label.heightAnchor.constraintEqualToConstant(height).active = true
         label.widthAnchor.constraintEqualToConstant(label.frame.size.width+30).active = true
-        label.alpha = 0.3
+        label.alpha = 1.0
         if type == 0 {
             label.addTarget(self, action: "classButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         }else{
@@ -184,7 +195,6 @@ class AddAssignmentViewController: UIViewController {
         print("\(sender.tag)")
         //button in header is tapped and not selected
         if sender.tag == 0 {
-            sender.alpha = 1.0
             sender.tag = 1
             removeFromStack(sender, stack:classStack)
             
@@ -194,7 +204,6 @@ class AddAssignmentViewController: UIViewController {
         }
         //Button in header is tapped and already selected
         else if sender.tag == 1 {
-            sender.alpha = 0.3
             sender.tag = 0
             showStack(classStack)
             
@@ -209,14 +218,12 @@ class AddAssignmentViewController: UIViewController {
         print("\(sender.tag)")
         //button in header is tapped and not selected
         if sender.tag == 0 {
-            sender.alpha = 1.0
             sender.tag = 1
             removeFromStack(sender, stack: typeStack)
             currentEventType = sender.titleLabel!.text!
         }
             //Button in header is tapped and already selected
         else if sender.tag == 1 {
-            sender.alpha = 0.3
             sender.tag = 0
             
             showStack(typeStack)
@@ -250,7 +257,6 @@ class AddAssignmentViewController: UIViewController {
                 for button in stack.arrangedSubviews as! [UIButton] {
                     if button != sender{
                                             UIView.animateWithDuration(0.2, animations: { () -> Void in
-                                                button.alpha = 0.0
                                                 button.hidden = true
                                                 }, completion: { (Bool) -> Void in
                         //                            stack.removeArrangedSubview(button)
@@ -272,7 +278,6 @@ class AddAssignmentViewController: UIViewController {
             for button in stack.arrangedSubviews as! [UIButton] {
                 UIView.animateWithDuration(0.1, animations: { () -> Void in
                         button.hidden = false
-                        button.alpha = 0.3
                         button.tag = 0
                         }, completion: { (Bool) -> Void in
                 })
@@ -298,7 +303,7 @@ class AddAssignmentViewController: UIViewController {
         let realmCourse = realm.objects(Course).filter("name = '\(currentCourseName)'")
         newEvent.course = realmCourse.first
         
-        realm.write { () -> Void in
+        try! realm.write { () -> Void in
             realm.add(newEvent)
         }
         

@@ -20,7 +20,6 @@ class PLButton: UIButton {
         didSet {
             layer.cornerRadius = cornerRadius
             layer.masksToBounds = cornerRadius > 0 //creates a mask like you would in photoshop. so that it shows the corner radius
-            
         }
     }
     
@@ -35,8 +34,7 @@ class PLButton: UIButton {
             layer.borderColor = borderColor
         }
     }
-    
-    
+
     
     
     /*

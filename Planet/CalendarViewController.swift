@@ -37,8 +37,8 @@ class CalendarViewController: UITableViewController {
         headerView.backgroundColor = UIColor.whiteColor()
         navView.frame = CGRectMake(0, 40, view.frame.size.width-40, 35)
 
-        calendarView.frame = CGRectMake(0, 0, headerView.frame.size.width-16, 300)
-        menuView.frame = CGRectMake(0, 0, headerView.frame.size.width-16, 32)
+        calendarView.frame = CGRectMake(16, 0, headerView.frame.size.width-32, 300)
+        menuView.frame = CGRectMake(16, 0, headerView.frame.size.width-32, 32)
         
         monthLabel.text = CVDate(date: NSDate()).globalDescription
         
@@ -130,7 +130,7 @@ class CalendarViewController: UITableViewController {
     func getDays() -> NSMutableArray{
         let realme = try? Realm()
         
-        let days = realme!.objects(Event).filter("date >= %@", currentDate).sorted("date")
+        let days = realme!.objects(Event).filter("date >= %@", currentDate.beginningOfDay).sorted("date")
         
         let allDays    :NSMutableArray = []
         let singleCell :NSMutableArray = []

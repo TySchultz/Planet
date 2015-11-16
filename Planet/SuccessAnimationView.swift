@@ -14,24 +14,16 @@ class SuccessAnimationView: UIView {
     let ANIMATIONTIME = 0.2
     let ALPHA :CGFloat = 0.9
     
-    
+    //Objects
+    var backgroundView : UIView?
     var box : UIView?
     var label : UILabel?
 
+    //Lines
     var leftBorderLine : UIView?
     var rightBorderLine : UIView?
     var topBorderLine : UIView?
     var bottomBorderLine : UIView?
-    
-    let drawn = false
-    
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +49,6 @@ class SuccessAnimationView: UIView {
     }
     
     func initialize() {
-        NSLog("common init")
         
        let tapRecognizer = UITapGestureRecognizer(target: self, action: "closeView")
         addGestureRecognizer(tapRecognizer)
@@ -65,27 +56,22 @@ class SuccessAnimationView: UIView {
         backgroundColor = UIColor.clearColor()
         
         
-        let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.frame.size.height))
-        backgroundView.backgroundColor = BACKGROUNDCOLOR
-        backgroundView.alpha = ALPHA
+        backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.frame.size.height))
+        backgroundView?.backgroundColor = BACKGROUNDCOLOR
+        backgroundView?.alpha = ALPHA
         
-        addSubview(backgroundView)
+        addSubview(backgroundView!)
         
         createBox()
         createLines()
         createLabel()
         animateLines()
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: { () -> Void in
-            backgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: { () -> Void in
+            self.backgroundView!.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
 
             }) { (Bool) -> Void in
-                
         }
-
-//        UIView.animateWithDuration(ANIMATIONTIME) { () -> Void in
-//            backgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
-//        }
     }
     
     func createBox() {
@@ -101,7 +87,7 @@ class SuccessAnimationView: UIView {
         let height :CGFloat = 100
 
         label = UILabel(frame: CGRect(x: 64, y: self.frame.midY-50, width: width, height: height))
-        label?.text = "SUCCESS"
+        label?.text = "Success"
         label?.font = UIFont(name: "Avenir Medium", size: 40.0)
         label?.textColor = UIColor.whiteColor()
         label?.textAlignment = NSTextAlignment.Center
@@ -134,6 +120,7 @@ class SuccessAnimationView: UIView {
         
     }
     
+   
     
     func animateLines() {
         let LINEWIDTH :CGFloat = 1.0
@@ -142,51 +129,21 @@ class SuccessAnimationView: UIView {
         let RIGHTX : CGFloat = box!.frame.size.width
         let BOTTOMY : CGFloat = box!.frame.size.height
         
+        flashLabelAlpha(3)
         
-        UIView.animateWithDuration(0.05, animations: { () -> Void in
-            self.label?.alpha = 1.0
+        UIView.animateWithDuration(0.1, animations:  { () -> Void in
+            self.leftBorderLine?.frame = CGRectMake(0, 0, LINEWIDTH, HEIGHT) //Left Bar
             }) { (Bool) -> Void in
                 UIView.animateWithDuration(0.05, animations: { () -> Void in
-                    self.label?.alpha = 0.0
+                    self.topBorderLine?.frame = CGRectMake(0, 0, WIDTH, LINEWIDTH) //top Bar
                     }) { (Bool) -> Void in
                         UIView.animateWithDuration(0.05, animations: { () -> Void in
-                            self.label?.alpha = 1.0
+                            self.rightBorderLine!.frame = CGRectMake(RIGHTX, 0, LINEWIDTH, HEIGHT) // right Bar
                             }) { (Bool) -> Void in
-                                UIView.animateWithDuration(0.05, animations: { () -> Void in
-                                    self.label?.alpha = 0.0
+                                UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: { () -> Void in
+                                    self.bottomBorderLine?.frame = CGRectMake(0, BOTTOMY, WIDTH, LINEWIDTH) // Bottom Bar
                                     }) { (Bool) -> Void in
-                                        UIView.animateWithDuration(0.05, animations: { () -> Void in
-                                            self.label?.alpha = 1.0
-                                            }) { (Bool) -> Void in
-                                                UIView.animateWithDuration(0.1, animations: { () -> Void in
-                                                    self.label?.alpha = 0.0
-                                                    }) { (Bool) -> Void in
-                                                        UIView.animateWithDuration(0.1, animations: { () -> Void in
-                                                            self.label?.alpha = 1.0
-                                                            }) { (Bool) -> Void in
-                                                                
-                                                        }
-                                                }
-                                        }
-                                }
-                        }
-                }
-        }
-        
-        
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
-            self.leftBorderLine!.frame = CGRectMake(0, 0, LINEWIDTH, HEIGHT)
-            }) { (Bool) -> Void in
-                UIView.animateWithDuration(0.1, animations: { () -> Void in
-                    self.topBorderLine?.frame = CGRectMake(0, 0, WIDTH, LINEWIDTH)
-                    }) { (Bool) -> Void in
-                        UIView.animateWithDuration(0.1, animations: { () -> Void in
-                            self.rightBorderLine!.frame = CGRectMake(RIGHTX, 0, LINEWIDTH, HEIGHT)
-                            }) { (Bool) -> Void in
-                                UIView.animateWithDuration(0.1, animations: { () -> Void in
-                                    self.bottomBorderLine?.frame = CGRectMake(0, BOTTOMY, WIDTH, LINEWIDTH)
-                                    }) { (Bool) -> Void in
-                                        self.animateBars()
+                                        self.animateBars() // Call bar animations
                                 }
                         }
                 }
@@ -200,117 +157,74 @@ class SuccessAnimationView: UIView {
         let RIGHTX : CGFloat = box!.frame.size.width
         let BOTTOMY : CGFloat = box!.frame.size.height
         
-        
+        //Create two bars for sideways motion
         let secondBar = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: HEIGHT))
         secondBar.backgroundColor = BARCOLOR
-        secondBar.alpha = 0.8
+        secondBar.alpha = 0.6
         box!.addSubview(secondBar)
         box!.sendSubviewToBack(secondBar)
         
         let firstBar = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: HEIGHT))
         firstBar.backgroundColor = BARCOLOR
-        firstBar.alpha = 0.4
+        firstBar.alpha = 0.3
         box!.addSubview(firstBar)
         box!.sendSubviewToBack(firstBar)
         
-        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+        
+        //Create animations
+        let firstBarAnimation  = {
             firstBar.frame = CGRect(x: 0, y: 0, width: WIDTH, height: HEIGHT)
-            }) { (Bool) -> Void in
-                UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-                    secondBar.frame = CGRect(x: 0, y: 0, width: WIDTH, height: HEIGHT)
-                    }) { (Bool) -> Void in
-                        
-                        self.leftBorderLine?.alpha  = 0.0
-                        //Shrink
-                        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-                            secondBar.frame = CGRect(x: RIGHTX, y: 0, width: 0, height: HEIGHT)
-                            self.topBorderLine?.frame = CGRect(x: RIGHTX, y: 0, width: 0, height: 0)
-                            }) { (Bool) -> Void in
-
-                        }
-                        
-                        UIView.animateWithDuration(0.3, delay: 0.15, options: .CurveEaseInOut, animations: { () -> Void in
-                            self.bottomBorderLine?.frame = CGRect(x: RIGHTX, y: BOTTOMY, width: 0, height: 0)
-                            self.rightBorderLine?.frame = CGRect(x: RIGHTX, y: BOTTOMY, width: 0, height: 0)
-
-                            }) { (Bool) -> Void in
-                                UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-                                    self.alpha = 0.0
-                                    
-                                    }) { (Bool) -> Void in
-                                        
-                                        self.closeView()
-                                        
-    
-                                }
-                        }
-                        
-                        UIView.animateWithDuration(0.3, delay: 0.1, options: .CurveEaseInOut, animations: { () -> Void in
-                            firstBar.frame = CGRect(x: RIGHTX, y: 0, width: 0, height: HEIGHT)
-                            self.label?.alpha = 0.0
-
-                            }) { (Bool) -> Void in
-                              
-                                
-                                
-                        }
-                }
         }
         
+        let secondBarAnimation = {
+            secondBar.frame = CGRect(x: 0, y: 0, width: WIDTH, height: HEIGHT)
+        }
         
-//        UIView.animateWithDuration(0.3, delay: 0.3, options: .CurveEaseInOut, animations: { () -> Void in
-//            secondBar.frame = CGRect(x: 0, y: 0, width: WIDTH, height: HEIGHT)
-//            }) { (Bool) -> Void in
-//                UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-//                    secondBar.frame = CGRect(x: RIGHTX, y: 0, width: 0, height: HEIGHT)
-//                    }) { (Bool) -> Void in
-//                        self.closeView()
-//                }
-//        }
+        let secondBarShrinkWithTopLine = {
+            secondBar.frame = CGRect(x: RIGHTX, y: 0, width: 0, height: HEIGHT)
+            self.topBorderLine?.frame = CGRect(x: RIGHTX, y: 0, width: 0, height: 0)
+        }
         
-    }
-//    -(void)drawFirstPage{
-//    
-//    if(!_drawn){
-//    _drawn = YES;
-//    
-//    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//    [_leftBorderBar     setFrame:CGRectMake(0, 0, 1, self.frame.size.height)];
-//    [_rightBorderBar    setFrame:CGRectMake(self.frame.size.width, 0, 1, self.frame.size.height)];
-//    [_topBorderBar      setFrame:CGRectMake(0, 0, self.frame.size.width, 1)];
-//    [_bottomBorderBar   setFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, 1)];
-//    
-//    }completion:^(BOOL finished){
-//    [_leftVoteBar setAlpha:1.0];
-//    
-//    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//    [_leftVoteBar   setFrame:CGRectMake(5, 5, (self.frame.size.width/2)-5, self.frame.size.height-10)];
-//    }completion:^(BOOL finished){
-//    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//    [_tapRight setAlpha:1.0];
-//    }completion:^(BOOL finished){
-//    }];
-//    }];
-//    }];
-//    }
-//    }
-//    
-//    -(void)setInitails{
-//    
-//    [_leftBorderBar     setFrame:CGRectMake(0, self.frame.size.height, 1, 1)];
-//    [_rightBorderBar    setFrame:CGRectMake(self.frame.size.width, 0, 1, 1)];
-//    [_topBorderBar      setFrame:CGRectMake(0, 0, 1, 1)];
-//    [_bottomBorderBar   setFrame:CGRectMake(self.frame.size.width, self.frame.size.height, 1, 1)];
-//    [_rightVoteBar      setFrame:CGRectMake(self.frame.size.width/2, 5, (self.frame.size.width/2)-5, self.frame.size.height-10)];
-//    [_leftVoteBar       setFrame:CGRectMake(5, self.frame.size.height-5, (self.frame.size.width/2)-5, 1)];
-//    [_leftVoteBar       setAlpha:0.0];
-//    [_rightVoteBar      setAlpha:0.0];
-//    
-//    [_tapLeft           setAlpha:0.0];
-//    [_tapRight          setAlpha:0.0];
-//    
-//    _drawn = NO;
-//    
-//    }
+        let shrinkBottomAndRightLine = {
+            self.bottomBorderLine?.frame = CGRect(x: RIGHTX, y: BOTTOMY, width: 0, height: 0)
+            self.rightBorderLine?.frame = CGRect(x: RIGHTX, y: BOTTOMY, width: 0, height: 0)
+        }
+        
+        let fadeBackgroundView = {
+            self.backgroundView!.alpha = 0.0
+        }
+        
+        let fadeLabelAndFirstBar = {
+            firstBar.frame = CGRect(x: RIGHTX, y: 0, width: 0, height: HEIGHT)
+            self.label?.alpha = 0.0
+        }
+        
+        //Run Animations
+        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: firstBarAnimation) { (Finished) -> Void in
+            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: secondBarAnimation ) { (Finished) -> Void in
+                //Shrink
+                self.leftBorderLine?.alpha  = 0.0
 
+                UIView.animateWithDuration(0.3, delay: 0.0,  options: .CurveEaseInOut, animations: secondBarShrinkWithTopLine, completion: nil)
+                UIView.animateWithDuration(0.3, delay: 0.15, options: .CurveEaseInOut, animations: shrinkBottomAndRightLine, completion: nil)
+                UIView.animateWithDuration(0.4, delay: 0.3,  options: .CurveEaseInOut, animations: fadeBackgroundView, completion: nil)
+                UIView.animateWithDuration(0.3, delay: 0.1,  options: .CurveEaseInOut, animations: fadeLabelAndFirstBar, completion: nil)
+            }
+        }
+    }
+    
+    
+    func flashLabelAlpha(flashes : Int){
+        if flashes == 0 { return }
+        UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveLinear, animations: { () -> Void in
+            if self.label!.alpha == 1.0 {
+                self.label!.alpha = 0.0
+            }else{
+                self.label!.alpha = 1.0
+            }
+        }, completion: { (Bool) -> Void in
+              self.flashLabelAlpha(flashes-1)
+        })
+    }
+    
 }

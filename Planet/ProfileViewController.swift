@@ -25,7 +25,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationChanged", name: UIDeviceOrientationDidChangeNotification, object: nil)
+
         
         setup()
         
@@ -51,6 +52,12 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    func orientationChanged()
+    {
+        
+    }
+    
+
     func clearOutStackView(stack : UIStackView){
         for view in stack.arrangedSubviews {
             stack.removeArrangedSubview(view)

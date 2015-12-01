@@ -35,7 +35,14 @@ class PLButton: UIButton {
         }
     }
 
+    func shrink () {
+//        self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.8, 0.8);
+    }
     
+    func expand () {
+//        self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+
+    }
     
     /*
     // Only override drawRect: if you perform custom drawing.

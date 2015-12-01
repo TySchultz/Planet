@@ -24,9 +24,26 @@ class PLTabBarController: UITabBarController {
         
         // Sets the default color of the background of the UITabBar
         UITabBar.appearance().barTintColor = UIColor.blackColor()
+        
+        let testButton = PLButton()
+        let itemSize = self.tabBar.frame.size.width/4
+        testButton.frame = CGRectMake(itemSize*2, 0, itemSize, self.tabBar.frame.size.height)
+        testButton.backgroundColor = UIColor.clearColor()
+        testButton.imageView?.image = UIImage(named: "tabBarImageAddDark")
+        testButton.addTarget(self, action: "addPressed", forControlEvents: UIControlEvents.TouchUpInside)
+        self.tabBar.addSubview(testButton)
     }
     
     
+    func addPressed () {
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("AddNav")
+        let navController = self.viewControllers![0] as! PLNavigationController
+        let viewCon = navController.viewControllers[0]
+        
+        viewCon.presentViewController(viewController, animated: true, completion: nil)
+    }
     
     //Allow the tab bar to rotate for all views
     override func shouldAutorotate() -> Bool {
@@ -50,7 +67,15 @@ class PLTabBarController: UITabBarController {
         return UIInterfaceOrientationMask.Portrait
     }
     
-
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        
+//        if item.image!.isEqual(UIImage(named: "tabBarImageAddDark")){
+//            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
+//            let viewController = storyboard.instantiateViewControllerWithIdentifier("AddAssignment") as! AddAssignmentViewController //Uses the view created in the sotryboard so we have autolayout
+//            self.presentViewController(viewController, animated: true, completion: nil)
+//        }
+    }
+    
     /*
     // MARK: - Navigation
 

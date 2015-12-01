@@ -25,8 +25,7 @@ class AddAssignmentViewController: UIViewController {
     var shouldShowDaysOut = true
     var animationFinished = true
     
-    @IBOutlet weak var titleLabel: UILabel!
-    
+
     var currentCourses : Results<Course>!
     var chosenCourse : Course!
     
@@ -45,6 +44,8 @@ class AddAssignmentViewController: UIViewController {
         super.viewDidLoad()
 
         setup()
+        
+        
     }
  
     
@@ -77,7 +78,7 @@ class AddAssignmentViewController: UIViewController {
     func setup () {
 //        calendarView.frame = CGRectMake(0, headerView., headerView.frame.size.width-16, 300)
         
-        titleLabel.text = CVDate(date: NSDate()).globalDescription
+        monthLabel.text = "Add Event"
 
         currentTypeStackIndex = 0
         currentCourseStackIndex = 0
@@ -307,12 +308,14 @@ class AddAssignmentViewController: UIViewController {
             realm.add(newEvent)
         }
         
-        showStack(typeStack)
-        showStack(classStack)
+//        showStack(typeStack)
+//        showStack(classStack)
+//
+//        let successView = SuccessAnimationView(frame: view.frame)
+//        view.addSubview(successView)
         
-        let successView = SuccessAnimationView(frame: view.frame)
-        view.addSubview(successView)
-        
+        self.dismissViewControllerAnimated(true, completion: nil)
+
 
     }
     

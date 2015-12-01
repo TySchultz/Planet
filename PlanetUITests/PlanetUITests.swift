@@ -31,6 +31,22 @@ class PlanetUITests: XCTestCase {
     func testExample() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+  
+        
+        let app = XCUIApplication()
+        let tabBarsQuery = app.tabBars
+        let button = tabBarsQuery.childrenMatchingType(.Button).elementBoundByIndex(1)
+        button.tap()
+        
+        let button2 = tabBarsQuery.childrenMatchingType(.Button).elementBoundByIndex(4)
+        button2.tap()
+        button.tap()
+        tabBarsQuery.childrenMatchingType(.Button).elementBoundByIndex(2).tap()
+        app.buttons["Systems 2 "].tap()
+        app.buttons["Quiz"].tap()
+        app.buttons["Create Event"].tap()
+        button2.tap()
+        
     }
     
 }

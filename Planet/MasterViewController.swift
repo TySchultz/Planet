@@ -13,6 +13,7 @@ class MasterViewController: UITableViewController {
     
     var currentEvents : NSMutableArray!
 
+    @IBOutlet weak var headerBackground: UIView!
     @IBOutlet weak var header: UIView!
     var navImage  :UIImageView!
 
@@ -42,7 +43,7 @@ class MasterViewController: UITableViewController {
         
         
         header.frame = CGRectMake(0, 0, view.frame.size.width, 300)
-        header.backgroundColor = UIColor.whiteColor()
+        headerBackground.backgroundColor = UIColor.whiteColor()
         
         navBarView.frame = CGRectMake(0, 40, view.frame.size.width-40, 35)
         
@@ -52,6 +53,10 @@ class MasterViewController: UITableViewController {
         tableView.reloadData()
         
         setup()
+        
+        self.tableView.sendSubviewToBack(header)
+        
+        self.tableView.setContentOffset(CGPointMake(0, 600), animated: false)
     }
     
 
@@ -436,6 +441,10 @@ class MasterViewController: UITableViewController {
         label.widthAnchor.constraintEqualToConstant(label.frame.size.width+30).active = true
         label.alpha = 0.3
         label.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        label.addTarget(label, action: "expand", forControlEvents: UIControlEvents.TouchUpInside)
+        label.addTarget(label, action: "expand", forControlEvents: UIControlEvents.TouchDragOutside)
+        label.addTarget(label, action: "shrink", forControlEvents: UIControlEvents.TouchDown)
+
         return label
     }
     
@@ -515,6 +524,21 @@ class MasterViewController: UITableViewController {
         }
     }
 
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        let yPosition = scrollView.contentOffset.y
+        
+        var headerFrame = headerBackground.frame
+        headerFrame.origin.y = yPosition + 60
 
+        print(yPosition)
+
+        if yPosition < 0 {
+            headerFrame.size.height = 300 - yPosition
+        }
+        
+        headerBackground.frame = headerFrame
+
+    }
 }
 

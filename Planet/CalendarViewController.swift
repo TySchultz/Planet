@@ -62,6 +62,9 @@ class CalendarViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func closeView(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

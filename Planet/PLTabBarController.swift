@@ -54,12 +54,12 @@ class PLTabBarController: UITabBarController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
 
         //The settings view is portrait and will be rotated left or right
-        if self.selectedIndex == 3 && UIDevice.currentDevice().orientation != UIDeviceOrientation.Portrait {
+        if self.selectedIndex == 5 || self.selectedIndex == 0 && UIDevice.currentDevice().orientation != UIDeviceOrientation.Portrait {
             self.tabBar.hidden = true
             return [UIInterfaceOrientationMask.Landscape ,UIInterfaceOrientationMask.Portrait]
         }
         //The view is landscape and will be rotated back to portrait
-        else if self.selectedIndex == 3 {
+        else if self.selectedIndex == 5  || self.selectedIndex == 0{
             self.tabBar.hidden = false
             return [UIInterfaceOrientationMask.Landscape ,UIInterfaceOrientationMask.Portrait]
         }

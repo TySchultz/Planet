@@ -31,7 +31,7 @@ class AddAssignmentViewController: UIViewController {
     
     var currentCourseName = ""
     var currentEventType = ""
-    var currentDateChoice = NSDate()
+    var currentDateChoice = NSDate().beginningOfDay
     
     var currentTypeStackIndex = 0
     var currentCourseStackIndex = 0
@@ -44,7 +44,6 @@ class AddAssignmentViewController: UIViewController {
         super.viewDidLoad()
 
         setup()
-        
         
     }
  
@@ -76,10 +75,9 @@ class AddAssignmentViewController: UIViewController {
     }
     
     func setup () {
-//        calendarView.frame = CGRectMake(0, headerView., headerView.frame.size.width-16, 300)
         
-        monthLabel.text = "Add Event"
-
+        monthLabel.text = CVDate( date: NSDate()).globalDescription
+        
         currentTypeStackIndex = 0
         currentCourseStackIndex = 0
         
@@ -335,7 +333,10 @@ class AddAssignmentViewController: UIViewController {
     }
 
     func didSelectDayView(dayView: DayView) {
-        currentDateChoice = dayView.date.convertedDate()!
+        print(NSDate().beginningOfDay)
+        print(dayView.date.convertedDate()!.beginningOfDay)
+
+        currentDateChoice = dayView.date.convertedDate()!.beginningOfDay
         print("\(calendarView.presentedDate.commonDescription) is selected!")
     }
 }

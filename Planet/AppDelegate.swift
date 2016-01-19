@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Parse
+import Bolts
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -17,7 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        Parse.enableLocalDatastore()
         
+        // Initialize Parse.
+        Parse.setApplicationId("IT97Zm8KAXz0KsHVEnXyOXedG7S3oXWhD029HonC",
+            clientKey: "UbevUI9sApUnRVFU6UggYB6XAON1V2TioyiLFrRI")
+
         
 //        let splitViewController = self.window!.rootViewController as! UISplitViewController
 //        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController

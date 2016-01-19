@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var colorStack: UIStackView!
     @IBOutlet weak var coursesStack: UIStackView!
     
+    @IBOutlet weak var numberOfClasses: UILabel!
     
     var hidden = true
     
@@ -50,11 +51,13 @@ class ProfileViewController: UIViewController {
       
             addCourses(course)
         }
+        
+        self.numberOfClasses.text = "\(currentCourses.count)"
     }
     
     func orientationChanged()
     {
-        
+       setup()
     }
     
 
@@ -175,6 +178,7 @@ class ProfileViewController: UIViewController {
         }
         
     }
+    
     @IBOutlet weak var addClass: UIButton!
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

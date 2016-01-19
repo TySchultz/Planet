@@ -20,6 +20,11 @@ class MasterViewController: UITableViewController {
     @IBOutlet weak var typeStack: UIStackView!
     @IBOutlet weak var coursesStack: UIStackView!
     
+    @IBOutlet weak var todaysCirclesStack: UIStackView!
+    @IBOutlet weak var todaysEventsStack: UIStackView!
+    
+    @IBOutlet weak var todaysDateTitle: UILabel!
+    
     var currentTypeStackIndex   = 0
     var currentCourseStackIndex = 0
     var numberOfSelections = 0
@@ -35,18 +40,11 @@ class MasterViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
-        navImage = UIImageView(frame: CGRectMake(0, 0, 32, 32))
-        navImage.image = UIImage(named: "navBarImage")
-        navImage.center = CGPointMake((self.navigationController?.navigationBar.center.x)!, (self.navigationController?.navigationBar.center.y)!-20)
-        self.navigationController?.navigationBar.addSubview(navImage)
+        self.navigationController?.navigationBar.hidden = true
         
-        
-        header.frame = CGRectMake(0, 0, view.frame.size.width, 300)
-        headerBackground.backgroundColor = UIColor.whiteColor()
-        
-        navBarView.frame = CGRectMake(0, 40, view.frame.size.width-40, 35)
-        
+
         tableView.estimatedRowHeight = 80.0;
         tableView.rowHeight = UITableViewAutomaticDimension;
         currentEvents = getDays()
@@ -54,47 +52,83 @@ class MasterViewController: UITableViewController {
         
         setup()
         
-        self.tableView.sendSubviewToBack(header)
-        
-        self.tableView.setContentOffset(CGPointMake(0, 600), animated: false)
+      
     }
-    
-
     
     func setup () {
         
-        currentTypeStackIndex = 0
-        currentCourseStackIndex = 0
+        let realm = try? Realm()
         
-        clearOutStackView(typeStack)
-        clearOutStackView(coursesStack)
-        clearOutStackView(navStackView)
+        print(NSDate().beginningOfDay)
         
-        let realme = try? Realm()
         
-        typeStack.tag = 1
-        coursesStack.tag = 0
+        todaysDateTitle.text =  NSDate().toString(format: DateFormat.Custom("EEEE d"))
         
-        let allCourses = realme!.objects(Course)
-        for course in allCourses  {
-            addButtonToStack(course.name, color:course.color, stackView: 	coursesStack)
+        
+        let days = realm!.objects(Event).filter("date == %@", NSDate().beginningOfDay).sorted("date")
+        
+        
+        for subv in todaysEventsStack.arrangedSubviews {
+            subv.removeFromSuperview()
         }
         
-        for type in types {
-            addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
+        for subv in todaysCirclesStack.arrangedSubviews {
+            subv.removeFromSuperview()
         }
         
-        print(self.coursesStack.arrangedSubviews.count * 32)
-        print(self.typeStack.arrangedSubviews.count * 32)
-        let height :CGFloat = (CGFloat(self.coursesStack.arrangedSubviews.count) * 32) + (CGFloat(self.typeStack.arrangedSubviews.count) * 32) + 48.0
-        header.frame = CGRectMake(0, 0, view.frame.size.width, 100 + height)
+        for event in days {
+            let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
+            label.text = "\(event.type) - \(event.course.name)"
+            label.font = UIFont(name: "Avenir Book", size: 18.0)
+            label.heightAnchor.constraintEqualToConstant(20).active = true
+            todaysEventsStack.addArrangedSubview(label)
+            
+            let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
+            circle.layer.cornerRadius = 4
+            circle.backgroundColor =  Course().colorForType(ColorType(rawValue: event.course.color)!)
+            circle.layer.masksToBounds = true
+            circle.heightAnchor.constraintEqualToConstant(20).active = true
+            circle.widthAnchor.constraintEqualToConstant(8).active = true
+            todaysCirclesStack.addArrangedSubview(circle)
+        }
+        
+        
+        let headerheight = 160 + CGFloat(days.count * 25)
+        header.frame = CGRectMake(0, 0, view.frame.size.width, headerheight)
+
+        
+//        currentTypeStackIndex = 0
+//        currentCourseStackIndex = 0
+//        
+//        clearOutStackView(typeStack)
+//        clearOutStackView(coursesStack)
+//        clearOutStackView(navStackView)
+//        
+//        let realme = try? Realm()
+//        
+//        typeStack.tag = 1
+//        coursesStack.tag = 0
+//        
+//        let allCourses = realme!.objects(Course)
+//        for course in allCourses  {
+//            addButtonToStack(course.name, color:course.color, stackView: 	coursesStack)
+//        }
+//        
+//        for type in types {
+//            addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
+//        }
+//        
+//        print(self.coursesStack.arrangedSubviews.count * 32)
+//        print(self.typeStack.arrangedSubviews.count * 32)
+//        let height :CGFloat = (CGFloat(self.coursesStack.arrangedSubviews.count) * 32) + (CGFloat(self.typeStack.arrangedSubviews.count) * 32) + 48.0
+//        header.frame = CGRectMake(0, 0, view.frame.size.width, 100 + height)
 
         //currentEvents = []
     }
     
     func getDays() -> NSMutableArray{
         let realme = try? Realm()
-        let days = realme!.objects(Event).filter("date >= %@", NSDate().beginningOfDay).sorted("date")
+        let days = realme!.objects(Event).filter("date >= %@", NSDate().endOfDay).sorted("date")
         
         let allDays    :NSMutableArray = []
         let singleCell :NSMutableArray = []
@@ -200,13 +234,13 @@ class MasterViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        let testingView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width-100, height: self.view.frame.size.height-200))
-        testingView.backgroundColor = PLBlue
-        testingView.layer.cornerRadius = 8.0
-        testingView.layer.masksToBounds = true
-        testingView.center = self.view.center
-        self.view.addSubview(testingView)
+//        
+//        let testingView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width-100, height: self.view.frame.size.height-200))
+//        testingView.backgroundColor = PLBlue
+//        testingView.layer.cornerRadius = 8.0
+//        testingView.layer.masksToBounds = true
+//        testingView.center = self.view.center
+//        self.view.addSubview(testingView)
         
     }
     
@@ -515,7 +549,20 @@ class MasterViewController: UITableViewController {
             reloadDays()
         }
     }
+    @IBAction func showProfile(sender: UIButton) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("profile")
+        
+        self.presentViewController(viewController, animated: true, completion: nil)
+    }
     
+    @IBAction func createNewEvent(sender: UIButton) {
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("AddNav")
+        
+        self.presentViewController(viewController, animated: true, completion: nil)
+    }
     
     func clearOutStackView(stack : UIStackView){
         for view in stack.arrangedSubviews {
@@ -526,18 +573,18 @@ class MasterViewController: UITableViewController {
 
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        let yPosition = scrollView.contentOffset.y
-        
-        var headerFrame = headerBackground.frame
-        headerFrame.origin.y = yPosition + 60
-
-        print(yPosition)
-
-        if yPosition < 0 {
-            headerFrame.size.height = 300 - yPosition
-        }
-        
-        headerBackground.frame = headerFrame
+//        let yPosition = scrollView.contentOffset.y
+//        
+//        var headerFrame = headerBackground.frame
+//        headerFrame.origin.y = yPosition + 60
+//
+//        print(yPosition)
+//
+//        if yPosition < 0 {
+//            headerFrame.size.height = 300 - yPosition
+//        }
+//        
+//        headerBackground.frame = headerFrame
 
     }
 }

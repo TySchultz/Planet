@@ -85,7 +85,10 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/AKPickerView_Swift.framework"
+  install_framework "Pods/Bolts.framework"
   install_framework "Pods/CVCalendar.framework"
+  install_framework "Pods/Parse.framework"
+  install_framework "Pods/ReachabilitySwift.framework"
   install_framework "Pods/Realm.framework"
   install_framework "Pods/RealmSwift.framework"
   install_framework "Pods/SwiftDate.framework"
@@ -93,7 +96,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/AKPickerView_Swift.framework"
+  install_framework "Pods/Bolts.framework"
   install_framework "Pods/CVCalendar.framework"
+  install_framework "Pods/Parse.framework"
+  install_framework "Pods/ReachabilitySwift.framework"
   install_framework "Pods/Realm.framework"
   install_framework "Pods/RealmSwift.framework"
   install_framework "Pods/SwiftDate.framework"

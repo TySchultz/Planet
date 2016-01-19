@@ -9,12 +9,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CVCalendar.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Parse.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReachabilitySwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,17 +57,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>17183A36F3EB38884D6DD0A4B212418F</key>
+		<key>0FB3EC26C9D726023231F00216033A5E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3433AFEE9E4B31DC02F2AD0B574CDB3E</key>
+		<key>1D1F059819754B33C1F4609846FEB2EE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4D0E8873F81AEAF05505505EDDBFCFE4</key>
+		<key>511B536F0DE06D9C3BD65397A91990C0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>708E01B006A9F88B3C13711562282B5E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +82,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E2B638F40C6AE3ED41E501E0D1D63E6</key>
+		<key>AA53E4E3DE7C5DC1050A8C51EB79D36D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B0462D15CAC5E3316C3D77E117918F6C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +97,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD60C3064CC05C707F00DBADBFD7C3C8</key>
+		<key>D5C34DD2C9C5AC304CA76F0D31A43AB9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE500BC4EAAA567A56D162CFF72569B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -26,27 +26,38 @@ class PlanetUITests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        
+
+        
     }
     
     func testExample() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-  
-        
+    
+        //navigate app
         let app = XCUIApplication()
-        let tabBarsQuery = app.tabBars
-        let button = tabBarsQuery.childrenMatchingType(.Button).elementBoundByIndex(1)
-        button.tap()
+        app.tabBars.childrenMatchingType(.Button).elementBoundByIndex(4).tap()
         
-        let button2 = tabBarsQuery.childrenMatchingType(.Button).elementBoundByIndex(4)
-        button2.tap()
-        button.tap()
-        tabBarsQuery.childrenMatchingType(.Button).elementBoundByIndex(2).tap()
-        app.buttons["Systems 2 "].tap()
-        app.buttons["Quiz"].tap()
-        app.buttons["Create Event"].tap()
-        button2.tap()
+        XCTAssert(app.staticTexts["numberOfClasses"].exists)
         
+        let classes = app.staticTexts["numberOfClasses"]
+        let exists = NSPredicate(format: "exists == true")
+        expectationForPredicate(exists, evaluatedWithObject: classes, handler: nil)
+        
+        app.tabBars.childrenMatchingType(.Button).elementBoundByIndex(4).tap()
+        
+        let numberofclassesStaticText = app.staticTexts["numberOfClasses"]
+        numberofclassesStaticText.tap()
+        app.buttons["Add Class"].tap()
+         
+        let element = app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element
+        element.childrenMatchingType(.TextField).element.typeText("eeesseerae")
+        app.buttons["Create Class"].tap()
+        
+        waitForExpectationsWithTimeout(3, handler: nil)
+        XCTAssert(classes.exists)
+
     }
     
 }

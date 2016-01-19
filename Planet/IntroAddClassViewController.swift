@@ -10,6 +10,7 @@ import UIKit
 import AKPickerView_Swift
 
 import RealmSwift
+import ReachabilitySwift
 
 class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPickerViewDelegate, AKPickerViewDataSource{
 
@@ -52,6 +53,44 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
         
         
         colorScrollView.contentSize = CGSizeMake(800, 50)
+        
+        let reachability: Reachability
+        do {
+            reachability = try Reachability.reachabilityForInternetConnection()
+        } catch {
+            print("Unable to create Reachability")
+            return
+        }
+        
+        
+        reachability.whenReachable = { reachability in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                if reachability.isReachableViaWiFi() {
+                    print("Reachable via WiFi")
+                } else {
+                    print("Reachable via Cellular")
+                }
+            }
+        }
+        reachability.whenUnreachable = { reachability in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                print("Not reachable")
+                var alert = UIAlertController(title: "Internet not available", message: "Please find internet", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+
     }
     
     
@@ -97,51 +136,72 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
 
     @IBAction func submitClass(sender: UIButton) {
         //Checks to see if we have a color selected
-        if !(oldButton != nil){
-            UIView.animateWithDuration(0.2, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse], animations: { () -> Void in
-                self.colorScrollView.backgroundColor = UIColor.redColor()
-                
-            }, completion: { (Bool) -> Void in
-                    self.colorScrollView.backgroundColor = UIColor.clearColor()
-            })
+        let reachability: Reachability
+        do {
+            reachability = try Reachability.reachabilityForInternetConnection()
+           
+        } catch {
+            print("Unable to create Reachability")
+            return
             
-        }else{
-            //Creates a new course
-            let newCourse = Course()
-            newCourse.name = self.classNameField.text!
-            newCourse.serverID = self.classNameField.text!
-            let color = typeForColor(oldButton.backgroundColor!)
-            newCourse.color = color.rawValue
-
-            let realme = try? Realm()
-            
-            var alreadyCreated = false
-            
-            //Gets all the courses from our local database
-            //loops through and checks for a used name
-            let allCourses = realme!.objects(Course)
-            for singleCourse in allCourses where singleCourse.name == self.classNameField.text!{
-                alreadyCreated = true
-            }
-            
-            if !alreadyCreated {
-                classNameField.resignFirstResponder() //Hides Keyboard
-
-                //Creates the new course object and add it to our database.
-                realme!.write({ () -> Void in
-                    realme!.add(newCourse)
-                })
-                
-                //Hides this view. When it hides at the completion call the add class method
-                self.dismissViewControllerAnimated(true) { () -> Void in
-//                    self.parent.addClass(self.classNameField.text!, color: self.oldButton.backgroundColor!)
-                }
-            }else{
-                classNameHDR.text = "Already used class name"
-                classNameHDR.textColor = UIColor.redColor()
-                animateErrorTextField()
-            }
         }
+        
+        if reachability.isReachable() {
+            
+                if !(oldButton != nil){
+                    UIView.animateWithDuration(0.2, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse], animations: { () -> Void in
+                        self.colorScrollView.backgroundColor = UIColor.redColor()
+                        
+                        }, completion: { (Bool) -> Void in
+                            self.colorScrollView.backgroundColor = UIColor.clearColor()
+                    })
+                    
+                }else{
+                    //Creates a new course
+                    let newCourse = Course()
+                    newCourse.name = self.classNameField.text!
+                    newCourse.serverID = self.classNameField.text!
+                    let color = typeForColor(oldButton.backgroundColor!)
+                    newCourse.color = color.rawValue
+                    
+                    let realme = try? Realm()
+                    
+                    var alreadyCreated = false
+                    
+                    //Gets all the courses from our local database
+                    //loops through and checks for a used name
+                    let allCourses = realme!.objects(Course)
+                    for singleCourse in allCourses where singleCourse.name == self.classNameField.text!{
+                        alreadyCreated = true
+                    }
+                    
+                    if !alreadyCreated {
+                        classNameField.resignFirstResponder() //Hides Keyboard
+                        
+                        //Creates the new course object and add it to our database.
+                        realme!.write({ () -> Void in
+                            realme!.add(newCourse)
+                        })
+                        
+                        //Hides this view. When it hides at the completion call the add class method
+                        self.dismissViewControllerAnimated(true) { () -> Void in
+                            //                    self.parent.addClass(self.classNameField.text!, color: self.oldButton.backgroundColor!)
+                        }
+                    }else{
+                        classNameHDR.text = "Already used class name"
+                        classNameHDR.textColor = UIColor.redColor()
+                        animateErrorTextField()
+                    }
+                }
+
+        }else {
+            var alert = UIAlertController(title: "Internet not available", message: "Please find internet", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+
+        }
+        
+       
     }
     
     func animateErrorTextField(){

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		018D939D1BC5B54B00293F0A /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018D939C1BC5B54B00293F0A /* AddAssignmentViewController.swift */; };
 		100358761BBB5E3B00C4A1AC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100358751BBB5E3B00C4A1AC /* Constants.swift */; };
 		100358781BBB5F8B00C4A1AC /* PLLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100358771BBB5F8B00C4A1AC /* PLLabel.swift */; };
+		10284EB51C4E9415005C8445 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10284EB41C4E9415005C8445 /* AddEventViewController.swift */; };
 		1029425D1C1190F40021632C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C7B951BC3185F000824AF /* Model.swift */; };
 		1029425F1C1191530021632C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100358751BBB5E3B00C4A1AC /* Constants.swift */; };
 		106E94DD1BCD754000932D98 /* PLNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94DC1BCD754000932D98 /* PLNavigationController.swift */; };
@@ -19,7 +19,6 @@
 		108F78871BBB04580075FD24 /* PLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108F78861BBB04580075FD24 /* PLButton.swift */; };
 		10B78AE11BDDA9A800BBD2C6 /* SuccessAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B78AE01BDDA9A800BBD2C6 /* SuccessAnimationView.swift */; };
 		10C490821BCD72C100F9F01D /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C490811BCD72C100F9F01D /* CalendarViewController.swift */; };
-		10D8F3111BCD6FB600030FFA /* PLTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8F3101BCD6FB600030FFA /* PLTabBarController.swift */; };
 		10E5C89E1BB9C63400DDE50B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E5C89D1BB9C63400DDE50B /* AppDelegate.swift */; };
 		10E5C8A01BB9C63400DDE50B /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E5C89F1BB9C63400DDE50B /* MasterViewController.swift */; };
 		10E5C8A51BB9C63400DDE50B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10E5C8A31BB9C63400DDE50B /* Main.storyboard */; };
@@ -51,9 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		018D939C1BC5B54B00293F0A /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		100358751BBB5E3B00C4A1AC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		100358771BBB5F8B00C4A1AC /* PLLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLLabel.swift; sourceTree = "<group>"; };
+		10284EB41C4E9415005C8445 /* AddEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 		106E94DC1BCD754000932D98 /* PLNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLNavigationController.swift; sourceTree = "<group>"; };
 		106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -61,7 +60,6 @@
 		108F78861BBB04580075FD24 /* PLButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLButton.swift; sourceTree = "<group>"; };
 		10B78AE01BDDA9A800BBD2C6 /* SuccessAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessAnimationView.swift; sourceTree = "<group>"; };
 		10C490811BCD72C100F9F01D /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		10D8F3101BCD6FB600030FFA /* PLTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLTabBarController.swift; sourceTree = "<group>"; };
 		10E5C89A1BB9C63400DDE50B /* Planet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Planet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10E5C89D1BB9C63400DDE50B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10E5C89F1BB9C63400DDE50B /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -123,9 +121,9 @@
 			children = (
 				10E5C89F1BB9C63400DDE50B /* MasterViewController.swift */,
 				10C490811BCD72C100F9F01D /* CalendarViewController.swift */,
-				018D939C1BC5B54B00293F0A /* AddAssignmentViewController.swift */,
 				106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */,
 				106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */,
+				10284EB41C4E9415005C8445 /* AddEventViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -167,7 +165,6 @@
 				10E5C8DA1BB9D1D100DDE50B /* IntroAddClassViewController.swift */,
 				100358791BBB60CB00C4A1AC /* CustomUIKit */,
 				10E5C8D51BB9CEEC00DDE50B /* Objects */,
-				10D8F3101BCD6FB600030FFA /* PLTabBarController.swift */,
 				106E94DC1BCD754000932D98 /* PLNavigationController.swift */,
 				10B78AE01BDDA9A800BBD2C6 /* SuccessAnimationView.swift */,
 			);
@@ -401,12 +398,11 @@
 			files = (
 				10E5C8D91BB9D11000DDE50B /* IntroViewController.swift in Sources */,
 				107C7B961BC3185F000824AF /* Model.swift in Sources */,
+				10284EB51C4E9415005C8445 /* AddEventViewController.swift in Sources */,
 				10E5C8A01BB9C63400DDE50B /* MasterViewController.swift in Sources */,
 				106E94DF1BCD7BBB00932D98 /* SearchTableViewController.swift in Sources */,
 				108F78871BBB04580075FD24 /* PLButton.swift in Sources */,
 				10E5C8D01BB9CAA000DDE50B /* DayCell.swift in Sources */,
-				10D8F3111BCD6FB600030FFA /* PLTabBarController.swift in Sources */,
-				018D939D1BC5B54B00293F0A /* AddAssignmentViewController.swift in Sources */,
 				10E5C8DB1BB9D1D100DDE50B /* IntroAddClassViewController.swift in Sources */,
 				10B78AE11BDDA9A800BBD2C6 /* SuccessAnimationView.swift in Sources */,
 				10E5C89E1BB9C63400DDE50B /* AppDelegate.swift in Sources */,

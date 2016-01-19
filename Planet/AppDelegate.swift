@@ -24,12 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Initialize Parse.
         Parse.setApplicationId("IT97Zm8KAXz0KsHVEnXyOXedG7S3oXWhD029HonC",
             clientKey: "UbevUI9sApUnRVFU6UggYB6XAON1V2TioyiLFrRI")
-
-        
-//        let splitViewController = self.window!.rootViewController as! UISplitViewController
-//        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-//        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
-//        splitViewController.delegate = self
         return true
     }
 

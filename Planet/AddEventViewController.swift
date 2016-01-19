@@ -1,17 +1,29 @@
 //
-//  AddAssignmentViewController.swift
+//  AddEventViewController.swift
 //  Planet
 //
-//  Created by Nick Armold on 10/7/15.
-//  Copyright © 2015 Ty Schultz. All rights reserved.
+//  Created by Ty Schultz on 1/19/16.
+//  Copyright © 2016 Ty Schultz. All rights reserved.
 //
 
 import UIKit
 import RealmSwift
 import CVCalendar
 
-class AddAssignmentViewController: UIViewController {
+class AddEventViewController: UITableViewController {
     
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 0
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 0
+    }
+
+    @IBOutlet weak var header: UIView!
     
     @IBOutlet weak var classStack: UIStackView!
     @IBOutlet weak var typeStack: UIStackView!
@@ -25,7 +37,7 @@ class AddAssignmentViewController: UIViewController {
     var shouldShowDaysOut = true
     var animationFinished = true
     
-
+    
     var currentCourses : Results<Course>!
     var chosenCourse : Course!
     
@@ -38,15 +50,36 @@ class AddAssignmentViewController: UIViewController {
     
     
     let types = ["Test","Quiz","Homework","Project","Presentation","Meeting"]
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+        self.calendarView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width-40, height: 300)
+        
+        self.calendarView.calendarAppearanceDelegate = self
+    
+        // Animator delegate [Unnecessary]
+        self.calendarView.animatorDelegate = self
+        
+        // Calendar delegate [Required]
+        self.calendarView.calendarDelegate = self
+        
+        // Menu delegate [Required]
+        self.menuView.menuViewDelegate = self
+        
+        self.calendarView.backgroundColor = UIColor.whiteColor()
+        self.menuView.backgroundColor = UIColor.whiteColor()
+        
+        
+        self.view.setNeedsUpdateConstraints()
+        self.view.setNeedsLayout()
+        
         setup()
         
     }
- 
+    
     
     override func viewWillAppear(animated: Bool) {
         setup()
@@ -57,21 +90,12 @@ class AddAssignmentViewController: UIViewController {
         clearOutStackView(classStack)
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
-    }
-  
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         calendarView.commitCalendarViewUpdate()
         menuView.commitMenuViewUpdate()
-
+        
     }
     
     func setup () {
@@ -98,6 +122,8 @@ class AddAssignmentViewController: UIViewController {
         for type in types {
             addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
         }
+        
+        self.header.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 700.0)
     }
     
     
@@ -107,6 +133,8 @@ class AddAssignmentViewController: UIViewController {
             view.removeFromSuperview()
         }
     }
+    
+ 
     
     
     func validAddToStack(stack : UIStackView, let stackNumber : Int) -> Bool {
@@ -131,7 +159,7 @@ class AddAssignmentViewController: UIViewController {
     func addButtonToStack(type : String,color : String, stackView : UIStackView){
         let label = createButton(type, type: stackView.tag)
         label.backgroundColor = Course().colorForType(ColorType(rawValue: color)!)
-
+        
         var currentStackIndex = 0
         if stackView.tag == 0 {
             currentStackIndex = currentCourseStackIndex
@@ -199,15 +227,15 @@ class AddAssignmentViewController: UIViewController {
             
             currentCourseName =  (sender.titleLabel?.text)!
             
-    
+            
         }
-        //Button in header is tapped and already selected
+            //Button in header is tapped and already selected
         else if sender.tag == 1 {
             sender.tag = 0
             showStack(classStack)
             
             currentCourseName = ""
-
+            
         }
         
     }
@@ -229,20 +257,20 @@ class AddAssignmentViewController: UIViewController {
             currentEventType = ""
         }
     }
-
-
+    
+    
     
     func removeFromStack(sender : UIButton ,stack : UIStackView){
         for  stack in stack.arrangedSubviews as! [UIStackView] {
             var found = false
             for button in stack.arrangedSubviews as! [UIButton] {
                 if button == sender{
-//                    UIView.animateWithDuration(0.2, animations: { () -> Void in
-//                        button.alpha = 0.0
-//                        button.hidden = true
-//                        }, completion: { (Bool) -> Void in
-////                            stack.removeArrangedSubview(button)
-//                    })
+                    //                    UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    //                        button.alpha = 0.0
+                    //                        button.hidden = true
+                    //                        }, completion: { (Bool) -> Void in
+                    ////                            stack.removeArrangedSubview(button)
+                    //                    })
                     found = true
                 }
             }
@@ -250,16 +278,16 @@ class AddAssignmentViewController: UIViewController {
                 UIView.animateWithDuration(0.2, animations: { () -> Void in
                     stack.hidden = true
                     }, completion: { (Bool) -> Void in
-
+                        
                 })
             }else{
                 for button in stack.arrangedSubviews as! [UIButton] {
                     if button != sender{
-                                            UIView.animateWithDuration(0.2, animations: { () -> Void in
-                                                button.hidden = true
-                                                }, completion: { (Bool) -> Void in
-                        //                            stack.removeArrangedSubview(button)
-                                            })
+                        UIView.animateWithDuration(0.2, animations: { () -> Void in
+                            button.hidden = true
+                            }, completion: { (Bool) -> Void in
+                                //                            stack.removeArrangedSubview(button)
+                        })
                         found = true
                     }
                 }
@@ -276,19 +304,19 @@ class AddAssignmentViewController: UIViewController {
             }
             for button in stack.arrangedSubviews as! [UIButton] {
                 UIView.animateWithDuration(0.1, animations: { () -> Void in
-                        button.hidden = false
-                        button.tag = 0
-                        }, completion: { (Bool) -> Void in
+                    button.hidden = false
+                    button.tag = 0
+                    }, completion: { (Bool) -> Void in
                 })
-                }
             }
+        }
     }
-
+    
     @IBAction func closeButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil) //hide the viewController
     }
     
-
+    
     @IBAction func createEvent(sender: UIButton) {
         
         let realm = try! Realm()
@@ -298,7 +326,7 @@ class AddAssignmentViewController: UIViewController {
         newEvent.date = currentDateChoice
         newEvent.serverID = randomStringWithLength(12) as String
         newEvent.type = currentEventType
-
+        
         let realmCourse = realm.objects(Course).filter("name = '\(currentCourseName)'")
         newEvent.course = realmCourse.first
         
@@ -306,15 +334,15 @@ class AddAssignmentViewController: UIViewController {
             realm.add(newEvent)
         }
         
-//        showStack(typeStack)
-//        showStack(classStack)
-//
-//        let successView = SuccessAnimationView(frame: view.frame)
-//        view.addSubview(successView)
+        //        showStack(typeStack)
+        //        showStack(classStack)
+        //
+        //        let successView = SuccessAnimationView(frame: view.frame)
+        //        view.addSubview(successView)
         
         self.dismissViewControllerAnimated(true, completion: nil)
-
-
+        
+        
     }
     
     func randomStringWithLength (len : Int) -> NSString {
@@ -331,11 +359,11 @@ class AddAssignmentViewController: UIViewController {
         
         return randomString
     }
-
+    
     func didSelectDayView(dayView: DayView) {
         print(NSDate().beginningOfDay)
         print(dayView.date.convertedDate()!.beginningOfDay)
-
+        
         currentDateChoice = dayView.date.convertedDate()!.beginningOfDay
         print("\(calendarView.presentedDate.commonDescription) is selected!")
     }
@@ -344,7 +372,7 @@ class AddAssignmentViewController: UIViewController {
 
 
 
-extension AddAssignmentViewController: CVCalendarViewDelegate, CVCalendarMenuViewDelegate {
+extension AddEventViewController: CVCalendarViewDelegate, CVCalendarMenuViewDelegate {
     
     /// Required method to implement!
     func presentationMode() -> CalendarMode {
@@ -427,7 +455,7 @@ extension AddAssignmentViewController: CVCalendarViewDelegate, CVCalendarMenuVie
 }
 
 
-extension AddAssignmentViewController: CVCalendarViewAppearanceDelegate {
+extension AddEventViewController: CVCalendarViewAppearanceDelegate {
     func dayLabelPresentWeekdayInitallyBold() -> Bool {
         return false
     }
@@ -440,7 +468,7 @@ extension AddAssignmentViewController: CVCalendarViewAppearanceDelegate {
 
 // MARK: - IB Actions
 
-extension AddAssignmentViewController {
+extension AddEventViewController {
     @IBAction func switchChanged(sender: UISwitch) {
         if sender.on {
             calendarView.changeDaysOutShowingState(false)

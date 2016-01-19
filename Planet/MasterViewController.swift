@@ -62,8 +62,25 @@ class MasterViewController: UITableViewController {
         print(NSDate().beginningOfDay)
         
         
-        todaysDateTitle.text =  NSDate().toString(format: DateFormat.Custom("EEEE d"))
+        let e = NSDate().day
+        var dateSuffix = ""
+        switch e {
+        case 0:
+            dateSuffix = ""
+        case 1,21,31:
+            dateSuffix = "st"
+        case 2,22:
+            dateSuffix = "nd"
+        case 3,23:
+            dateSuffix = "rd"
+        case 4..<21,24..<31:
+            dateSuffix = "th"
+        default:
+            return
+        }
         
+        todaysDateTitle.text =  NSDate().toString(format: DateFormat.Custom("EEEE d")) + dateSuffix
+
         
         let days = realm!.objects(Event).filter("date == %@", NSDate().beginningOfDay).sorted("date")
         

@@ -16,14 +16,20 @@ class PLNavigationController: UINavigationController {
         
         self.navigationBarHidden = false
         self.navigationBar.backgroundColor = UIColor.whiteColor()
-        self.navigationBar.barTintColor = UIColor.whiteColor()
+        self.navigationBar.barTintColor = UIColor(red:0.27, green:0.73, blue:0.98, alpha:1)
         self.navigationBar.opaque = true
+        
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
 

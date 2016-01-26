@@ -119,7 +119,6 @@ class SearchTableViewController: UITableViewController {
         }else{
             currentStackIndex = currentTypeStackIndex
         }
-        
         if stackView.arrangedSubviews.count == 0 {
             let newStack = UIStackView(frame: CGRectMake(0, 0, 200, 10))
             newStack.axis = .Horizontal

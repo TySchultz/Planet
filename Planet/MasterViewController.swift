@@ -30,6 +30,8 @@ class MasterViewController: UITableViewController {
     var numberOfSelections = 0
 
     
+    
+    
     @IBOutlet weak var navScrollView: UIScrollView!
     @IBOutlet weak var navBarView: UIView!
     @IBOutlet weak var navStackView: UIStackView!
@@ -42,7 +44,8 @@ class MasterViewController: UITableViewController {
         super.viewDidLoad()
 
         
-        self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.navigationBar.hidden = false
+    
         
 
         tableView.estimatedRowHeight = 80.0;
@@ -50,6 +53,9 @@ class MasterViewController: UITableViewController {
         currentEvents = getDays()
         tableView.reloadData()
         
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "this is a new test item", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Book", size: 15)!], forState: UIControlState.Normal)
         setup()
         
       
@@ -237,12 +243,12 @@ class MasterViewController: UITableViewController {
                 label.heightAnchor.constraintEqualToConstant(20).active = true
                 cell.eventStack.addArrangedSubview(label)
                 
-                let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
-                circle.layer.cornerRadius = 4
+                let circle = UIView(frame: CGRectMake(0, 0, 4, 4))
+                circle.layer.cornerRadius = 2
                 circle.backgroundColor =  Course().colorForType(ColorType(rawValue: event.course.color)!)
                 circle.layer.masksToBounds = true
-                circle.heightAnchor.constraintEqualToConstant(20).active = true
-                circle.widthAnchor.constraintEqualToConstant(8).active = true
+                circle.heightAnchor.constraintEqualToConstant(16).active = true
+                circle.widthAnchor.constraintEqualToConstant(4).active = true
                 cell.circleStack.addArrangedSubview(circle)
             }
         }

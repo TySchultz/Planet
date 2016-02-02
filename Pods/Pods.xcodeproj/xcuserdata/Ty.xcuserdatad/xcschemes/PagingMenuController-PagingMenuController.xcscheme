@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'B88C7D5A5A23A41B26623ECA'
-               BlueprintName = 'RealmSwift'
+               BlueprintIdentifier = '995EBF1EC38197B7715471F3'
+               BlueprintName = 'PagingMenuController-PagingMenuController'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'RealmSwift.framework'>
+               BuildableName = 'PagingMenuController.bundle'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -23,14 +23,18 @@ class MasterViewController: UITableViewController {
     @IBOutlet weak var todaysCirclesStack: UIStackView!
     @IBOutlet weak var todaysEventsStack: UIStackView!
     
-    @IBOutlet weak var todaysDateTitle: UILabel!
     
     var currentTypeStackIndex   = 0
     var currentCourseStackIndex = 0
     var numberOfSelections = 0
+    
+    
+    var delegate : OverheadViewController!
 
     
     
+    @IBOutlet weak var todayDate: UILabel!
+    @IBOutlet weak var todayLabel: UILabel!
     
     @IBOutlet weak var navScrollView: UIScrollView!
     @IBOutlet weak var navBarView: UIView!
@@ -53,13 +57,22 @@ class MasterViewController: UITableViewController {
         currentEvents = getDays()
         tableView.reloadData()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "this is a new test item", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
-        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Book", size: 15)!], forState: UIControlState.Normal)
         setup()
-        
       
     }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+        currentEvents = getDays()
+        self.tableView.reloadData()
+        setup()
+
+    }
+    
+
     
     func setup () {
         
@@ -85,11 +98,20 @@ class MasterViewController: UITableViewController {
             return
         }
         
-        todaysDateTitle.text =  NSDate().toString(format: DateFormat.Custom("EEEE d")) + dateSuffix
 
+        todayLabel.text = NSDate().toString(format: DateFormat.Custom("EEEE"))
+        todayDate.text = NSDate().toString(format: DateFormat.Custom("d"))
         
         let days = realm!.objects(Event).filter("date == %@", NSDate().beginningOfDay).sorted("date")
+
+        let headerheight = 128 + CGFloat(days.count * 25)
+        header.frame = CGRectMake(0, 0, view.frame.size.width, headerheight)
+
+        let todayEvents : NSMutableArray = []
         
+        for day in days {
+            todayEvents.addObject(day)
+        }
         
         for subv in todaysEventsStack.arrangedSubviews {
             subv.removeFromSuperview()
@@ -99,26 +121,54 @@ class MasterViewController: UITableViewController {
             subv.removeFromSuperview()
         }
         
-        for event in days {
+        
+        let sortedDays = todayEvents.sortedArrayUsingComparator {
+            (obj1, obj2) -> NSComparisonResult in
+            
+            let p1 = obj1 as! Event
+            let p2 = obj2 as! Event
+            let result = p1.course.name.compare(p2.course.name)
+            return result
+        }
+        if sortedDays.count == 0 {
+            
             let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
-            label.text = "\(event.type) - \(event.course.name)"
+            label.text = "No events for today (:"
             label.font = UIFont(name: "Avenir Book", size: 18.0)
             label.heightAnchor.constraintEqualToConstant(20).active = true
             todaysEventsStack.addArrangedSubview(label)
             
             let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
             circle.layer.cornerRadius = 4
-            circle.backgroundColor =  Course().colorForType(ColorType(rawValue: event.course.color)!)
+            circle.backgroundColor =  UIColor.clearColor()
             circle.layer.masksToBounds = true
             circle.heightAnchor.constraintEqualToConstant(20).active = true
             circle.widthAnchor.constraintEqualToConstant(8).active = true
             todaysCirclesStack.addArrangedSubview(circle)
+
+        }else{
+            for event in sortedDays {
+                if let event = event as? Event {
+                    
+                    let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
+                    label.text = "\(event.type) - \(event.course.name)"
+                    label.font = UIFont(name: "Avenir Book", size: 18.0)
+                    label.heightAnchor.constraintEqualToConstant(20).active = true
+                    todaysEventsStack.addArrangedSubview(label)
+                    
+                    let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
+                    circle.layer.cornerRadius = 4
+                    circle.backgroundColor =  Course().colorForType(ColorType(rawValue: event.course.color)!)
+                    circle.layer.masksToBounds = true
+                    circle.heightAnchor.constraintEqualToConstant(20).active = true
+                    circle.widthAnchor.constraintEqualToConstant(8).active = true
+                    todaysCirclesStack.addArrangedSubview(circle)
+                }
+            }
         }
         
         
-        let headerheight = 160 + CGFloat(days.count * 25)
-        header.frame = CGRectMake(0, 0, view.frame.size.width, headerheight)
-
+        self.tableView.tableFooterView = UIView()
         
 //        currentTypeStackIndex = 0
 //        currentCourseStackIndex = 0
@@ -183,15 +233,6 @@ class MasterViewController: UITableViewController {
         return allDays
     }
 
-    override func viewWillAppear(animated: Bool) {
-        //self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
-        super.viewWillAppear(animated)
-        
-        currentEvents = getDays()
-        self.tableView.reloadData()
-        setup()
-
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -252,6 +293,9 @@ class MasterViewController: UITableViewController {
                 cell.circleStack.addArrangedSubview(circle)
             }
         }
+        
+        cell.numberOfObjects.text = "\(sortedDays.count) events"
+        
         return cell
     }
     

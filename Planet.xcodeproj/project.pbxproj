@@ -12,6 +12,8 @@
 		10284EB51C4E9415005C8445 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10284EB41C4E9415005C8445 /* AddEventViewController.swift */; };
 		1029425D1C1190F40021632C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C7B951BC3185F000824AF /* Model.swift */; };
 		1029425F1C1191530021632C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100358751BBB5E3B00C4A1AC /* Constants.swift */; };
+		1047A8491C57C9AE00535AED /* OverheadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1047A8481C57C9AE00535AED /* OverheadViewController.swift */; };
+		104F1A981C5801D7005E4FC7 /* ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104F1A971C5801D7005E4FC7 /* ClassesTableViewController.swift */; };
 		106E94DD1BCD754000932D98 /* PLNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94DC1BCD754000932D98 /* PLNavigationController.swift */; };
 		106E94DF1BCD7BBB00932D98 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */; };
 		106E94E21BCD7BDF00932D98 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */; };
@@ -53,6 +55,8 @@
 		100358751BBB5E3B00C4A1AC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		100358771BBB5F8B00C4A1AC /* PLLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLLabel.swift; sourceTree = "<group>"; };
 		10284EB41C4E9415005C8445 /* AddEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
+		1047A8481C57C9AE00535AED /* OverheadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverheadViewController.swift; sourceTree = "<group>"; };
+		104F1A971C5801D7005E4FC7 /* ClassesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesTableViewController.swift; sourceTree = "<group>"; };
 		106E94DC1BCD754000932D98 /* PLNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLNavigationController.swift; sourceTree = "<group>"; };
 		106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -119,11 +123,13 @@
 		106E94E01BCD7BC200932D98 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1047A8481C57C9AE00535AED /* OverheadViewController.swift */,
+				106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */,
 				10E5C89F1BB9C63400DDE50B /* MasterViewController.swift */,
 				10C490811BCD72C100F9F01D /* CalendarViewController.swift */,
 				106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */,
-				106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */,
 				10284EB41C4E9415005C8445 /* AddEventViewController.swift */,
+				104F1A971C5801D7005E4FC7 /* ClassesTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -400,8 +406,10 @@
 				107C7B961BC3185F000824AF /* Model.swift in Sources */,
 				10284EB51C4E9415005C8445 /* AddEventViewController.swift in Sources */,
 				10E5C8A01BB9C63400DDE50B /* MasterViewController.swift in Sources */,
+				1047A8491C57C9AE00535AED /* OverheadViewController.swift in Sources */,
 				106E94DF1BCD7BBB00932D98 /* SearchTableViewController.swift in Sources */,
 				108F78871BBB04580075FD24 /* PLButton.swift in Sources */,
+				104F1A981C5801D7005E4FC7 /* ClassesTableViewController.swift in Sources */,
 				10E5C8D01BB9CAA000DDE50B /* DayCell.swift in Sources */,
 				10E5C8DB1BB9D1D100DDE50B /* IntroAddClassViewController.swift in Sources */,
 				10B78AE11BDDA9A800BBD2C6 /* SuccessAnimationView.swift in Sources */,

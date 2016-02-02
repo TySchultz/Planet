@@ -23,6 +23,8 @@ class CalendarViewController: UITableViewController {
 
     var currentEvents : NSMutableArray!
     var currentDate : NSDate!
+    
+    var delegate : OverheadViewController!
 
     
     @IBOutlet weak var navView: UIView!
@@ -33,7 +35,7 @@ class CalendarViewController: UITableViewController {
         super.viewDidLoad()
         
         
-        headerView.frame = CGRectMake(0, 0, view.frame.size.width, 340)
+        headerView.frame = CGRectMake(0, 0, view.frame.size.width, 380)
         headerView.backgroundColor = UIColor.whiteColor()
         navView.frame = CGRectMake(0, 40, view.frame.size.width-40, 35)
 
@@ -42,12 +44,18 @@ class CalendarViewController: UITableViewController {
         
         monthLabel.text = CVDate(date: NSDate()).globalDescription
         
+        self.shouldShowDaysOut = false
+        
+        
         currentDate = NSDate(timeIntervalSinceNow: -60*60)
         
         tableView.estimatedRowHeight = 80.0;
         tableView.rowHeight = UITableViewAutomaticDimension;
 
         currentEvents = getDays()
+        
+        self.tableView.tableFooterView = UIView()
+
 //        calendarView.calendarAppearanceDelegate = self
 //        calendarView.calendarDelegate = self
 
@@ -126,6 +134,9 @@ class CalendarViewController: UITableViewController {
                 cell.circleStack.addArrangedSubview(circle)
             }
         }
+        
+        cell.numberOfObjects.text = "\(sortedDays.count) events"
+
         return cell
     }
     
@@ -233,11 +244,11 @@ extension CalendarViewController: CVCalendarViewDelegate, CVCalendarMenuViewDele
     func dotMarker(colorOnDayView dayView: CVCalendarDayView) -> [UIColor] {
         let day = dayView.date.day
         
-        let red = CGFloat(arc4random_uniform(600) / 255)
-        let green = CGFloat(arc4random_uniform(600) / 255)
-        let blue = CGFloat(arc4random_uniform(600) / 255)
+        let red = PLPurple
+        let green = PLGreen
+        let blue = PLBlue
         
-        let color = UIColor(red: red, green: green, blue: blue, alpha: 1)
+        let color = PLBlue
         
         let numberOfDots = Int(arc4random_uniform(3) + 1)
         switch(numberOfDots) {

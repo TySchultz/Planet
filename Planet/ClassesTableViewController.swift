@@ -1,64 +1,85 @@
 //
-//  ProfileViewController.swift
+//  ClassesTableViewController.swift
 //  Planet
 //
-//  Created by Ty Schultz on 10/13/15.
-//  Copyright © 2015 Ty Schultz. All rights reserved.
+//  Created by Ty Schultz on 1/26/16.
+//  Copyright © 2016 Ty Schultz. All rights reserved.
 //
 
 import UIKit
 import RealmSwift
 
-class ProfileViewController: UIViewController {
 
-    @IBOutlet weak var deleteStack: UIStackView!
+class ClassesTableViewController: UITableViewController {
+
+    
+    @IBOutlet weak var header: UIView!
+    
     @IBOutlet weak var colorStack: UIStackView!
     @IBOutlet weak var coursesStack: UIStackView!
-    
+    @IBOutlet weak var deleteStack: UIStackView!
+
     @IBOutlet weak var numberOfClasses: UILabel!
     
     var hidden = true
     
     var index = 0
     
+    var currentCourses : Results<Course>?
     
-    var currentCourses : Results<Course>!
+  
+
+    // MARK: - Table view data source
+
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 0
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 0
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
         
-        deleteStack.hidden = true
-
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     func setup(){
         
         index = 0
         
-        clearOutStackView(deleteStack)
         clearOutStackView(colorStack)
         clearOutStackView(coursesStack)
         
         let realme = try? Realm()
         
         currentCourses = realme!.objects(Course)
-        for course in currentCourses  {
-      
+        for course in currentCourses!  {
+            
             addCourses(course)
         }
         
-        self.numberOfClasses.text = "\(currentCourses.count)"
-    }
-    
-    func orientationChanged()
-    {
-       setup()
-    }
-    
+        self.numberOfClasses.text = "\(currentCourses!.count)"
+        
+        header.frame = CGRectMake(0, 0, view.frame.size.width, 600)
+        self.tableView.tableFooterView = UIView()
 
+    }
+    
+ 
+    
     func clearOutStackView(stack : UIStackView){
         for view in stack.arrangedSubviews {
             stack.removeArrangedSubview(view)
@@ -66,15 +87,14 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        setup()
     }
     
     override func viewDidDisappear(animated: Bool) {
-            deleteStack.hidden = true
     }
     
-
+    
     func addCourses(c : Course){
+        
         let label = UILabel(frame: CGRectMake(0, 0, 100, 30))
         label.text = c.name
         label.font = UIFont(name: "Avenir Book", size: 16.0)
@@ -107,32 +127,25 @@ class ProfileViewController: UIViewController {
         delete.tag = index
         delete.addTarget(self, action: "deleteButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         deleteStack.addArrangedSubview(delete)
-
+        
         
         index++
     }
     @IBAction func editButtonPressed(sender: UIButton) {
        
-        UIView.animateWithDuration(0.1, animations: { () -> Void in
-            if self.deleteStack.hidden == true{
-               self.deleteStack.hidden = false
-            }else{
-                self.deleteStack.hidden = true
-            }
     
-        })
     }
     
     
     //TODO: Delete all events connected to that course when deleting course
     func deleteButtonPressed(sender : UIButton) {
         let realme = try! Realm()
-
+        
         var tmpIndex = 0
         
-        print("count: \(currentCourses.count)"   )
-
-        for course in currentCourses  {
+        print("count: \(currentCourses!.count)"   )
+        
+        for course in currentCourses!  {
             if tmpIndex == sender.tag{
                 
                 try! realme.write {
@@ -146,12 +159,12 @@ class ProfileViewController: UIViewController {
         
         let label = coursesStack.arrangedSubviews[sender.tag]
         let circle = colorStack.arrangedSubviews[sender.tag]
-
-            circle.hidden = true
-            label.hidden  = true
-            sender.hidden = true
+        
+        circle.hidden = true
+        label.hidden  = true
+        sender.hidden = true
     }
-
+    
     @IBAction func addClassPressed(sender: UIButton) {
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
@@ -165,20 +178,5 @@ class ProfileViewController: UIViewController {
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+   
 }

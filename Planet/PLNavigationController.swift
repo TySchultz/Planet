@@ -16,7 +16,7 @@ class PLNavigationController: UINavigationController {
         
         self.navigationBarHidden = false
         self.navigationBar.backgroundColor = UIColor.whiteColor()
-        self.navigationBar.barTintColor = UIColor(red:0.27, green:0.73, blue:0.98, alpha:1)
+        self.navigationBar.barTintColor = PLBlue
         self.navigationBar.opaque = true
         
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()

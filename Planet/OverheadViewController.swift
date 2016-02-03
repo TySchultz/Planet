@@ -21,10 +21,12 @@ class OverheadViewController: UIViewController, PagingMenuControllerDelegate {
     var calendarViewController : CalendarViewController!
     var classesViewController : ClassesTableViewController!
     
+    @IBOutlet weak var tabStack: UIStackView!
     
-    var profileButton : PLButton!
-    var masterButton : PLButton!
-    var calendarButton : PLButton!
+    @IBOutlet var profileButton : UIButton!
+    @IBOutlet var masterButton : UIButton!
+    @IBOutlet var calendarButton : UIButton!
+    @IBOutlet var addEventButton : UIButton!
 
     @IBOutlet weak var tabBar: UIView!
 
@@ -49,7 +51,7 @@ class OverheadViewController: UIViewController, PagingMenuControllerDelegate {
         classesViewController.title = ""
 
         
-        let viewControllers = [classesViewController,masterViewController,calendarViewController]
+        let viewControllers = [masterViewController, calendarViewController, classesViewController]
         
         pagingMenuController = self.childViewControllers.first as! PagingMenuController
         
@@ -57,182 +59,154 @@ class OverheadViewController: UIViewController, PagingMenuControllerDelegate {
         options.menuHeight = 0
         options.menuDisplayMode = .Standard(widthMode: .Flexible, centerItem: true, scrollingMode: .PagingEnabled)
         pagingMenuController.setup(viewControllers: viewControllers, options: options)
-        
         pagingMenuController.delegate = self
         
         
-//        let v = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width-60, height: 40))
-//        v.backgroundColor = UIColor.clearColor()
-//        self.navigationController?.navigationBar.addSubview(v)
-//        
-//        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
-//        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Book", size: 24)!], forState: UIControlState.Normal)
+        let darkBlue = UIColor(red:0.16, green:0.56, blue:0.8, alpha:1)
+        tabBar.backgroundColor = darkBlue
+
+        addButtonActions(profileButton,location: 2)
         
+        addButtonActions(masterButton,location: 0)
+
+        addButtonActions(calendarButton,location: 1)
+
+        addEventButton.addTarget(self, action: "addEvent:", forControlEvents: UIControlEvents.TouchUpInside)
    
         
-
-        profileButton  = createNavButton("Classes", location: 0, width: tabBar.frame.width/3)
-        masterButton   = createNavButton("Today", location: 1, width: tabBar.frame.width/3)
-        calendarButton = createNavButton("Calendar", location: 2, width: tabBar.frame.width/3)
-        tabBar.addSubview(profileButton)
-        tabBar.addSubview(masterButton)
-        tabBar.addSubview(calendarButton)
-
-        pagingMenuController.moveToMenuPage(1, animated: true)
+        for view in tabStack.arrangedSubviews {
+            view.removeFromSuperview()
+        }
+        tabStack.addArrangedSubview(masterButton)
+        tabStack.addArrangedSubview(calendarButton)
+        tabStack.addArrangedSubview(profileButton)
+        tabStack.addArrangedSubview(addEventButton)
         
         
-        tabBar.backgroundColor = PLBlue
+        
+        profileButton.backgroundColor   = PLBlue
+        masterButton.backgroundColor    = PLBlue
+        calendarButton.backgroundColor  = PLBlue
+        addEventButton.backgroundColor  = PLBlue
+
+        pagingMenuController.moveToMenuPage(0, animated: true)
+        
+   
         
         // Do any additional setup after loading the view.
     }
     
     
-    func createNavButton(title : String, location : Int, width : CGFloat) -> PLButton {
-        let button = PLButton()
-        button.frame = CGRectMake(CGFloat(location)*width, 0, width, 40)
-        button.setTitle(title, forState: UIControlState.Normal)
-        button.titleLabel?.font = UIFont(name: "Avenir Regular", size: 15.0)
-        button.titleLabel?.textColor = UIColor.whiteColor()
-        if location == 1 {
-            button.alpha = 1.0
-        }else{
-            button.alpha = 0.5
-        }
+    func addButtonActions(button : UIButton, location : Int) {
+
         button.tag = location
         button.addTarget(self, action: "scrollToPage:", forControlEvents: UIControlEvents.TouchUpInside)
-
-        return button
     }
         
         
-    @IBAction func addEvent(sender: UIBarButtonItem) {
-        
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
-        let viewController = storyboard.instantiateViewControllerWithIdentifier("AddNav")
-        
-        self.presentViewController(viewController, animated: true, completion: nil)
 
-    }
     
- //
-//    func shouldMoveToMain(type : FilterType ) {
-//        pagingMenuController.moveToMenuPage(0, animated: true)
-//        
-//        mainView.changeFilterAndReload(type)
-//        
-//        switch type {
-//        case .ALL:
-//            mainButton.setTitle("All Gyms", forState: UIControlState.Normal)
-//        case .UP:
-//            mainButton.setTitle("Upper Gym", forState: UIControlState.Normal)
-//        case .DOWN:
-//            mainButton.setTitle("Lower Gym", forState: UIControlState.Normal)
-//        default:
-//            mainButton.setTitle("All Gyms", forState: UIControlState.Normal)
-//        }
-//        
-//        
-//        var titleRect = mainButton.frame
-//        titleRect.origin.x =  view.frame.size.width/2 - titleRect.width/2
-//        mainButton.frame = titleRect
-//        
-//        var rightRect = sortButton.frame
-//        rightRect.origin.x = view.frame.size.width - rightRect.width/2
-//        sortButton.frame = rightRect
-//    }
-//    
+
     func willMoveToMenuPage(page: Int) {
         
     }
     
     func didMoveToMenuPage(page: Int) {
-        
-        let selectedAlpha :CGFloat = 1.0
-        let deselectedAlpha :CGFloat = 0.5
+
         switch page {
         case 0:
-            profileButton.alpha     = selectedAlpha
-            masterButton.alpha      = deselectedAlpha
-            calendarButton.alpha    = deselectedAlpha
+            profileButton.alpha   = 1.0
+            masterButton.alpha    = 0.7
+            calendarButton.alpha  = 1.0
+            
+
         case 1:
-            profileButton.alpha     = deselectedAlpha
-            masterButton.alpha      = selectedAlpha
-            calendarButton.alpha    = deselectedAlpha
+            profileButton.alpha   = 1.0
+            masterButton.alpha    = 1.0
+            calendarButton.alpha  = 0.7
+            
+
         case 2:
-            profileButton.alpha     = deselectedAlpha
-            masterButton.alpha      = deselectedAlpha
-            calendarButton.alpha    = selectedAlpha
+            profileButton.alpha   = 0.7
+            masterButton.alpha    = 1.0
+            calendarButton.alpha  = 1.0
+            
+
         default:
-            profileButton.alpha     = deselectedAlpha
-            masterButton.alpha      = selectedAlpha
-            calendarButton.alpha    = deselectedAlpha
+            profileButton.alpha   = 1.0
+            masterButton.alpha    = 1.0
+            calendarButton.alpha  = 1.0
+            
+
         }
     }
     
-    func scrollToPage(sender: UIButton) {
-        pagingMenuController.moveToMenuPage(sender.tag, animated: true)
-    
+    @IBAction func scrollToPage(sender: UIButton) {
+            pagingMenuController.moveToMenuPage(sender.tag, animated: false)
     }
+    
+    
+    @IBAction func addEventPressed(sender: UIButton) {
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
+            let viewController = storyboard.instantiateViewControllerWithIdentifier("AddNav")
+            
+            self.presentViewController(viewController, animated: true, completion: nil)
+    }
+    
     
     func scrollViewDidScroll(xPosition : CGFloat) {
         
         print(xPosition)
-        
-
-        
-//        let leftAlpha = (383.0 - xPosition/2)/383
-//        mainButton.alpha = leftAlpha
-//        
-//        let rightAlpha = (xPosition+191)/383
-//        sortButton.alpha = rightAlpha
-//        
-//        
-        var titleRect = masterButton.frame
-        titleRect.origin.x = -xPosition/2 + view.frame.size.width/2 - titleRect.width/2
-        masterButton.frame = titleRect
-//
-//        var rightRect = sortButton.frame
-//        rightRect.origin.x = -xPosition/2 + view.frame.size.width - rightRect.width/2
-//        sortButton.frame = rightRect
     }
 }
-//
-//class MyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-//    
-//    var hidingNavBarManager: HidingNavigationBarManager?
-//    @IBOutlet weak var tableView: UITableView!
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tableView)
-//    }
-//    
-//    override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
-//        
-//        hidingNavBarManager?.viewWillAppear(animated)
-//    }
-//    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        
-//        hidingNavBarManager?.viewDidLayoutSubviews()
-//    }
-//    
-//    override func viewWillDisappear(animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        
-//        hidingNavBarManager?.viewWillDisappear(animated)
-//    }
-//    
-//    //// TableView datasoure and delegate
-//    
-//    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
-//        hidingNavBarManager?.shouldScrollToTop()
-//        
-//        return true
-//    }
-//    
-//    ...
-//}
+
+
+extension UIButton {
+    
+    //    This method sets an image and title for a UIButton and
+    //    repositions the titlePosition with respect to the button image.
+    //    Add additionalSpacing between the button image & title as required
+    //    For titlePosition, the function only respects UIViewContentModeTop, UIViewContentModeBottom, UIViewContentModeLeft and UIViewContentModeRight
+    //    All other titlePositions are ignored
+    @objc func set(image anImage: UIImage?, title: String!, titlePosition: UIViewContentMode, additionalSpacing: CGFloat, state: UIControlState){
+        self.imageView?.contentMode = .Center
+        self.setImage(anImage, forState: state)
+        
+        positionLabelRespectToImage(title!, position: titlePosition, spacing: additionalSpacing)
+        
+        self.titleLabel?.contentMode = .Center
+        self.setTitle(title, forState: state)
+        self.titleLabel?.font = UIFont(name: "Avenir Light", size: 11.0)
+        self.titleLabel?.layer.masksToBounds = false
+    }
+    
+    private func positionLabelRespectToImage(title: NSString, position: UIViewContentMode, spacing: CGFloat) {
+        let imageSize = self.imageRectForContentRect(self.frame)
+        let titleFont = UIFont(name: "Avenir Light", size: 11.0)
+        let titleSize = title.sizeWithAttributes([NSFontAttributeName: titleFont!])
+        
+        var titleInsets: UIEdgeInsets
+        var imageInsets: UIEdgeInsets
+        
+        switch (position){
+        case .Top:
+            titleInsets = UIEdgeInsets(top: -(imageSize.height + titleSize.height + spacing), left: -(imageSize.width), bottom: 0, right: 0)
+            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -titleSize.width)
+        case .Bottom:
+            titleInsets = UIEdgeInsets(top: (imageSize.height + titleSize.height + spacing), left: -(imageSize.width), bottom: 0, right: 0)
+            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -titleSize.width)
+        case .Left:
+            titleInsets = UIEdgeInsets(top: 0, left: -(imageSize.width * 2), bottom: 0, right: 0)
+            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -(titleSize.width * 2 + spacing))
+        case .Right:
+            titleInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -spacing)
+            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        default:
+            titleInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+        
+        self.titleEdgeInsets = titleInsets
+        self.imageEdgeInsets = imageInsets
+    }
+}

@@ -55,6 +55,8 @@ class CalendarViewController: UITableViewController {
         currentEvents = getDays()
         
         self.tableView.tableFooterView = UIView()
+        
+        tableView.reloadData()
 
 //        calendarView.calendarAppearanceDelegate = self
 //        calendarView.calendarDelegate = self
@@ -79,6 +81,10 @@ class CalendarViewController: UITableViewController {
 
         calendarView.commitCalendarViewUpdate()
         menuView.commitMenuViewUpdate()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+           tableView.reloadData()
     }
     //MARK: - Table View
     
@@ -188,7 +194,7 @@ class CalendarViewController: UITableViewController {
         currentDate = dayView.date.convertedDate()
         currentEvents.removeAllObjects()
         currentEvents = getDays()
-        tableView.reloadData()
+        animateTable(0.4)
         print("\(calendarView.presentedDate.commonDescription) is selected!")
     }
 }

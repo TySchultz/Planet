@@ -30,7 +30,6 @@ class IntroViewController: UIViewController {
     @IBAction func AddClassPressed(sender: UIButton) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
         let viewController = storyboard.instantiateViewControllerWithIdentifier("IntroAddClass") as! IntroAddClassViewController //Uses the view created in the sotryboard so we have autolayout
-        viewController.parent = self
         
         self.presentViewController(viewController, animated: true) { () -> Void in
             

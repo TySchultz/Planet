@@ -28,7 +28,7 @@ class AddEventViewController: UITableViewController {
     @IBOutlet weak var classStack: UIStackView!
     @IBOutlet weak var typeStack: UIStackView!
     
-    @IBOutlet weak var createButton: PLButton!
+    @IBOutlet weak var createButton: UIButton!
     //Calendar
     @IBOutlet weak var calendarView: CVCalendarView!
     @IBOutlet weak var menuView: CVCalendarMenuView!

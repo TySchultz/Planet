@@ -24,10 +24,11 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
     
     @IBOutlet weak var classTimeField: UITextField!
     @IBOutlet weak var classNameField: UITextField!
-    var parent : IntroViewController!
 
-    @IBOutlet weak var oldButton: PLButton!
+    @IBOutlet weak var oldButton: UIButton!
     
+    
+    var delegate : ClassesTableViewController?
     var hour :Int  = 0
     
     var minute :Int = 0
@@ -186,6 +187,7 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
                         //Hides this view. When it hides at the completion call the add class method
                         self.dismissViewControllerAnimated(true) { () -> Void in
                             //                    self.parent.addClass(self.classNameField.text!, color: self.oldButton.backgroundColor!)
+                            self.delegate?.animateTable(0.5)
                         }
                     }else{
                         classNameHDR.text = "Already used class name"
@@ -262,7 +264,7 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
         }
     }
     
-    @IBAction func colorButtonPressed(sender: PLButton) {
+    @IBAction func colorButtonPressed(sender: UIButton) {
         if !(oldButton != nil) {
             oldButton = sender
         }else{

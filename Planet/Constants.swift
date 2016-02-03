@@ -17,3 +17,6 @@ let PLOrange    = UIColor(red:1, green:0.56, blue:0.2, alpha:1)
 let PLBlue      = UIColor(red:0, green:0.68, blue:1, alpha:1)
 let PLLIGHTBLUE = UIColor(red:0.77, green:0.91, blue:1, alpha:1)
 let PLDARKBLUE  = UIColor(red:0.18, green:0.45, blue:0.64, alpha:1)
+
+
+let HEADERHEIGHT :CGFloat = 45.0

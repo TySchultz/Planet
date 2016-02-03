@@ -17,24 +17,21 @@ class MasterViewController: UITableViewController {
     @IBOutlet weak var header: UIView!
     var navImage  :UIImageView!
 
-    @IBOutlet weak var typeStack: UIStackView!
-    @IBOutlet weak var coursesStack: UIStackView!
-    
-    @IBOutlet weak var todaysCirclesStack: UIStackView!
-    @IBOutlet weak var todaysEventsStack: UIStackView!
-    
+    var sorting  :Bool = false
+
+
     
     var currentTypeStackIndex   = 0
     var currentCourseStackIndex = 0
     var numberOfSelections = 0
     
     
+    @IBOutlet weak var coursesStack: UIStackView!
+    @IBOutlet weak var typeStack: UIStackView!
+    
     var delegate : OverheadViewController!
 
     
-    
-    @IBOutlet weak var todayDate: UILabel!
-    @IBOutlet weak var todayLabel: UILabel!
     
     @IBOutlet weak var navScrollView: UIScrollView!
     @IBOutlet weak var navBarView: UIView!
@@ -47,7 +44,7 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        self.tableView.bringSubviewToFront(header)
         self.navigationController?.navigationBar.hidden = false
     
         
@@ -67,7 +64,6 @@ class MasterViewController: UITableViewController {
         
         
         currentEvents = getDays()
-        self.tableView.reloadData()
         setup()
 
     }
@@ -76,132 +72,41 @@ class MasterViewController: UITableViewController {
     
     func setup () {
         
-        let realm = try? Realm()
-        
-        print(NSDate().beginningOfDay)
-        
-        
-        let e = NSDate().day
-        var dateSuffix = ""
-        switch e {
-        case 0:
-            dateSuffix = ""
-        case 1,21,31:
-            dateSuffix = "st"
-        case 2,22:
-            dateSuffix = "nd"
-        case 3,23:
-            dateSuffix = "rd"
-        case 4..<21,24..<31:
-            dateSuffix = "th"
-        default:
-            return
-        }
-        
-
-        todayLabel.text = NSDate().toString(format: DateFormat.Custom("EEEE"))
-        todayDate.text = NSDate().toString(format: DateFormat.Custom("d"))
-        
-        let days = realm!.objects(Event).filter("date == %@", NSDate().beginningOfDay).sorted("date")
-
-        let headerheight = 128 + CGFloat(days.count * 25)
-        header.frame = CGRectMake(0, 0, view.frame.size.width, headerheight)
-
-        let todayEvents : NSMutableArray = []
-        
-        for day in days {
-            todayEvents.addObject(day)
-        }
-        
-        for subv in todaysEventsStack.arrangedSubviews {
-            subv.removeFromSuperview()
-        }
-        
-        for subv in todaysCirclesStack.arrangedSubviews {
-            subv.removeFromSuperview()
-        }
-        
-        
-        let sortedDays = todayEvents.sortedArrayUsingComparator {
-            (obj1, obj2) -> NSComparisonResult in
-            
-            let p1 = obj1 as! Event
-            let p2 = obj2 as! Event
-            let result = p1.course.name.compare(p2.course.name)
-            return result
-        }
-        if sortedDays.count == 0 {
-            
-            let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
-            label.text = "No events for today (:"
-            label.font = UIFont(name: "Avenir Book", size: 18.0)
-            label.heightAnchor.constraintEqualToConstant(20).active = true
-            todaysEventsStack.addArrangedSubview(label)
-            
-            let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
-            circle.layer.cornerRadius = 4
-            circle.backgroundColor =  UIColor.clearColor()
-            circle.layer.masksToBounds = true
-            circle.heightAnchor.constraintEqualToConstant(20).active = true
-            circle.widthAnchor.constraintEqualToConstant(8).active = true
-            todaysCirclesStack.addArrangedSubview(circle)
-
-        }else{
-            for event in sortedDays {
-                if let event = event as? Event {
-                    
-                    let label = UILabel(frame: CGRectMake(0, 0, 50, 20))
-                    label.text = "\(event.type) - \(event.course.name)"
-                    label.font = UIFont(name: "Avenir Book", size: 18.0)
-                    label.heightAnchor.constraintEqualToConstant(20).active = true
-                    todaysEventsStack.addArrangedSubview(label)
-                    
-                    let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
-                    circle.layer.cornerRadius = 4
-                    circle.backgroundColor =  Course().colorForType(ColorType(rawValue: event.course.color)!)
-                    circle.layer.masksToBounds = true
-                    circle.heightAnchor.constraintEqualToConstant(20).active = true
-                    circle.widthAnchor.constraintEqualToConstant(8).active = true
-                    todaysCirclesStack.addArrangedSubview(circle)
-                }
-            }
-        }
-        
+        coursesStack.alpha = 0.0
         
         self.tableView.tableFooterView = UIView()
         
-//        currentTypeStackIndex = 0
-//        currentCourseStackIndex = 0
-//        
+        currentTypeStackIndex = 0
+        currentCourseStackIndex = 0
+        
 //        clearOutStackView(typeStack)
-//        clearOutStackView(coursesStack)
+        clearOutStackView(coursesStack)
 //        clearOutStackView(navStackView)
-//        
-//        let realme = try? Realm()
-//        
+        
+        let realme = try? Realm()
+        
 //        typeStack.tag = 1
-//        coursesStack.tag = 0
-//        
-//        let allCourses = realme!.objects(Course)
-//        for course in allCourses  {
-//            addButtonToStack(course.name, color:course.color, stackView: 	coursesStack)
-//        }
-//        
+        coursesStack.tag = 0
+        
+        let allCourses = realme!.objects(Course)
+        for course in allCourses  {
+            addButtonToStack(course.name, color:course.color, stackView: 	coursesStack)
+        }
+        
 //        for type in types {
 //            addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
 //        }
-//        
-//        print(self.coursesStack.arrangedSubviews.count * 32)
-//        print(self.typeStack.arrangedSubviews.count * 32)
-//        let height :CGFloat = (CGFloat(self.coursesStack.arrangedSubviews.count) * 32) + (CGFloat(self.typeStack.arrangedSubviews.count) * 32) + 48.0
-//        header.frame = CGRectMake(0, 0, view.frame.size.width, 100 + height)
 
+        
+        header.frame = CGRectMake(0, 0, view.frame.size.width, HEADERHEIGHT)
+        tableView.reloadData()
+        self.tableView.reloadData()
         //currentEvents = []
     }
     
     func getDays() -> NSMutableArray{
         let realme = try? Realm()
-        let days = realme!.objects(Event).filter("date >= %@", NSDate().endOfDay).sorted("date")
+        let days = realme!.objects(Event).filter("date >= %@", NSDate().beginningOfDay).sorted("date")
         
         let allDays    :NSMutableArray = []
         let singleCell :NSMutableArray = []
@@ -242,7 +147,7 @@ class MasterViewController: UITableViewController {
     //MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -252,13 +157,20 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> DayCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DayCell", forIndexPath: indexPath) as! DayCell
 
+        
+
         let singleDay = currentEvents![indexPath.row] as! NSMutableArray
         let firstObject = singleDay.firstObject as! Event
         
         let dateDay = firstObject.date.toString(format: DateFormat.Custom("EEEE"))
         
         cell.dayTitle.text  = "\(dateDay)"
-        cell.dayNumber.text = "\(firstObject.date.day)"
+        
+        if  1...9 ~= firstObject.date.day {
+            cell.dayNumber.text = "0\(firstObject.date.day)"
+        }else{
+            cell.dayNumber.text = "\(firstObject.date.day)"
+        }
         
         for subv in cell.eventStack.arrangedSubviews {
             subv.removeFromSuperview()
@@ -294,8 +206,22 @@ class MasterViewController: UITableViewController {
             }
         }
         
-        cell.numberOfObjects.text = "\(sortedDays.count) events"
         
+        //Calculate days in advance 
+        let today = NSDate()
+        if today.month == firstObject.date.month {
+            //If today
+            if firstObject.date.day == today.day {
+                cell.numberOfObjects.text = "today"
+                cell.dayNumber.textColor = PLBlue
+            }else{
+                cell.numberOfObjects.text = "\(firstObject.date.day-today.day) days"
+                cell.dayNumber.textColor = UIColor.lightGrayColor()
+            }
+        }else{
+            cell.numberOfObjects.text = "\(firstObject.date.month-today.month) months"
+
+        }
         return cell
     }
     
@@ -335,21 +261,21 @@ class MasterViewController: UITableViewController {
     func filterType() -> String{
         var typeString = ""
         
-        for item in typeStack.arrangedSubviews {
-            if let stack = item as? UIStackView{
-                for i in stack.arrangedSubviews {
-                    if let button = i as? UIButton where button.alpha == 1.0 {
-                        var tmpString = ""
-                        if typeString == "" {
-                            tmpString = "type = " + "'" + (button.titleLabel?.text)! + "'"
-                        }else{
-                            tmpString = " OR type = " + "'" + (button.titleLabel?.text)! + "'"
-                        }
-                        typeString.appendContentsOf(tmpString)
-                    }
-                }
-            }
-        }
+//        for item in typeStack.arrangedSubviews {
+//            if let stack = item as? UIStackView{
+//                for i in stack.arrangedSubviews {
+//                    if let button = i as? UIButton where button.alpha == 1.0 {
+//                        var tmpString = ""
+//                        if typeString == "" {
+//                            tmpString = "type = " + "'" + (button.titleLabel?.text)! + "'"
+//                        }else{
+//                            tmpString = " OR type = " + "'" + (button.titleLabel?.text)! + "'"
+//                        }
+//                        typeString.appendContentsOf(tmpString)
+//                    }
+//                }
+//            }
+//        }
         
         return  typeString
     }
@@ -435,17 +361,17 @@ class MasterViewController: UITableViewController {
     
     
     func removeFromStacks (sender : UIButton){
-        for  stack in typeStack.arrangedSubviews as! [UIStackView] {
-            for button in stack.arrangedSubviews as! [UIButton] {
-                if button.titleLabel?.text == sender.titleLabel?.text{
-                    UIView.animateWithDuration(0.2, animations: { () -> Void in
-                        button.alpha = 0.3
-                        button.tag = 0
-                    })
-                    break
-                }
-            }
-        }
+//        for  stack in typeStack.arrangedSubviews as! [UIStackView] {
+//            for button in stack.arrangedSubviews as! [UIButton] {
+//                if button.titleLabel?.text == sender.titleLabel?.text{
+//                    UIView.animateWithDuration(0.2, animations: { () -> Void in
+//                        button.alpha = 0.3
+//                        button.tag = 0
+//                    })
+//                    break
+//                }
+//            }
+//        }
         
         for stack in coursesStack.arrangedSubviews as! [UIStackView] {
             for button in stack.arrangedSubviews as! [UIButton] {
@@ -458,17 +384,17 @@ class MasterViewController: UITableViewController {
                 }
             }
         }
-        for button in navStackView.arrangedSubviews as! [UIButton] {
-            if button.titleLabel?.text == sender.titleLabel?.text{
-                UIView.animateWithDuration(0.2, animations: { () -> Void in
-                    button.hidden = true
-                    }, completion: { (Bool) -> Void in
-                        button.removeFromSuperview()
-                })
-                break
-            }
-            
-        }
+//        for button in navStackView.arrangedSubviews as! [UIButton] {
+//            if button.titleLabel?.text == sender.titleLabel?.text{
+//                UIView.animateWithDuration(0.2, animations: { () -> Void in
+//                    button.hidden = true
+//                    }, completion: { (Bool) -> Void in
+//                        button.removeFromSuperview()
+//                })
+//                break
+//            }
+//            
+//        }
     }
     
     func validAddToStack(stack : UIStackView, let stackNumber : Int) -> Bool {
@@ -529,7 +455,7 @@ class MasterViewController: UITableViewController {
     
     func createButton(title : String) -> UIButton{
         let height :CGFloat = 40.0
-        let label = PLButton(frame: CGRectMake(0, 0, 100, height))
+        let label = UIButton(frame: CGRectMake(0, 0, 100, height))
         label.setTitle(title, forState: UIControlState.Normal)
         label.titleLabel?.font = UIFont(name: "Avenir Book", size: 15)
         label.backgroundColor = PLBlue
@@ -550,13 +476,29 @@ class MasterViewController: UITableViewController {
     }
     
     
+    @IBAction func showSort(sender: UIButton) {
+        
+        
+        self.hideSection(0)
+//            if !self.sorting {
+//                self.header.frame = CGRectMake(0, 0, self.view.frame.width, 200)
+//                self.sorting = true
+//                
+//            }else{
+//                self.header.frame = CGRectMake(0, 0, self.view.frame.width, 45)
+//                self.coursesStack.alpha = 0.0
+//                self.sorting = false
+//                self.animateTable(0.5)
+//            }
+    }
+    
     func buttonPressed(sender : UIButton){
         
         
         //button in header is tapped and not selected
         if sender.tag == 0 {
             numberOfSelections++ 
-            navImage.alpha = 0.0
+//            navImage.alpha = 0.0
             sender.alpha = 1.0
             sender.tag = 1
             
@@ -569,10 +511,10 @@ class MasterViewController: UITableViewController {
             newButton.frame = CGRectMake(0, 0, 100, 24.0)
             newButton.layer.cornerRadius = newButton.frame.size.height/2
 
-            self.navStackView.addArrangedSubview(newButton)
+//            self.navStackView.addArrangedSubview(newButton)
             
-            let size = navScrollView.contentSize
-            navScrollView.contentSize = CGSizeMake(size.width+newButton.frame.size.width+8, 30)
+//            let size = navScrollView.contentSize
+//            navScrollView.contentSize = CGSizeMake(size.width+newButton.frame.size.width+8, 30)
             
             UIView.animateWithDuration(0.2, animations: { () -> Void in
                 newButton.hidden = false
@@ -589,26 +531,26 @@ class MasterViewController: UITableViewController {
                 }, completion: { (Bool) -> Void in
                     //                    sender.removeFromSuperview()
                     self.removeFromStacks(sender)
-                    if self.navStackView.arrangedSubviews.count == 1 { self.navImage.alpha = 1.0 }
+//                    if self.navStackView.arrangedSubviews.count == 1 { self.navImage.alpha = 1.0 }
                     
             })
 
         }
-        //button in navigation bar is tapped
-        else if sender.tag == 2 {
-            numberOfSelections--
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
-                sender.hidden = true
-                self.removeFromStacks(sender)
-                
-                }, completion: { (Bool) -> Void in
-                    sender.removeFromSuperview()
-                    print(self.navStackView.arrangedSubviews.count)
-                    if self.navStackView.arrangedSubviews.count < 1 { self.navImage.alpha = 1.0 }
-            })
-            
-
-        }
+//        //button in navigation bar is tapped
+//        else if sender.tag == 2 {
+//            numberOfSelections--
+//            UIView.animateWithDuration(0.2, animations: { () -> Void in
+//                sender.hidden = true
+//                self.removeFromStacks(sender)
+//                
+//                }, completion: { (Bool) -> Void in
+//                    sender.removeFromSuperview()
+//                    print(self.navStackView.arrangedSubviews.count)
+//                    if self.navStackView.arrangedSubviews.count < 1 { self.navImage.alpha = 1.0 }
+//            })
+//            
+//
+//        }
         if numberOfSelections == 0 {
             currentEvents = getDays()
             tableView.reloadData()
@@ -640,19 +582,90 @@ class MasterViewController: UITableViewController {
 
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-//        let yPosition = scrollView.contentOffset.y
-//        
-//        var headerFrame = headerBackground.frame
-//        headerFrame.origin.y = yPosition + 60
-//
-//        print(yPosition)
-//
-//        if yPosition < 0 {
-//            headerFrame.size.height = 300 - yPosition
-//        }
-//        
-//        headerBackground.frame = headerFrame
+        let yPosition = scrollView.contentOffset.y
+        
+        if yPosition < 0 {
+            var headerFrame = header.frame
+            headerFrame.origin.y = yPosition
+
+            print(yPosition)
+            header.frame = headerFrame
+        }
+    }
+}
+
+extension UITableViewController {
+    
+    func animateTable(duration : Double) {
+        tableView.reloadData()
+        
+        let cells = tableView.visibleCells
+        let tableHeight: CGFloat = tableView.bounds.size.height
+        
+        for i in cells {
+            let cell: UITableViewCell = i as UITableViewCell
+            cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
+        }
+        
+        var index = 0
+        
+        for a in cells {
+            let cell: UITableViewCell = a as UITableViewCell
+            UIView.animateWithDuration(duration, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                cell.transform = CGAffineTransformMakeTranslation(0, 0);
+                }, completion: nil)
+            
+            index += 1
+        }
 
     }
+    
+    func hideSection(section : Int) {
+//        tableView.reloadData()
+//
+//        let cells = tableView.visibleCells
+//        let tableHeight: CGFloat = tableView.bounds.size.height
+//        
+//        for i in cells {
+//            let cell: UITableViewCell = i as UITableViewCell
+//            
+//            cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
+//        }
+//        
+//        var index = 0
+//        
+//        for a in cells {
+//            let cell: UITableViewCell = a as UITableViewCell
+//            UIView.animateWithDuration(duration, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+//                cell.transform = CGAffineTransformMakeTranslation(0, 0);
+//                }, completion: nil)
+//            
+//            index += 1
+//        }
+        
+        var e :[NSIndexPath] = []
+        for index in 0...self.tableView.numberOfRowsInSection(section) {
+            e.append(NSIndexPath(forRow: index, inSection: section))
+        }
+        
+        self.tableView.reloadRowsAtIndexPaths(e, withRowAnimation: UITableViewRowAnimation.Bottom)
+
+        
+    }
+
+    
+    
+    func expandHeader(height : CGFloat) {
+        tableView.reloadData()
+        
+        let cells = tableView.visibleCells
+        
+        for i in cells {
+            let cell: UITableViewCell = i as UITableViewCell
+            cell.transform = CGAffineTransformMakeTranslation(0, 0)
+        }
+        
+    }
+
 }
 

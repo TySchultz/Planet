@@ -10,7 +10,7 @@ import UIKit
 
 class SuccessAnimationView: UIView {
 
-    let BACKGROUNDCOLOR = PLDARKBLUE
+    let BACKGROUNDCOLOR = PLBlue
     let ANIMATIONTIME = 0.2
     let ALPHA :CGFloat = 0.9
     
@@ -96,7 +96,7 @@ class SuccessAnimationView: UIView {
     }
     
     func createLines () {
-        let LINECOLOR = PLLIGHTBLUE
+        let LINECOLOR = PLLightBlue
         let STARTSIZE : CGFloat = 1.0
         let RIGHTX : CGFloat = box!.frame.size.width
         let BOTTOMY : CGFloat = box!.frame.size.height
@@ -151,7 +151,7 @@ class SuccessAnimationView: UIView {
     }
     
     func animateBars(){
-        let BARCOLOR = PLLIGHTBLUE
+        let BARCOLOR = PLLightBlue
         let HEIGHT :CGFloat = 100
         let WIDTH :CGFloat = box!.frame.size.width
         let RIGHTX : CGFloat = box!.frame.size.width

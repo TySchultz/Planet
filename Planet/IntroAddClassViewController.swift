@@ -7,26 +7,22 @@
 //
 
 import UIKit
-import AKPickerView_Swift
 
 import RealmSwift
-import ReachabilitySwift
+import Crashlytics
+class IntroAddClassViewController: UITableViewController, UITextViewDelegate{
 
-class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPickerViewDelegate, AKPickerViewDataSource{
+    @IBOutlet weak var header: UIView!
 
-    @IBOutlet weak var colorScrollView: UIScrollView!
-
-    @IBOutlet weak var hourPicker: AKPickerView!
-    @IBOutlet weak var minutePicker: AKPickerView!
-
-    @IBOutlet weak var classNameHDR: UILabel!
-    @IBOutlet weak var buttonStack: UIStackView!
-    
-    @IBOutlet weak var classTimeField: UITextField!
     @IBOutlet weak var classNameField: UITextField!
 
-    @IBOutlet weak var oldButton: UIButton!
+    @IBOutlet weak var createClassButton: UIButton!
     
+    @IBOutlet weak var topColorStack: UIStackView!
+    @IBOutlet weak var bottomColorStack: UIStackView!
+    
+    @IBOutlet weak var classNameLBL: UILabel!
+    var currentColor : Int = 0
     
     var delegate : ClassesTableViewController?
     var hour :Int  = 0
@@ -38,172 +34,148 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
         
         classNameField.becomeFirstResponder() //Shows keyboard when view opens. Automaticallly makes this textfield selected
 
-        //I set the tags just so i can tell which is which when the datasource methods are called.
-        //tag doesnt do anything really
-        hourPicker.tag = 1
-        minutePicker.tag = 2
-        
-        //Datasource means this class provides data. so the number of itesms in pickerview and pickerview title for item
-        configurePickerView(minutePicker)
-        configurePickerView(hourPicker)
-        
-        hourPicker.selectItem(12)
-        minutePicker.selectItem(6)
-        
-        addButtonsToStack()
+        createClassButton.layer.cornerRadius = 16.0
+        createClassButton.layer.borderWidth = 1.0
+        createClassButton.layer.borderColor = PLBlue.CGColor
         
         
-        colorScrollView.contentSize = CGSizeMake(800, 50)
-        
-        let reachability: Reachability
-        do {
-            reachability = try Reachability.reachabilityForInternetConnection()
-        } catch {
-            print("Unable to create Reachability")
-            return
+        var index = 0
+        for button in topColorStack.arrangedSubviews as! [UIButton] {
+                setupButton(button, index: index)
+                index++
+        }
+        for button in bottomColorStack.arrangedSubviews as! [UIButton] {
+                setupButton(button, index: index)
+                index++
         }
         
-        
-        reachability.whenReachable = { reachability in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
-            dispatch_async(dispatch_get_main_queue()) {
-                if reachability.isReachableViaWiFi() {
-                    print("Reachable via WiFi")
-                } else {
-                    print("Reachable via Cellular")
-                }
-            }
-        }
-        reachability.whenUnreachable = { reachability in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
-            dispatch_async(dispatch_get_main_queue()) {
-                print("Not reachable")
-                var alert = UIAlertController(title: "Internet not available", message: "Please find internet", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-        }
-        
-        do {
-            try reachability.startNotifier()
-        } catch {
-            print("Unable to start notifier")
-        }
-
+        header.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 500.0)
     }
     
-    
-    func configurePickerView( picker :AKPickerView){
-        //Datasource means this class provides data. so the number of itesms in pickerview and pickerview title for item
-        picker.delegate = self
-        picker.dataSource = self
-
-        picker.interitemSpacing = 10.0
-        picker.highlightedTextColor = UIColor.blackColor()
-        picker.textColor = UIColor.lightGrayColor()
-        picker.font = UIFont(name: "Avenir Book", size: 18)!
-        picker.highlightedFont = UIFont(name: "Avenir Book", size: 18)!
-
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
-    @IBOutlet weak var closeView: UIButton!
     
-    func typeForColor(color : UIColor) -> ColorType {
-        switch color{
-        case PLBlue:
-            return .PLCOLOR_BLUE
-        case PLGreen:
-            return .PLCOLOR_GREEN
-        case PLPurple:
-            return .PLCOLOR_PURPLE
-        case PLGray:
-            return .PLCOLOR_GRAY
-        case PLBlack:
-            return .PLCOLOR_BLACK
-        case PLOrange:
-            return .PLCOLOR_ORANGE
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 0
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 0
+    }
+    
+    func setupButton (button : UIButton, index : Int){
+        button.layer.cornerRadius = 4.0
+        button.layer.masksToBounds = true
+        button.backgroundColor = buttonColor(index)
+        button.tag = index
+    }
+    
+    func buttonColor(index : Int) -> UIColor {
+        switch index{
+        case 0:
+            return PLOrange
+        case 1:
+            return PLLightGreen
+        case 2:
+            return PLGray
+        case 3:
+            return PLRed
+        case 4:
+            return PLLightBlue
+        case 5:
+            return PLBlue
+        case 6:
+            return PLGreen
+        case 7:
+            return PLPurple
         default:
-            return .PLCOLOR_BLUE
+            return PLBlue
         }
     }
+    
+//    /**
+//     Returns the UIColor corresponding to the colorType
+//     
+//     - parameter type: the type of color ColorType
+//     
+//     - returns: the UIColor
+//     */
+//    func colorForType(type : Int) -> UIColor {
+//        switch type{
+//        case 0:
+//            return PLBlue
+//        case 1:
+//            return PLGreen
+//        case 2:
+//            return PLPurple
+//        case 3:
+//            return PLGray
+//        case 4:
+//            return PLRed
+//        case 5:
+//            return PLOrange
+//        case 6:
+//            return PLYellow
+//        case 7:
+//            return PLLightBlue
+//        case default:
+//            return PLBlue
+//        }
+//    }
+
 
     @IBAction func submitClass(sender: UIButton) {
         //Checks to see if we have a color selected
-        let reachability: Reachability
-        do {
-            reachability = try Reachability.reachabilityForInternetConnection()
-           
-        } catch {
-            print("Unable to create Reachability")
+        
+        if self.classNameField.text == "" {
+            classNameLBL.text = "Class name - One of these might help you out?"
+            classNameLBL.textColor = PLOrange
             return
-            
         }
         
-        if reachability.isReachable() {
-            
-                if !(oldButton != nil){
-                    UIView.animateWithDuration(0.2, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse], animations: { () -> Void in
-                        self.colorScrollView.backgroundColor = UIColor.redColor()
-                        
-                        }, completion: { (Bool) -> Void in
-                            self.colorScrollView.backgroundColor = UIColor.clearColor()
-                    })
-                    
-                }else{
-                    //Creates a new course
-                    let newCourse = Course()
-                    newCourse.name = self.classNameField.text!
-                    newCourse.serverID = self.classNameField.text!
-                    let color = typeForColor(oldButton.backgroundColor!)
-                    newCourse.color = color.rawValue
-                    
-                    let realme = try? Realm()
-                    
-                    var alreadyCreated = false
-                    
-                    //Gets all the courses from our local database
-                    //loops through and checks for a used name
-                    let allCourses = realme!.objects(Course)
-                    for singleCourse in allCourses where singleCourse.name == self.classNameField.text!{
-                        alreadyCreated = true
-                    }
-                    
-                    if !alreadyCreated {
-                        classNameField.resignFirstResponder() //Hides Keyboard
-                        
-                        //Creates the new course object and add it to our database.
-                        realme!.write({ () -> Void in
-                            realme!.add(newCourse)
-                        })
-                        
-                        //Hides this view. When it hides at the completion call the add class method
-                        self.dismissViewControllerAnimated(true) { () -> Void in
-                            //                    self.parent.addClass(self.classNameField.text!, color: self.oldButton.backgroundColor!)
-                            self.delegate?.animateTable(0.5)
-                        }
-                    }else{
-                        classNameHDR.text = "Already used class name"
-                        classNameHDR.textColor = UIColor.redColor()
-                        animateErrorTextField()
-                    }
-                }
-
-        }else {
-            var alert = UIAlertController(title: "Internet not available", message: "Please find internet", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-
+        let newCourse = Course()
+        newCourse.name = self.classNameField.text!
+        newCourse.serverID = self.classNameField.text!
+        newCourse.color = currentColor
+    
+        let realme = try? Realm()
+        
+        var alreadyCreated = false
+        
+        //Gets all the courses from our local database
+        //loops through and checks for a used name
+        let allCourses = realme!.objects(Course)
+        for singleCourse in allCourses where singleCourse.name == self.classNameField.text!{
+            alreadyCreated = true
         }
         
-       
+        if !alreadyCreated {
+            classNameField.resignFirstResponder() //Hides Keyboard
+            
+            //Creates the new course object and add it to our database.
+            realme!.write({ () -> Void in
+                realme!.add(newCourse)
+            })
+            self.delegate?.hideEmptyTable()
+            //Hides this view. When it hides at the completion call the add class method
+            self.dismissViewControllerAnimated(true) { () -> Void in
+                //                    self.parent.addClass(self.classNameField.text!, color: self.oldButton.backgroundColor!)
+//                    self.delegate?.animateTable(0.5)
+                self.delegate?.delegate.setupSort()
+                Answers.logContentViewWithName("Add Course", contentType: "", contentId: "", customAttributes: ["color":self.currentColor, "name":self.classNameField.text!])
+            }
+        }else{
+            classNameLBL.text = "Class name - Have you used that already?"
+            classNameLBL.textColor = PLOrange
+            return
+        }
+//        }
     }
     
     func animateErrorTextField(){
@@ -220,56 +192,13 @@ class IntroAddClassViewController: UIViewController, UITextViewDelegate, AKPicke
         self.dismissViewControllerAnimated(true, completion: nil) //hide the viewController
     }
     
-    func addButtonsToStack(){
-        let colors = [PLBlack, PLBlue, PLGray, PLGreen, PLOrange, PLPurple]
-        for var i = 0; i < 10; i++ {
-            let button = UIButton(frame: CGRectMake(0, 0, 42, 42))
-            button.backgroundColor = colors[i%colors.count]
-            button.heightAnchor.constraintEqualToConstant(42).active = true
-            button.widthAnchor.constraintEqualToConstant(42).active = true
-            button.layer.cornerRadius = 21
-            button.addTarget(self, action: "colorButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            buttonStack.addArrangedSubview(button)
-        }
-    }
-    
-    
-    func numberOfItemsInPickerView(pickerView: AKPickerView) -> Int {
-        
-        if pickerView.tag == 1 {
-            return 24
-        }else{
-            return 12
-        }
-    }
-   
-   
-    func pickerView(pickerView: AKPickerView, var titleForItem item: Int) -> String {
-        if pickerView.tag == 1 {
-            if item > 11 {
-                item = item - 12
-            }
-            return "\(item+1)"
-        }else{
-            return "\(item*5)"
-        }
-    }
-
-    //When the picker view changes
-    func pickerView(pickerView: AKPickerView, didSelectItem item: Int) {
-        if pickerView.tag == 1 {
-            hour = item
-        }else{
-            minute = item
-        }
-    }
-    
     @IBAction func colorButtonPressed(sender: UIButton) {
-        if !(oldButton != nil) {
-            oldButton = sender
-        }else{
-            oldButton.setTitle(" ", forState: UIControlState.Normal)
-            oldButton = sender
+        self.currentColor = sender.tag
+        for button in topColorStack.arrangedSubviews as! [UIButton] {
+            button.setTitle("", forState: UIControlState.Normal)
+        }
+        for button in bottomColorStack.arrangedSubviews as! [UIButton] {
+            button.setTitle("", forState: UIControlState.Normal)
         }
         sender.setTitle("✓", forState: UIControlState.Normal)
     }

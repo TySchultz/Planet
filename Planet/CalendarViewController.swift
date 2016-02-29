@@ -57,15 +57,13 @@ class CalendarViewController: UITableViewController {
         self.tableView.tableFooterView = UIView()
         
         tableView.reloadData()
-
-//        calendarView.calendarAppearanceDelegate = self
-//        calendarView.calendarDelegate = self
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        
+        if currentEvents.count == 0 {
+            showEmptyTable()
+        }else{
+            hideEmptyTable()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,7 +82,8 @@ class CalendarViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-           tableView.reloadData()
+        currentEvents = getDays()
+        self.tableView.reloadData()
     }
     //MARK: - Table View
     
@@ -133,7 +132,7 @@ class CalendarViewController: UITableViewController {
                 
                 let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
                 circle.layer.cornerRadius = 4
-                circle.backgroundColor =  Course().colorForType(ColorType(rawValue: event.course.color)!)
+                circle.backgroundColor =  Course().colorForType(event.course.color)
                 circle.layer.masksToBounds = true
                 circle.heightAnchor.constraintEqualToConstant(20).active = true
                 circle.widthAnchor.constraintEqualToConstant(8).active = true
@@ -160,18 +159,20 @@ class CalendarViewController: UITableViewController {
             var currentIndex = 0
             
             for day in days  {
-                // if same date then add to current array
-                let array = allDays[currentIndex] as! NSMutableArray
-                let firstObject = array.firstObject as! Event
-                if checkForSameDate(firstObject.date, secondDate: day.date){
-                    allDays[currentIndex].addObject(day)
-                }
-                    //If not then create new array and add to that array
-                else{
-                    let newCell :NSMutableArray = []
-                    newCell.addObject(day)
-                    allDays.addObject(newCell)
-                    currentIndex++
+                if day != first {
+                    // if same date then add to current array
+                    let array = allDays[currentIndex] as! NSMutableArray
+                    let firstObject = array.firstObject as! Event
+                    if checkForSameDate(firstObject.date, secondDate: day.date){
+                        allDays[currentIndex].addObject(day)
+                    }
+                        //If not then create new array and add to that array
+                    else{
+                        let newCell :NSMutableArray = []
+                        newCell.addObject(day)
+                        allDays.addObject(newCell)
+                        currentIndex++
+                    }
                 }
             }
         }
@@ -194,8 +195,57 @@ class CalendarViewController: UITableViewController {
         currentDate = dayView.date.convertedDate()
         currentEvents.removeAllObjects()
         currentEvents = getDays()
-        animateTable(0.4)
+        self.tableView.reloadData()
+//        animateTable(0.4)
         print("\(calendarView.presentedDate.commonDescription) is selected!")
+    }
+    
+    
+    var emptyImage : UIImageView!
+    var emptyTitle : UILabel!
+    var emptySubTitle : UILabel!
+    
+    func showEmptyTable(){
+        
+        emptyImage = UIImageView(image: UIImage(named: "calEmpty"))
+        emptyImage.contentMode = .Center
+        emptyImage.transform = CGAffineTransformMakeScale(0.5, 0.5)
+        
+        emptyTitle = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
+        emptyTitle.text = "Here's a Medal"
+        emptyTitle.font = UIFont(name: "Avenir Book", size: 22)
+        emptyTitle.textColor = UIColor.lightGrayColor()
+        emptyTitle.textAlignment = NSTextAlignment.Center
+        self.tableView.addSubview(emptyTitle)
+        
+        emptySubTitle = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
+        emptySubTitle.text = "Your calendar is empty (:"
+        emptySubTitle.font = UIFont(name: "Avenir Book", size: 17)
+        emptySubTitle.textColor = UIColor.lightGrayColor()
+        emptySubTitle.textAlignment = NSTextAlignment.Center
+        emptySubTitle.numberOfLines = 0
+        emptySubTitle.widthAnchor.constraintEqualToConstant(self.view.frame.width-40).active = true
+        self.tableView.addSubview(emptySubTitle)
+        
+        
+        self.tableView.addSubview(emptyImage)
+        emptyImage.center = CGPointMake(self.tableView.center.x, self.tableView.center.y+80)
+        emptyTitle.frame = CGRectMake(0, emptyImage.frame.origin.y+emptyImage.frame.height, self.view.frame.width, 30)
+        emptySubTitle.frame = CGRectMake(0, emptyTitle.frame.origin.y+emptyTitle.frame.height, self.view.frame.width, 30)
+    }
+    
+    func hideEmptyTable() {
+        if (emptyImage != nil) {
+            emptyImage.removeFromSuperview()
+        }
+        
+        if (emptyTitle != nil) {
+            emptyTitle.removeFromSuperview()
+        }
+        
+        if (emptySubTitle != nil) {
+            emptySubTitle.removeFromSuperview()
+        }
     }
 }
 

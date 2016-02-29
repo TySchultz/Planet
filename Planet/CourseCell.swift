@@ -15,10 +15,15 @@ class CourseCell: UITableViewCell {
     @IBOutlet weak var colorSquare: UIView!
     @IBOutlet weak var deleteButton: UIButton!
     
+    @IBOutlet weak var deleteWidth: NSLayoutConstraint!
+    @IBOutlet weak var colorSquareWidth: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        
+        deleteButton.layer.cornerRadius = 4.0
+        deleteButton.backgroundColor = PLRed
         colorSquare.layer.cornerRadius = 4.0
         // Initialization code
     }

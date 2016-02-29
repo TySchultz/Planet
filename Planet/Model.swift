@@ -18,51 +18,45 @@ enum EventType : String {
     case MEETING = "Meeting"
 }
 
-
-enum ColorType : String {
-    case PLCOLOR_BLUE = "PLBLUE"
-    case PLCOLOR_GREEN = "PLGREEN"
-    case PLCOLOR_PURPLE = "PLPURPLE"
-    case PLCOLOR_GRAY = "PLGRAY"
-    case PLCOLOR_BLACK = "PLBLACK"
-    case PLCOLOR_ORANGE = "PLORANGE"
-}
-
-
 class Course: Object {
   
     dynamic var name = ""
     dynamic var time = NSDate(timeIntervalSince1970: 1)
-    dynamic var color = ""
+    dynamic var color = 0
     let events = List<Event>()
     dynamic var serverID  = ""
-    var colorEnum: ColorType {
-        get {
-            return ColorType(rawValue: self.color)!
-        }
-        set {
-            self.color = newValue.rawValue
-        }
-    }
+  
     
-    
-    
-    func colorForType(type : ColorType) -> UIColor {
+    /**
+     Returns the UIColor corresponding to the colorType
+
+     - parameter type: the type of color ColorType
+
+     - returns: the UIColor
+     */
+    func colorForType(type : Int) -> UIColor {
         switch type{
-        case .PLCOLOR_BLUE:
-            return PLBlue
-        case .PLCOLOR_GREEN:
-            return PLGreen
-        case .PLCOLOR_PURPLE:
-            return PLPurple
-        case .PLCOLOR_GRAY:
-            return PLGray
-        case .PLCOLOR_BLACK:
-            return PLBlack
-        case .PLCOLOR_ORANGE:
+        case 0:
             return PLOrange
+        case 1:
+            return PLLightGreen
+        case 2:
+            return PLGray
+        case 3:
+            return PLRed
+        case 4:
+            return PLLightBlue
+        case 5:
+            return PLBlue
+        case 6:
+            return PLGreen
+        case 7:
+            return PLPurple
+        default:
+            return PLBlue
         }
     }
+
     
 
     override static func primaryKey() -> String? {

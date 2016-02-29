@@ -76,7 +76,7 @@ class SearchTableViewController: UITableViewController {
         }
         
         for type in types {
-            addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
+            addButtonToStack(type,color:0, stackView: typeStack)
         }
         
         currentEvents = []
@@ -110,9 +110,9 @@ class SearchTableViewController: UITableViewController {
         return true
     }
     
-    func addButtonToStack(type : String, color : String, stackView : UIStackView){
+    func addButtonToStack(type : String, color : Int, stackView : UIStackView){
         let label = createButton(type)
-        label.backgroundColor = Course().colorForType(ColorType(rawValue: color)!)
+        label.backgroundColor = Course().colorForType(color)
         var currentStackIndex = 0
         if stackView.tag == 0 {
             currentStackIndex = currentCourseStackIndex
@@ -304,7 +304,7 @@ class SearchTableViewController: UITableViewController {
                 
                 let circle = UIView(frame: CGRectMake(0, 0, 8, 8))
                 circle.layer.cornerRadius = 4
-                circle.backgroundColor = Course().colorForType(ColorType(rawValue: event.course.color)!)
+                circle.backgroundColor = Course().colorForType(event.course.color)
 
                 circle.layer.masksToBounds = true
                 circle.heightAnchor.constraintEqualToConstant(20).active = true

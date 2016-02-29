@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 import CVCalendar
+import Crashlytics
+
 
 class AddEventViewController: UITableViewController {
     
@@ -23,6 +25,8 @@ class AddEventViewController: UITableViewController {
         return 0
     }
 
+    @IBOutlet weak var typeStackLBL: UILabel!
+    @IBOutlet weak var classStackLBL: UILabel!
     @IBOutlet weak var header: UIView!
     
     @IBOutlet weak var classStack: UIStackView!
@@ -38,6 +42,9 @@ class AddEventViewController: UITableViewController {
     var animationFinished = true
     
     
+    var delegate : OverheadViewController!
+
+    
     var currentCourses : Results<Course>!
     var chosenCourse : Course!
     
@@ -49,8 +56,7 @@ class AddEventViewController: UITableViewController {
     var currentCourseStackIndex = 0
     
     
-    let types = ["Test","Quiz","Homework","Project","Presentation","Meeting"]
-    
+    let types = ["Test","Quiz","Homework","Project","Meeting", "Presentation"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,10 +126,15 @@ class AddEventViewController: UITableViewController {
         }
         
         for type in types {
-            addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
+            addButtonToStack(type,color:MAINTHEMECOLOR, stackView: typeStack)
         }
         
         self.header.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 700.0)
+        
+        
+        self.createButton.layer.cornerRadius = 16.0
+        createButton.layer.borderWidth = 1.0
+        createButton.layer.borderColor = PLBlue.CGColor
     }
     
     
@@ -156,9 +167,9 @@ class AddEventViewController: UITableViewController {
         return true
     }
     
-    func addButtonToStack(type : String,color : String, stackView : UIStackView){
+    func addButtonToStack(type : String,color : Int, stackView : UIStackView){
         let label = createButton(type, type: stackView.tag)
-        label.backgroundColor = Course().colorForType(ColorType(rawValue: color)!)
+        label.backgroundColor = Course().colorForType(color)
         
         var currentStackIndex = 0
         if stackView.tag == 0 {
@@ -191,7 +202,6 @@ class AddEventViewController: UITableViewController {
                 })
             }
         }
-        
     }
     
     func createButton(title : String, type: Int) -> UIButton{
@@ -319,6 +329,12 @@ class AddEventViewController: UITableViewController {
     
     @IBAction func createEvent(sender: UIButton) {
         
+        
+        
+        if emptySelection(){
+            return
+        }
+        
         let realm = try! Realm()
         
         //Creates a new course
@@ -334,15 +350,29 @@ class AddEventViewController: UITableViewController {
             realm.add(newEvent)
         }
         
-        //        showStack(typeStack)
-        //        showStack(classStack)
-        //
-        //        let successView = SuccessAnimationView(frame: view.frame)
-        //        view.addSubview(successView)
-        
+        Answers.logContentViewWithName("Add Event", contentType: "", contentId: "", customAttributes: ["type":currentEventType, "course":(realmCourse.first?.name)!])
+
+        self.delegate.hideEmptyState()
         self.dismissViewControllerAnimated(true, completion: nil)
         
-        
+    }
+    
+    func emptySelection() -> Bool {
+        classStackLBL.text = "Class"
+        classStackLBL.textColor = UIColor.blackColor()
+        typeStackLBL.text = "Type"
+        typeStackLBL.textColor = UIColor.blackColor()
+
+        if currentCourseName == "" {
+            classStackLBL.text = "Class - Hey you need one of these"
+            classStackLBL.textColor = PLOrange
+            return true
+        }else if currentEventType == "" {
+            typeStackLBL.text = "Type - Hey you need one of these"
+            typeStackLBL.textColor = PLOrange
+            return true
+        }
+        return false
     }
     
     func randomStringWithLength (len : Int) -> NSString {

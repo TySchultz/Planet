@@ -17,7 +17,6 @@
 		104F1A981C5801D7005E4FC7 /* ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104F1A971C5801D7005E4FC7 /* ClassesTableViewController.swift */; };
 		106E94DD1BCD754000932D98 /* PLNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94DC1BCD754000932D98 /* PLNavigationController.swift */; };
 		106E94DF1BCD7BBB00932D98 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */; };
-		106E94E21BCD7BDF00932D98 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */; };
 		107C7B961BC3185F000824AF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C7B951BC3185F000824AF /* Model.swift */; };
 		10B78AE11BDDA9A800BBD2C6 /* SuccessAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B78AE01BDDA9A800BBD2C6 /* SuccessAnimationView.swift */; };
 		10C490821BCD72C100F9F01D /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C490811BCD72C100F9F01D /* CalendarViewController.swift */; };
@@ -60,7 +59,6 @@
 		104F1A971C5801D7005E4FC7 /* ClassesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesTableViewController.swift; sourceTree = "<group>"; };
 		106E94DC1BCD754000932D98 /* PLNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLNavigationController.swift; sourceTree = "<group>"; };
 		106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
-		106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		107C7B951BC3185F000824AF /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		10B78AE01BDDA9A800BBD2C6 /* SuccessAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessAnimationView.swift; sourceTree = "<group>"; };
 		10C490811BCD72C100F9F01D /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				10C490811BCD72C100F9F01D /* CalendarViewController.swift */,
 				106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */,
 				10284EB41C4E9415005C8445 /* AddEventViewController.swift */,
-				106E94E11BCD7BDF00932D98 /* ProfileViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -233,6 +230,7 @@
 				10E5C8981BB9C63400DDE50B /* Resources */,
 				0A6B9ACEF34533B2AB19E6F8 /* Copy Pods Resources */,
 				F54C1B2BA4917E6F62253707 /* Embed Pods Frameworks */,
+				10ED6C7D1C84D07400078B32 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -365,6 +363,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		10ED6C7D1C84D07400078B32 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" df832a526899297ee05725bd936b86f1605c52e9 8bdc2a5d9bf805e85324c61907bc8d9216b669196471b64c9ec4a30e902bea1b";
+		};
 		ED4A983F157EDB92FDD345AF /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -416,7 +427,6 @@
 				102432B21C61269B00FE582C /* CourseCell.swift in Sources */,
 				100358781BBB5F8B00C4A1AC /* PLLabel.swift in Sources */,
 				10C490821BCD72C100F9F01D /* CalendarViewController.swift in Sources */,
-				106E94E21BCD7BDF00932D98 /* ProfileViewController.swift in Sources */,
 				106E94DD1BCD754000932D98 /* PLNavigationController.swift in Sources */,
 				100358761BBB5E3B00C4A1AC /* Constants.swift in Sources */,
 			);

@@ -243,14 +243,18 @@ class MasterViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        
-//        let testingView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width-100, height: self.view.frame.size.height-200))
-//        testingView.backgroundColor = PLBlue
-//        testingView.layer.cornerRadius = 8.0
-//        testingView.layer.masksToBounds = true
-//        testingView.center = self.view.center
-//        self.view.addSubview(testingView)
         
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
+        let navController = storyboard.instantiateViewControllerWithIdentifier("EditNav") as! UINavigationController
+        
+        let viewController = navController.viewControllers.first as! EditCellViewController
+        let singleDay = currentEvents![indexPath.row] as! NSMutableArray
+        let firstEvent = singleDay.firstObject as! Event
+        viewController.date = firstEvent.date
+        
+        self.presentViewController(navController, animated: true) { () -> Void in
+            
+        }
     }
     
     func filterCourses() -> String {

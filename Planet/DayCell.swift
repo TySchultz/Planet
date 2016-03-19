@@ -17,8 +17,7 @@ class DayCell: UITableViewCell {
     
     
     @IBOutlet weak var numberOfObjects: UILabel!
-    
-    
+
     
     override func awakeFromNib() {
         super.awakeFromNib()

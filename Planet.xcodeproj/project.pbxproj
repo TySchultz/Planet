@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		100358761BBB5E3B00C4A1AC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100358751BBB5E3B00C4A1AC /* Constants.swift */; };
 		100358781BBB5F8B00C4A1AC /* PLLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100358771BBB5F8B00C4A1AC /* PLLabel.swift */; };
+		1007D6A81C873CAA00F622CF /* EditCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007D6A71C873CAA00F622CF /* EditCellViewController.swift */; };
 		102432B21C61269B00FE582C /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102432B11C61269B00FE582C /* CourseCell.swift */; };
 		10284EB51C4E9415005C8445 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10284EB41C4E9415005C8445 /* AddEventViewController.swift */; };
 		1029425D1C1190F40021632C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C7B951BC3185F000824AF /* Model.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		100358751BBB5E3B00C4A1AC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		100358771BBB5F8B00C4A1AC /* PLLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLLabel.swift; sourceTree = "<group>"; };
+		1007D6A71C873CAA00F622CF /* EditCellViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCellViewController.swift; sourceTree = "<group>"; };
 		102432B11C61269B00FE582C /* CourseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		10284EB41C4E9415005C8445 /* AddEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 		1047A8481C57C9AE00535AED /* OverheadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverheadViewController.swift; sourceTree = "<group>"; };
@@ -62,7 +64,7 @@
 		107C7B951BC3185F000824AF /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		10B78AE01BDDA9A800BBD2C6 /* SuccessAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessAnimationView.swift; sourceTree = "<group>"; };
 		10C490811BCD72C100F9F01D /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		10E5C89A1BB9C63400DDE50B /* Planet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Planet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10E5C89A1BB9C63400DDE50B /* Plan-it.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plan-it.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		10E5C89D1BB9C63400DDE50B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10E5C89F1BB9C63400DDE50B /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		10E5C8A41BB9C63400DDE50B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				10C490811BCD72C100F9F01D /* CalendarViewController.swift */,
 				106E94DE1BCD7BBB00932D98 /* SearchTableViewController.swift */,
 				10284EB41C4E9415005C8445 /* AddEventViewController.swift */,
+				1007D6A71C873CAA00F622CF /* EditCellViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -145,7 +148,7 @@
 		10E5C89B1BB9C63400DDE50B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				10E5C89A1BB9C63400DDE50B /* Planet.app */,
+				10E5C89A1BB9C63400DDE50B /* Plan-it.app */,
 				10E5C8B01BB9C63400DDE50B /* PlanetTests.xctest */,
 				10E5C8BB1BB9C63400DDE50B /* PlanetUITests.xctest */,
 			);
@@ -220,9 +223,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		10E5C8991BB9C63400DDE50B /* Planet */ = {
+		10E5C8991BB9C63400DDE50B /* Plan-it */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 10E5C8C41BB9C63400DDE50B /* Build configuration list for PBXNativeTarget "Planet" */;
+			buildConfigurationList = 10E5C8C41BB9C63400DDE50B /* Build configuration list for PBXNativeTarget "Plan-it" */;
 			buildPhases = (
 				ED4A983F157EDB92FDD345AF /* Check Pods Manifest.lock */,
 				10E5C8961BB9C63400DDE50B /* Sources */,
@@ -236,9 +239,9 @@
 			);
 			dependencies = (
 			);
-			name = Planet;
+			name = "Plan-it";
 			productName = Planet;
-			productReference = 10E5C89A1BB9C63400DDE50B /* Planet.app */;
+			productReference = 10E5C89A1BB9C63400DDE50B /* Plan-it.app */;
 			productType = "com.apple.product-type.application";
 		};
 		10E5C8AF1BB9C63400DDE50B /* PlanetTests */ = {
@@ -289,6 +292,7 @@
 				TargetAttributes = {
 					10E5C8991BB9C63400DDE50B = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 6B6QHT3AN6;
 					};
 					10E5C8AF1BB9C63400DDE50B = {
 						CreatedOnToolsVersion = 7.0;
@@ -313,7 +317,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				10E5C8991BB9C63400DDE50B /* Planet */,
+				10E5C8991BB9C63400DDE50B /* Plan-it */,
 				10E5C8AF1BB9C63400DDE50B /* PlanetTests */,
 				10E5C8BA1BB9C63400DDE50B /* PlanetUITests */,
 			);
@@ -423,6 +427,7 @@
 				10E5C8D01BB9CAA000DDE50B /* DayCell.swift in Sources */,
 				10E5C8DB1BB9D1D100DDE50B /* IntroAddClassViewController.swift in Sources */,
 				10B78AE11BDDA9A800BBD2C6 /* SuccessAnimationView.swift in Sources */,
+				1007D6A81C873CAA00F622CF /* EditCellViewController.swift in Sources */,
 				10E5C89E1BB9C63400DDE50B /* AppDelegate.swift in Sources */,
 				102432B21C61269B00FE582C /* CourseCell.swift in Sources */,
 				100358781BBB5F8B00C4A1AC /* PLLabel.swift in Sources */,
@@ -455,12 +460,12 @@
 /* Begin PBXTargetDependency section */
 		10E5C8B21BB9C63400DDE50B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 10E5C8991BB9C63400DDE50B /* Planet */;
+			target = 10E5C8991BB9C63400DDE50B /* Plan-it */;
 			targetProxy = 10E5C8B11BB9C63400DDE50B /* PBXContainerItemProxy */;
 		};
 		10E5C8BD1BB9C63400DDE50B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 10E5C8991BB9C63400DDE50B /* Planet */;
+			target = 10E5C8991BB9C63400DDE50B /* Plan-it */;
 			targetProxy = 10E5C8BC1BB9C63400DDE50B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -571,15 +576,17 @@
 			baseConfigurationReference = 1DABF7C71B3FE80CAF959E62 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Planet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tyschultz.Planet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tyschultz.planit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -588,15 +595,17 @@
 			baseConfigurationReference = 529196937DA056ADF40C5C10 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Planet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tyschultz.Planet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tyschultz.planit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -660,7 +669,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		10E5C8C41BB9C63400DDE50B /* Build configuration list for PBXNativeTarget "Planet" */ = {
+		10E5C8C41BB9C63400DDE50B /* Build configuration list for PBXNativeTarget "Plan-it" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				10E5C8C51BB9C63400DDE50B /* Debug */,

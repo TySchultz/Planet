@@ -1,13 +1,9 @@
 PODS:
-  - AKPickerView-Swift (1.0.0)
-  - Bolts/Tasks (1.5.0)
   - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
   - CVCalendar (1.2.6)
   - Fabric (1.6.6)
   - PagingMenuController (0.7.8)
-  - Parse (1.10.0):
-    - Bolts/Tasks (~> 1.5)
   - ReachabilitySwift (2.3)
   - Realm (0.95.2):
     - Realm/Headers (= 0.95.2)
@@ -18,12 +14,10 @@ PODS:
   - SwiftMoment (0.2)
 
 DEPENDENCIES:
-  - AKPickerView-Swift
   - Crashlytics
   - CVCalendar (~> 1.2.6)
   - Fabric
   - PagingMenuController
-  - Parse
   - ReachabilitySwift (from `https://github.com/ashleymills/Reachability.swift`)
   - RealmSwift
   - SwiftDate
@@ -39,13 +33,10 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ashleymills/Reachability.swift
 
 SPEC CHECKSUMS:
-  AKPickerView-Swift: 933897031753447302cf3167a0a5c738a58b219c
-  Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   CVCalendar: 284cf74f90f5d9e8d737f91055372b674e0ec027
   Fabric: 1abc1e59f11fa39ede6f690ef7309d8563e3ec59
   PagingMenuController: 5956215aab16efba1dd2bd7bc438f8ef856c2c2b
-  Parse: 90b2544822200f84b18bfacc4e8b0a3a6c3584a2
   ReachabilitySwift: 2ac9df18a443901f06caae38a9f5431219a4c36a
   Realm: 4c026902041bb39c4bd083ebc5e88f4f17973d72
   RealmSwift: ac7822fe7ab8dca7fa979f4d576793b111d6dce1

@@ -23,7 +23,7 @@ class CalendarViewController: UITableViewController {
 
     var currentEvents : NSMutableArray!
     var currentDate : NSDate!
-    
+    var currentDates : NSMutableArray = []
     var delegate : OverheadViewController!
 
     
@@ -34,7 +34,7 @@ class CalendarViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+
         headerView.frame = CGRectMake(0, 0, view.frame.size.width, 380)
         headerView.backgroundColor = UIColor.whiteColor()
         navView.frame = CGRectMake(0, 40, view.frame.size.width-40, 35)
@@ -83,6 +83,7 @@ class CalendarViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         currentEvents = getDays()
+        calendarView.commitCalendarViewUpdate()
         self.tableView.reloadData()
     }
     //MARK: - Table View
@@ -172,6 +173,7 @@ class CalendarViewController: UITableViewController {
                         newCell.addObject(day)
                         allDays.addObject(newCell)
                         currentIndex++
+                        currentDates.addObject(day.date)
                     }
                 }
             }
@@ -289,32 +291,26 @@ extension CalendarViewController: CVCalendarViewDelegate, CVCalendarMenuViewDele
     
     func dotMarker(shouldShowOnDayView dayView: CVCalendarDayView) -> Bool {
         let day = dayView.date.day
-        let randomDay = Int(arc4random_uniform(31))
-        if day == randomDay {
-            return true
+        let month = dayView.date.month
+        guard currentDates.count != 0 else {
+            return false
         }
         
+        for item in currentDates{
+            if let singleDay = item as? NSDate where singleDay.day == day && singleDay.month == month {
+                    return true
+            }
+        }
+     
         return false
     }
     
     func dotMarker(colorOnDayView dayView: CVCalendarDayView) -> [UIColor] {
-        let day = dayView.date.day
         
-        let red = PLPurple
-        let green = PLGreen
-        let blue = PLBlue
+        let color = PLOrange
         
-        let color = PLBlue
+        return [color] // return 1 dot
         
-        let numberOfDots = Int(arc4random_uniform(3) + 1)
-        switch(numberOfDots) {
-        case 2:
-            return [color, color]
-        case 3:
-            return [color, color, color]
-        default:
-            return [color] // return 1 dot
-        }
     }
     
     func dotMarker(shouldMoveOnHighlightingOnDayView dayView: CVCalendarDayView) -> Bool {
@@ -322,7 +318,7 @@ extension CalendarViewController: CVCalendarViewDelegate, CVCalendarMenuViewDele
     }
     
     func dotMarker(sizeOnDayView dayView: DayView) -> CGFloat {
-        return 13
+        return 15
     }
     
     

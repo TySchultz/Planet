@@ -4,16 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AKPickerView-Swift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Bolts.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>CVCalendar.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -25,11 +15,6 @@
 			<false/>
 		</dict>
 		<key>PagingMenuController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -67,22 +52,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>195126F783AB118A9FD642FC945646A7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>23D4B5C9CC657B68134305BFEB076270</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2976987D9180C6EDA19F8D4AD27E9DEB</key>
+		<key>2D5399696799083678B083454617E49A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>511B536F0DE06D9C3BD65397A91990C0</key>
+		<key>44FEB0966FDACA5F5B1DCADFF1263159</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,22 +72,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>708E01B006A9F88B3C13711562282B5E</key>
+		<key>6375EB405EA31F7B1C8CDD52235AC32A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>833BAB1B8689BCB97EB8BD7D288FD91D</key>
+		<key>967D363C82660BEE0E121CEC9BA42A30</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>909F5975C45DA9A59633D8788ADC7857</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AEF56D26D346847A9D648CC5990BBC1A</key>
+		<key>A6196F24D95D999459E83B4C21D54D72</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,12 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C4F39374623C696A46C983632A43B5D3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F9D27145E914FE1927E5FBB35014D584</key>
+		<key>CD090F25BAC1709A1E69550F826C66E8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

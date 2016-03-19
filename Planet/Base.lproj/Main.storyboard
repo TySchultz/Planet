@@ -32,13 +32,14 @@
             <string>Avenir-Book</string>
             <string>Avenir-Book</string>
             <string>Avenir-Book</string>
+            <string>Avenir-Book</string>
         </mutableArray>
     </customFonts>
     <scenes>
         <!--Intro View Controller-->
         <scene sceneID="Hdh-W6-kXT">
             <objects>
-                <viewController id="Pd0-6b-XCC" customClass="IntroViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Pd0-6b-XCC" customClass="IntroViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EII-5M-eH1"/>
                         <viewControllerLayoutGuide type="bottom" id="aUs-jO-CjK"/>
@@ -84,7 +85,7 @@
                                     </mask>
                                 </variation>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xwk-8m-hDA" customClass="PLButton" customModule="Planet" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xwk-8m-hDA" customClass="PLButton" customModule="Plan_it" customModuleProvider="target">
                                 <rect key="frame" x="236" y="544" width="128" height="36"/>
                                 <color key="backgroundColor" red="0.18823529410000001" green="0.48627450979999998" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -165,7 +166,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ZWG-BQ-Zln">
             <objects>
-                <navigationController navigationBarHidden="YES" id="v5J-S4-h0l" customClass="PLNavigationController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="v5J-S4-h0l" customClass="PLNavigationController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="tabBarImageHomeDark" selectedImage="tabBarImageHomeSelected" id="hC3-Xo-Kh3">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
@@ -185,7 +186,7 @@
         <!--Overhead View Controller-->
         <scene sceneID="C4c-Ow-uOq">
             <objects>
-                <viewController id="0zv-Q7-oxp" customClass="OverheadViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0zv-Q7-oxp" customClass="OverheadViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NqQ-dE-Ilk"/>
                         <viewControllerLayoutGuide type="bottom" id="PsI-0i-Stz"/>
@@ -575,7 +576,7 @@
         <!--Master View Controller-->
         <scene sceneID="dYs-S1-Do1">
             <objects>
-                <tableViewController storyboardIdentifier="Master" id="heE-P0-NHg" customClass="MasterViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Master" id="heE-P0-NHg" customClass="MasterViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="36Z-1R-yv2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -646,7 +647,7 @@
                             </variation>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DayCell" id="WCw-Qf-5nD" customClass="DayCell" customModule="Planet" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DayCell" id="WCw-Qf-5nD" customClass="DayCell" customModule="Plan_it" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="156" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
@@ -776,7 +777,7 @@
         <!--Animator Delegate-->
         <scene sceneID="tuN-wy-vtj">
             <objects>
-                <tableViewController storyboardIdentifier="Calendar" id="05p-kj-2y9" customClass="CalendarViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Calendar" id="05p-kj-2y9" customClass="CalendarViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="TAZ-fb-kEj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -926,7 +927,7 @@
                             </variation>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DayCell" id="VuT-4N-RzQ" customClass="DayCell" customModule="Planet" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DayCell" id="VuT-4N-RzQ" customClass="DayCell" customModule="Plan_it" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="156" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VuT-4N-RzQ" id="GIc-eP-l8N">
@@ -941,6 +942,9 @@
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GSw-t2-l3z">
                                             <rect key="frame" x="72" y="48" width="520" height="24"/>
+                                            <variation key="widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="71" y="53" width="321" height="18"/>
+                                            </variation>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vtV-VX-RQl">
                                             <rect key="frame" x="16" y="8" width="20.5" height="23.5"/>
@@ -953,6 +957,9 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="ODW-d2-REm"/>
                                             </constraints>
+                                            <variation key="widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="51" y="53" width="20" height="18"/>
+                                            </variation>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfo-MS-Uds">
                                             <rect key="frame" x="-42" y="-21" width="42" height="21"/>
@@ -1063,7 +1070,7 @@
         <!--Classes Table View Controller-->
         <scene sceneID="qEK-4e-fo0">
             <objects>
-                <tableViewController storyboardIdentifier="Profile" id="ASF-Uh-PQ3" customClass="ClassesTableViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Profile" id="ASF-Uh-PQ3" customClass="ClassesTableViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="22" id="Fhm-WH-N8p">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1198,7 +1205,7 @@
                             </variation>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CourseCell" id="pUA-ff-8vR" customClass="CourseCell" customModule="Planet" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CourseCell" id="pUA-ff-8vR" customClass="CourseCell" customModule="Plan_it" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="156" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pUA-ff-8vR" id="37J-Q4-O4D">
@@ -1256,7 +1263,7 @@
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjQ-1S-Ddj">
                                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                            <color key="backgroundColor" red="1" green="0.35570421814918518" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="45" id="bch-fj-y9x">
                                                     <variation key="widthClass=compact" constant="45"/>
@@ -1346,7 +1353,7 @@
         <!--profile-->
         <scene sceneID="e0M-h6-fSH">
             <objects>
-                <viewController id="CQA-Aa-hri" customClass="ProfileViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="CQA-Aa-hri" customClass="ProfileViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="I75-gF-Evt"/>
                         <viewControllerLayoutGuide type="bottom" id="mIT-j4-Zdw"/>
@@ -1508,7 +1515,7 @@
         <!--Intro Add Class View Controller-->
         <scene sceneID="m5x-2H-mfg">
             <objects>
-                <tableViewController id="D6p-NS-EgQ" customClass="IntroAddClassViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="D6p-NS-EgQ" customClass="IntroAddClassViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rz2-6c-mGT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1966,7 +1973,7 @@
         <!--Add Event View Controller-->
         <scene sceneID="P3R-Ud-uJ2">
             <objects>
-                <tableViewController storyboardIdentifier="AddEventController" id="MUc-Tb-a6H" customClass="AddEventViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AddEventController" id="MUc-Tb-a6H" customClass="AddEventViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="NTy-Y3-dSs">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2174,9 +2181,6 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
                                     <nil key="highlightedColor"/>
-                                    <variation key="widthClass=compact" misplaced="YES">
-                                        <rect key="frame" x="95" y="54" width="50" height="21"/>
-                                    </variation>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2235,7 +2239,7 @@
         <!--search-->
         <scene sceneID="rCj-iQ-Lzc">
             <objects>
-                <tableViewController id="oUi-hE-JPX" customClass="SearchTableViewController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="oUi-hE-JPX" customClass="SearchTableViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Xk-KY-XvY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2353,7 +2357,7 @@
                             </variation>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DayCell" id="dr2-tg-3PX" customClass="DayCell" customModule="Planet" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DayCell" id="dr2-tg-3PX" customClass="DayCell" customModule="Plan_it" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="220" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dr2-tg-3PX" id="Ztg-U5-6Vx">
@@ -2371,7 +2375,9 @@
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Mn9-pD-BGt">
                                             <rect key="frame" x="72" y="48" width="520" height="24"/>
-                                            <variation key="widthClass=compact" axis="vertical"/>
+                                            <variation key="widthClass=compact" axis="vertical" misplaced="YES">
+                                                <rect key="frame" x="72" y="49" width="320" height="22"/>
+                                            </variation>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CD7-1G-159">
                                             <rect key="frame" x="16" y="8" width="20.5" height="23.5"/>
@@ -2384,6 +2390,9 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="wcV-F9-iof"/>
                                             </constraints>
+                                            <variation key="widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="52" y="49" width="20" height="22"/>
+                                            </variation>
                                         </stackView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2543,7 +2552,7 @@
         <!--Navigation Controller-->
         <scene sceneID="GYK-rm-DTR">
             <objects>
-                <navigationController id="StN-Ld-ZpB" customClass="PLNavigationController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="StN-Ld-ZpB" customClass="PLNavigationController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="tabBarImageSearchDark" selectedImage="tabBarImageSearchSelected" id="h4i-6G-6t1"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t8j-MH-dpM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2560,7 +2569,7 @@
         <!--Navigation Controller-->
         <scene sceneID="5fF-G0-KV2">
             <objects>
-                <navigationController storyboardIdentifier="AddNav" id="kDe-EJ-FEG" customClass="PLNavigationController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AddNav" id="kDe-EJ-FEG" customClass="PLNavigationController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Mff-on-enj">
@@ -2578,7 +2587,7 @@
         <!--Navigation Controller-->
         <scene sceneID="T3C-1t-Elh">
             <objects>
-                <navigationController storyboardIdentifier="AddClassNav" id="Oqu-ZE-xtf" customClass="PLNavigationController" customModule="Planet" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AddClassNav" id="Oqu-ZE-xtf" customClass="PLNavigationController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jih-OJ-9sa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2608,6 +2617,237 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyd-Vl-cZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="498" y="-61.5"/>
+        </scene>
+        <!--Edit Cell View Controller-->
+        <scene sceneID="UAZ-iz-uLS">
+            <objects>
+                <tableViewController storyboardIdentifier="Edit" id="PVm-aM-ehH" customClass="EditCellViewController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7GB-IX-4Xw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="PwM-hr-LN1">
+                            <rect key="frame" x="0.0" y="64" width="600" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k0m-yb-ec6">
+                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thursday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBS-HP-dkO">
+                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Days Away" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2df-JP-K3G">
+                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ih5-WX-BFL">
+                                    <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+                                    <variation key="widthClass=compact" ambiguous="YES">
+                                        <rect key="frame" x="58" y="89" width="236" height="0.0"/>
+                                    </variation>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bBV-GJ-qDD">
+                                    <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="90" id="eDL-aA-pxa"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="eDL-aA-pxa"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="widthClass=compact" ambiguous="YES">
+                                        <rect key="frame" x="294" y="89" width="90" height="0.0"/>
+                                        <mask key="constraints">
+                                            <include reference="eDL-aA-pxa"/>
+                                        </mask>
+                                    </variation>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dHa-1m-yCX">
+                                    <rect key="frame" x="52" y="48" width="20" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="x83-Hz-mxE"/>
+                                    </constraints>
+                                    <variation key="widthClass=compact" ambiguous="YES">
+                                        <rect key="frame" x="38" y="89" width="20" height="0.0"/>
+                                    </variation>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="k0m-yb-ec6" firstAttribute="leading" secondItem="PwM-hr-LN1" secondAttribute="leading" constant="8" id="4Sq-Zp-3a8">
+                                    <variation key="widthClass=compact" constant="16"/>
+                                </constraint>
+                                <constraint firstItem="iBS-HP-dkO" firstAttribute="leading" secondItem="PwM-hr-LN1" secondAttribute="leading" constant="58" id="8ep-0C-iuN"/>
+                                <constraint firstItem="Ih5-WX-BFL" firstAttribute="top" secondItem="dHa-1m-yCX" secondAttribute="top" id="N3Z-Ed-bdD"/>
+                                <constraint firstItem="k0m-yb-ec6" firstAttribute="top" secondItem="PwM-hr-LN1" secondAttribute="top" constant="30" id="NVK-Ws-bgB"/>
+                                <constraint firstItem="iBS-HP-dkO" firstAttribute="centerY" secondItem="k0m-yb-ec6" secondAttribute="centerY" id="RtG-0F-1UT"/>
+                                <constraint firstAttribute="trailing" secondItem="2df-JP-K3G" secondAttribute="trailing" constant="16" id="ST9-CB-ZXc"/>
+                                <constraint firstAttribute="trailing" secondItem="bBV-GJ-qDD" secondAttribute="trailing" constant="16" id="Yhq-na-Hal"/>
+                                <constraint firstItem="dHa-1m-yCX" firstAttribute="top" secondItem="iBS-HP-dkO" secondAttribute="bottom" constant="16" id="Ys7-CR-fhk">
+                                    <variation key="widthClass=compact" constant="32"/>
+                                </constraint>
+                                <constraint firstItem="Ih5-WX-BFL" firstAttribute="leading" secondItem="dHa-1m-yCX" secondAttribute="trailing" id="dbO-xI-eKG"/>
+                                <constraint firstItem="bBV-GJ-qDD" firstAttribute="top" secondItem="dHa-1m-yCX" secondAttribute="top" id="hDb-aL-lNd"/>
+                                <constraint firstItem="Ih5-WX-BFL" firstAttribute="leading" secondItem="iBS-HP-dkO" secondAttribute="leading" id="tg7-ga-aNc"/>
+                                <constraint firstItem="bBV-GJ-qDD" firstAttribute="leading" secondItem="Ih5-WX-BFL" secondAttribute="trailing" id="u6T-yy-LpT"/>
+                                <constraint firstItem="2df-JP-K3G" firstAttribute="centerY" secondItem="k0m-yb-ec6" secondAttribute="centerY" id="uu1-aA-CuQ"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="subviews">
+                                    <exclude reference="k0m-yb-ec6"/>
+                                    <exclude reference="iBS-HP-dkO"/>
+                                    <exclude reference="2df-JP-K3G"/>
+                                    <exclude reference="Ih5-WX-BFL"/>
+                                    <exclude reference="bBV-GJ-qDD"/>
+                                    <exclude reference="dHa-1m-yCX"/>
+                                </mask>
+                                <mask key="constraints">
+                                    <exclude reference="ST9-CB-ZXc"/>
+                                    <exclude reference="uu1-aA-CuQ"/>
+                                    <exclude reference="8ep-0C-iuN"/>
+                                    <exclude reference="RtG-0F-1UT"/>
+                                    <exclude reference="4Sq-Zp-3a8"/>
+                                    <exclude reference="NVK-Ws-bgB"/>
+                                    <exclude reference="Ys7-CR-fhk"/>
+                                    <exclude reference="N3Z-Ed-bdD"/>
+                                    <exclude reference="dbO-xI-eKG"/>
+                                    <exclude reference="tg7-ga-aNc"/>
+                                    <exclude reference="Yhq-na-Hal"/>
+                                    <exclude reference="hDb-aL-lNd"/>
+                                    <exclude reference="u6T-yy-LpT"/>
+                                </mask>
+                            </variation>
+                            <variation key="widthClass=compact">
+                                <mask key="subviews">
+                                    <include reference="k0m-yb-ec6"/>
+                                    <include reference="iBS-HP-dkO"/>
+                                    <include reference="2df-JP-K3G"/>
+                                    <include reference="Ih5-WX-BFL"/>
+                                    <include reference="bBV-GJ-qDD"/>
+                                    <include reference="dHa-1m-yCX"/>
+                                </mask>
+                                <mask key="constraints">
+                                    <include reference="ST9-CB-ZXc"/>
+                                    <include reference="uu1-aA-CuQ"/>
+                                    <include reference="8ep-0C-iuN"/>
+                                    <include reference="RtG-0F-1UT"/>
+                                    <include reference="4Sq-Zp-3a8"/>
+                                    <include reference="NVK-Ws-bgB"/>
+                                    <include reference="Ys7-CR-fhk"/>
+                                    <include reference="N3Z-Ed-bdD"/>
+                                    <include reference="dbO-xI-eKG"/>
+                                    <include reference="tg7-ga-aNc"/>
+                                    <include reference="Yhq-na-Hal"/>
+                                    <include reference="hDb-aL-lNd"/>
+                                    <include reference="u6T-yy-LpT"/>
+                                </mask>
+                            </variation>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ziq-DS-mfS">
+                                <rect key="frame" x="0.0" y="220" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ziq-DS-mfS" id="lSY-Iy-q25">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="PVm-aM-ehH" id="Ydj-Le-bI1"/>
+                            <outlet property="delegate" destination="PVm-aM-ehH" id="w5A-oe-YhN"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="4VR-NR-e3a">
+                        <nil key="title"/>
+                        <view key="titleView" contentMode="scaleToFill" id="pyX-OR-tau">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XkU-IR-7AI">
+                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="XkU-IR-7AI" firstAttribute="centerY" secondItem="pyX-OR-tau" secondAttribute="centerY" id="cTr-14-aQN"/>
+                                <constraint firstItem="XkU-IR-7AI" firstAttribute="centerX" secondItem="pyX-OR-tau" secondAttribute="centerX" id="o9c-bb-5dl"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="subviews">
+                                    <exclude reference="XkU-IR-7AI"/>
+                                </mask>
+                                <mask key="constraints">
+                                    <exclude reference="cTr-14-aQN"/>
+                                    <exclude reference="o9c-bb-5dl"/>
+                                </mask>
+                            </variation>
+                            <variation key="widthClass=compact">
+                                <mask key="subviews">
+                                    <include reference="XkU-IR-7AI"/>
+                                </mask>
+                                <mask key="constraints">
+                                    <include reference="cTr-14-aQN"/>
+                                    <include reference="o9c-bb-5dl"/>
+                                </mask>
+                            </variation>
+                        </view>
+                        <barButtonItem key="rightBarButtonItem" title=" " style="plain" id="ULt-xu-GVO">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AXv-Wa-PPz">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Close">
+                                    <color key="titleColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                </state>
+                                <connections>
+                                    <action selector="closePressed:" destination="PVm-aM-ehH" eventType="touchUpInside" id="Ejy-yo-Hnk"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="colorStack" destination="dHa-1m-yCX" id="OX1-2w-65m"/>
+                        <outlet property="dayNumber" destination="k0m-yb-ec6" id="1Sq-sw-hiV"/>
+                        <outlet property="dayOfWeek" destination="iBS-HP-dkO" id="mXN-w3-OME"/>
+                        <outlet property="daysAway" destination="2df-JP-K3G" id="f4w-VH-9CF"/>
+                        <outlet property="deleteStack" destination="bBV-GJ-qDD" id="CbB-Fd-e21"/>
+                        <outlet property="header" destination="PwM-hr-LN1" id="KQG-0X-0CL"/>
+                        <outlet property="nameStack" destination="Ih5-WX-BFL" id="x7a-gD-9DB"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a1V-kG-SaX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3673.5" y="580"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gJP-Nx-mEI">
+            <objects>
+                <navigationController storyboardIdentifier="EditNav" id="gZf-3E-ObK" customClass="PLNavigationController" customModule="Plan_it" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DIg-4H-MTl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="PVm-aM-ehH" kind="relationship" relationship="rootViewController" id="jcn-PK-RHC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ss5-LC-D3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3673.5" y="-157"/>
         </scene>
     </scenes>
     <resources>

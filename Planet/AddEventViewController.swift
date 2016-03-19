@@ -456,7 +456,7 @@ extension AddEventViewController: CVCalendarViewDelegate, CVCalendarMenuViewDele
         let green = CGFloat(arc4random_uniform(600) / 255)
         let blue = CGFloat(arc4random_uniform(600) / 255)
         
-        let color = UIColor(red: red, green: green, blue: blue, alpha: 1)
+        let color = UIColor.clearColor()
         
         let numberOfDots = Int(arc4random_uniform(3) + 1)
         switch(numberOfDots) {

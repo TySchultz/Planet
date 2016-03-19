@@ -83,6 +83,7 @@ class ClassesTableViewController: UITableViewController {
         cell.classTitle.text =  singleCourse.name
         cell.colorSquare.backgroundColor = singleCourse.colorForType(singleCourse.color)
         //Disable Button
+        cell.deleteButton.backgroundColor = UIColor.clearColor()
         
         UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             if self.editEnabled {

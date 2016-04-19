@@ -10,31 +10,39 @@ import UIKit
 import RealmSwift
 import SwiftDate
 import Crashlytics
-
+import CVCalendar
+import EasyAnimation
 
 class MasterViewController: UITableViewController {
     
     var currentEvents : NSMutableArray!
 
-    @IBOutlet weak var sortView: UIView!
-    @IBOutlet weak var headerBackground: UIView!
+    @IBOutlet weak var headerTitleView: UIView!
     @IBOutlet weak var header: UIView!
     var navImage  :UIImageView!
 
+    @IBOutlet weak var scheduleNavLBL: UILabel!
+    @IBOutlet weak var calendarNavLBL: UILabel!
+    
+    @IBOutlet weak var scheduleNavBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var calenderNavBottomConstraint: NSLayoutConstraint!
+    
     var sorting  :Bool = false
     var currentTypeStackIndex   = 0
     var currentCourseStackIndex = 0
     var numberOfSelections = 0
-    
-//    @IBOutlet weak var coursesStack: UIStackView!
-//    @IBOutlet weak var typeStack: UIStackView!
-//    @IBOutlet weak var headerTypeLBL: UILabel!
-//    @IBOutlet weak var headerCourseLBL: UILabel!
+    var currentDates : NSMutableArray = []
 
-    var delegate : OverheadViewController!
-    
+    var currentDate : NSDate!
+    var shouldShowDaysOut = true
+    var animationFinished = true
 
+    var testView : UIView!
+    @IBOutlet weak var calendarView: CVCalendarView!
+    @IBOutlet weak var menuView: CVCalendarMenuView!
     
+    @IBOutlet weak var monthLabel: UILabel!
+
 
     let types = ["Test","Quiz","Homework","Project","Meeting", "Presentation"]
 
@@ -44,9 +52,9 @@ class MasterViewController: UITableViewController {
 
         tableView.estimatedRowHeight = 80.0;
         tableView.rowHeight = UITableViewAutomaticDimension;
+        currentDate = NSDate(timeIntervalSinceNow: -60*60)
         currentEvents = getDays()
-        tableView.reloadData()
-        
+
         setup()
         
         if currentEvents.count == 0 {
@@ -60,58 +68,71 @@ class MasterViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         currentEvents = getDays()
-        setup()
-        
-       
+        self.tableView.reloadData()
+//        setup()
+
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        calendarView.commitCalendarViewUpdate()
+        menuView.commitMenuViewUpdate()
+    }
 
     
     func setup () {
-        
 
-
-
-        
         self.tableView.tableFooterView = UIView()
         
         currentTypeStackIndex = 0
         currentCourseStackIndex = 0
         
-//        clearOutStackView(typeStack)
-//        clearOutStackView(coursesStack)
         
-        let realme = try? Realm()
-        
-//        typeStack.tag = 1
-//        coursesStack.tag = 0
-        
-//        let allCourses = realme!.objects(Course)
-//        for course in allCourses  {
-//            addButtonToStack(course.name, color:course.color, stackView: 	coursesStack)
-//        }
-//        
-//        for type in types {
-//            addButtonToStack(type,color:"PLBLUE", stackView: typeStack)
-//        }
+        self.visibleCells = self.tableView.visibleCells
 
+        self.calendarView.frame = CGRectMake(16, 0, header.frame.size.width-16, 300)
+        self.calendarView.backgroundColor = UIColor.clearColor()
+        self.menuView.backgroundColor = UIColor.clearColor()
+        monthLabel.text = CVDate(date: NSDate()).globalDescription
+
+        self.calendarView.calendarAppearanceDelegate = self
         
-        header.frame = CGRectMake(0, 0, view.frame.size.width, HEADERHEIGHT)
-        tableView.reloadData()
-        self.tableView.reloadData()
+        // Animator delegate [Unnecessary]
+        self.calendarView.animatorDelegate = self
         
+        // Calendar delegate [Required]
+        self.calendarView.calendarDelegate = self
+        
+        // Menu delegate [Required]
+        self.menuView.menuViewDelegate = self
+
+        self.tableView.setNeedsUpdateConstraints()
+        self.tableView.setNeedsLayout()
+        
+        self.calendarView.alpha = 0.0
+        self.menuView.alpha = 0.0
+        
+        self.header.frame = CGRectMake(0, 0, self.view.frame.width, 0)
         self.tableView.sendSubviewToBack(header)
         
-  
-    
+        self.headerTitleView.frame = CGRectMake(0, 0, self.view.frame.size.width, 50)
+        self.headerTitleView.center = self.navigationController!.navigationBar.center
+
+        self.scheduleNavLBL.transform = CGAffineTransformMakeScale(1.0, 1.0)
+        self.calendarNavLBL.transform = CGAffineTransformMakeScale(0.7, 0.7)
+        
+        
+        scheduleNavBottomConstraint.constant = 15
+        calenderNavBottomConstraint.constant = 0
         //currentEvents = []
     }
+ 
+    
     
     func getDays() -> NSMutableArray{
         let realme = try? Realm()
-        let days = realme!.objects(Event).filter("date >= %@", NSDate().beginningOfDay).sorted("date")
+        let days = realme!.objects(Event).filter("date >= %@", currentDate.beginningOfDay).sorted("date")
         
         let allDays    :NSMutableArray = []
         let singleCell :NSMutableArray = []
@@ -134,7 +155,9 @@ class MasterViewController: UITableViewController {
                     let newCell :NSMutableArray = []
                     newCell.addObject(day)
                     allDays.addObject(newCell)
-                    currentIndex++
+                    currentIndex += 1
+                    currentDates.addObject(day.date)
+
                 }
             }else{
                 cell.addObject(day)
@@ -205,11 +228,11 @@ class MasterViewController: UITableViewController {
                 cell.eventStack.addArrangedSubview(label)
                 
                 let circle = UIView(frame: CGRectMake(0, 0, 4, 4))
-                circle.layer.cornerRadius = 2
+                circle.layer.cornerRadius = 4
                 circle.backgroundColor =  Course().colorForType(event.course.color)
                 circle.layer.masksToBounds = true
-                circle.heightAnchor.constraintEqualToConstant(16).active = true
-                circle.widthAnchor.constraintEqualToConstant(4).active = true
+                circle.heightAnchor.constraintEqualToConstant(8).active = true
+                circle.widthAnchor.constraintEqualToConstant(8).active = true
                 cell.circleStack.addArrangedSubview(circle)
             }
         }
@@ -640,19 +663,124 @@ class MasterViewController: UITableViewController {
             view.removeFromSuperview()
         }
     }
-
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        let yPosition = scrollView.contentOffset.y
+    func didSelectDayView(dayView: DayView) {
+        currentDate = dayView.date.convertedDate()
+        currentEvents.removeAllObjects()
+        currentEvents = getDays()
+        self.tableView.reloadData()
+        //        animateTable(0.4)
+        print("\(calendarView.presentedDate.commonDescription) is selected!")
+    }
+    
+    /**
+     Update the navigatoin bar when tapped
+     
+     - parameter sender: button tapped
+     */
+    @IBAction func changeHeaderView(sender: UIButton) {
         
-        if yPosition < 0 {
-            var headerFrame = header.frame
-            headerFrame.origin.y = yPosition
-            print(yPosition)
-            header.frame = headerFrame
+        let smallHeight :CGFloat = 0
+        let largeHeight :CGFloat = 15
+        var schedule = 0
+        
+        //Show Calendar
+        if scheduleNavBottomConstraint.constant == largeHeight {
+            scheduleNavBottomConstraint.constant = smallHeight
+            calenderNavBottomConstraint.constant = largeHeight
+            scheduleNavLBL.textColor = PLBlue
+            calendarNavLBL.textColor = UIColor.blackColor()
+            schedule = 1
+            
+            self.calendarView.commitCalendarViewUpdate()
+            self.menuView.commitMenuViewUpdate()
+            
+        }else{
+            scheduleNavBottomConstraint.constant = largeHeight
+            calenderNavBottomConstraint.constant = smallHeight
+            scheduleNavLBL.textColor = UIColor.blackColor()
+            calendarNavLBL.textColor = PLBlue
+            schedule = 0
+            
+            self.currentDate = NSDate().beginningOfDay
+            currentEvents = getDays()
+        }
+//        self.header.layer.masksToBounds = true
+        
+        if schedule == 0 {
+            if (self.emptyImage != nil) {
+                self.emptyImage.center = CGPointMake(self.tableView.center.x, self.view.center.y-100)
+                self.emptyTitle.frame = CGRectMake(0, self.emptyImage.frame.origin.y+self.emptyImage.frame.height, self.view.frame.width, 30)
+                self.emptySubTitle.frame = CGRectMake(0, self.emptyTitle.frame.origin.y+self.emptyTitle.frame.height, self.view.frame.width, 30)
+            }
+       
+            UIView.animateAndChainWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: {
+                self.scheduleNavLBL.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                self.calendarNavLBL.transform = CGAffineTransformMakeScale(0.7, 0.7)
+                self.header.frame = CGRectMake(0, 0, self.view.frame.size.width, 0)
+                self.tableView.tableHeaderView = self.header
+                self.headerTitleView.layoutIfNeeded()
+
+                self.calendarView.alpha = 0.0
+                self.menuView.alpha = 0.0
+                
+
+                }, completion:  { (Bool) in
+                })
+          
+        }else{
+            UIView.animateAndChainWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: { 
+                
+                self.visibleCells = self.tableView.visibleCells
+                
+                self.scheduleNavLBL.transform = CGAffineTransformMakeScale(0.7, 0.7)
+                self.calendarNavLBL.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                self.header.frame = CGRectMake(0, 0, self.view.frame.size.width, 340)
+                if (self.emptyImage != nil) {
+                    self.emptyImage.center = CGPointMake(self.tableView.center.x, self.view.center.y+50)
+                    self.emptyTitle.frame = CGRectMake(0, self.emptyImage.frame.origin.y+self.emptyImage.frame.height, self.view.frame.width, 30)
+                    self.emptySubTitle.frame = CGRectMake(0, self.emptyTitle.frame.origin.y+self.emptyTitle.frame.height, self.view.frame.width, 30)
+                }
+                
+                //Allows the table to notice the different size header
+                self.tableView.tableHeaderView = self.header
+                //Animates the schedule and calendar labels in the nav
+                self.headerTitleView.layoutIfNeeded()
+                }, completion: nil)
+            
+            //Animate alpha on delay of when header expands
+            UIView.animateAndChainWithDuration(0.5, delay: 0.15, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
+                
+                self.calendarView.alpha = 1.0
+                self.menuView.alpha = 1.0
+               
+            }, completion: nil)
+            
+           
         }
     }
     
+    var visibleCells :[UITableViewCell]!
+    
+    func animateAllRows(){
+        let tableHeight: CGFloat = tableView.bounds.size.height
+        
+        for i in visibleCells {
+            let cell: UITableViewCell = i as UITableViewCell
+            cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
+        }
+        
+        var index = 0
+        
+        for a in visibleCells {
+            let cell: UITableViewCell = a as UITableViewCell
+            UIView.animateWithDuration(0.3, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                cell.transform = CGAffineTransformMakeTranslation(0, 0);
+                }, completion: nil)
+            
+            index += 1
+        }
+    }
     
     var emptyImage : UIImageView!
     var emptyTitle : UILabel!
@@ -752,7 +880,6 @@ extension UITableViewController {
         }
         
         self.tableView.reloadRowsAtIndexPaths(e, withRowAnimation: UITableViewRowAnimation.Bottom)
-
         
     }
 
@@ -770,4 +897,173 @@ extension UITableViewController {
         
     }
 }
+
+
+//MARK:  - Master IB Actions
+extension MasterViewController {
+    
+    @IBAction func profileButtonPressed(sender: UIButton) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
+        let navController = storyboard.instantiateViewControllerWithIdentifier("ProfileNav") as! UINavigationController//Uses the view created in the sotryboard so we have autolayout as! intro
+        
+        //        viewController.delegate = self
+        let viewController = navController.viewControllers.first as! ClassesTableViewController
+        
+        self.presentViewController(navController, animated: true, completion: nil)
+
+    }
+    
+    @IBAction func sortButtonPressed(sender: UIButton) {
+        
+    }
+    
+    
+    @IBAction func addEventPressed(sender: UIButton) {
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // grabs the storybaord
+        let navController = storyboard.instantiateViewControllerWithIdentifier("AddNav") as! UINavigationController//Uses the view created in the sotryboard so we have autolayout as! intro
+        
+        //        viewController.delegate = self
+        let viewController = navController.viewControllers.first as! AddEventViewController
+        
+        viewController.delegate = self
+        
+        self.presentViewController(navController, animated: true, completion: nil)
+        
+    }
+}
+
+
+extension MasterViewController: CVCalendarViewDelegate, CVCalendarMenuViewDelegate {
+    
+    /// Required method to implement!
+    func presentationMode() -> CalendarMode {
+        return .MonthView
+    }
+    
+    /// Required method to implement!
+    func firstWeekday() -> Weekday {
+        return .Sunday
+    }
+    
+    // MARK: Optional methods
+    
+    func shouldShowWeekdaysOut() -> Bool {
+        return shouldShowDaysOut
+    }
+    
+    func shouldAnimateResizing() -> Bool {
+        return true // Default value is true
+    }
+    
+    func didSelectDayView(dayView: CVCalendarDayView, animationDidFinish: Bool) {
+        let date = dayView.date
+        print("\(calendarView.presentedDate.commonDescription) is selected!")
+    }
+    
+    func presentedDateUpdated(date: CVDate) {
+        if monthLabel.text != date.globalDescription && self.animationFinished {
+            self.monthLabel.text =  date.globalDescription
+            UIView.animateAndChainWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
+                self.monthLabel.alpha = 1.0
+                }, completion: nil).animateAndChainWithDuration(0.3, delay: 0.2, options: .CurveEaseInOut, animations: {
+                    self.monthLabel.alpha = 0.0
+                    }, completion: nil)
+        }
+    }
+    
+    func topMarker(shouldDisplayOnDayView dayView: CVCalendarDayView) -> Bool {
+        return true
+    }
+    
+    func dotMarker(shouldShowOnDayView dayView: CVCalendarDayView) -> Bool {
+        let day = dayView.date.day
+        let month = dayView.date.month
+        guard currentDates.count != 0 else {
+            return false
+        }
+        
+        for item in currentDates{
+            if let singleDay = item as? NSDate where singleDay.day == day && singleDay.month == month {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    func dotMarker(colorOnDayView dayView: CVCalendarDayView) -> [UIColor] {
+        
+        let color = PLBlue
+        
+        return [color] // return 1 dot
+        
+    }
+    
+    func dotMarker(shouldMoveOnHighlightingOnDayView dayView: CVCalendarDayView) -> Bool {
+        return true
+    }
+    
+    func dotMarker(sizeOnDayView dayView: DayView) -> CGFloat {
+        return 15
+    }
+    
+    
+    func weekdaySymbolType() -> WeekdaySymbolType {
+        return .Short
+    }
+    
+}
+
+
+extension CalendarViewController: CVCalendarViewAppearanceDelegate {
+    func dayLabelPresentWeekdayInitallyBold() -> Bool {
+        return false
+    }
+    
+    func spaceBetweenDayViews() -> CGFloat {
+        return 0
+    }
+}
+
+// MARK: - Calendar View IB Actions
+
+extension CalendarViewController {
+    @IBAction func switchChanged(sender: UISwitch) {
+        if sender.on {
+            calendarView.changeDaysOutShowingState(false)
+            shouldShowDaysOut = true
+        } else {
+            calendarView.changeDaysOutShowingState(true)
+            shouldShowDaysOut = false
+        }
+    }
+    
+    @IBAction func todayMonthView() {
+        calendarView.toggleCurrentDayView()
+    }
+    
+    /// Switch to WeekView mode.
+    @IBAction func toWeekView(sender: AnyObject) {
+        calendarView.changeMode(.WeekView)
+    }
+    
+    /// Switch to MonthView mode.
+    @IBAction func toMonthView(sender: AnyObject) {
+        calendarView.changeMode(.MonthView)
+    }
+    
+    @IBAction func loadPrevious(sender: AnyObject) {
+        calendarView.loadPreviousView()
+    }
+    
+    
+    @IBAction func loadNext(sender: AnyObject) {
+        calendarView.loadNextView()
+    }
+}
+
+
+
+
 

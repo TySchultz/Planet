@@ -159,9 +159,10 @@ class IntroAddClassViewController: UITableViewController, UITextViewDelegate{
             classNameField.resignFirstResponder() //Hides Keyboard
             
             //Creates the new course object and add it to our database.
-            realme!.write({ () -> Void in
+            try! realme!.write({ () -> Void in
                 realme!.add(newCourse)
             })
+            
             self.delegate?.hideEmptyTable()
             //Hides this view. When it hides at the completion call the add class method
             self.dismissViewControllerAnimated(true) { () -> Void in

@@ -2,20 +2,22 @@ PODS:
   - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
   - CVCalendar (1.2.6)
+  - EasyAnimation (1.0.5)
   - Fabric (1.6.6)
   - PagingMenuController (0.7.8)
   - ReachabilitySwift (2.3)
-  - Realm (0.95.2):
-    - Realm/Headers (= 0.95.2)
-  - Realm/Headers (0.95.2)
-  - RealmSwift (0.95.2):
-    - Realm (= 0.95.2)
+  - Realm (0.98.5):
+    - Realm/Headers (= 0.98.5)
+  - Realm/Headers (0.98.5)
+  - RealmSwift (0.98.5):
+    - Realm (= 0.98.5)
   - SwiftDate (1.2)
   - SwiftMoment (0.2)
 
 DEPENDENCIES:
   - Crashlytics
   - CVCalendar (~> 1.2.6)
+  - EasyAnimation
   - Fabric
   - PagingMenuController
   - ReachabilitySwift (from `https://github.com/ashleymills/Reachability.swift`)
@@ -35,11 +37,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   CVCalendar: 284cf74f90f5d9e8d737f91055372b674e0ec027
+  EasyAnimation: 32821f37dd39187e7364369a3d8f65d38405cf1d
   Fabric: 1abc1e59f11fa39ede6f690ef7309d8563e3ec59
   PagingMenuController: 5956215aab16efba1dd2bd7bc438f8ef856c2c2b
   ReachabilitySwift: 2ac9df18a443901f06caae38a9f5431219a4c36a
-  Realm: 4c026902041bb39c4bd083ebc5e88f4f17973d72
-  RealmSwift: ac7822fe7ab8dca7fa979f4d576793b111d6dce1
+  Realm: db08379969e45cea2edd1c3c0a090fe9e22d2d2f
+  RealmSwift: cb11ad1c35e15dc982f2dbf5afe2a3124193a358
   SwiftDate: 49ebd4efb5f82336cfc2b1d8a6622f47d4b17370
   SwiftMoment: b1bf1b5708b4bc99db47697e32683430d7c19759
 

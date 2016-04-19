@@ -40,7 +40,9 @@ class EditCellViewController: UITableViewController {
     
     
     func setup () {
-        
+        self.navigationController?.navigationBar.backgroundColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.barTintColor = PLBlue
+
         self.header.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 600.0)
         
         currentEvents.removeAllObjects()

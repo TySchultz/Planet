@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>EasyAnimation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>PagingMenuController-PagingMenuController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,17 +57,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1DAFCD36CD0F8972794B5E753573E534</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>23D4B5C9CC657B68134305BFEB076270</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2D5399696799083678B083454617E49A</key>
+		<key>42B928C40E51558A3C013D0B8F95FFE7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>44FEB0966FDACA5F5B1DCADFF1263159</key>
+		<key>50E7CCD718A6510A053D22DD7ED97647</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>58D88F6FBDB00ED3C08FEA7FD65C1B37</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,17 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6375EB405EA31F7B1C8CDD52235AC32A</key>
+		<key>93152D4AE03F4BB2CE6297CC9CFBF5A3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>967D363C82660BEE0E121CEC9BA42A30</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A6196F24D95D999459E83B4C21D54D72</key>
+		<key>A376E868ED408EE8EEBD1DDBCE639EF5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,7 +102,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD090F25BAC1709A1E69550F826C66E8</key>
+		<key>C3CFA55DC57E4A161FA047982B4F788F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

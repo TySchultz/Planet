@@ -42,7 +42,7 @@ class AddEventViewController: UITableViewController {
     var animationFinished = true
     
     
-    var delegate : OverheadViewController!
+    var delegate : MasterViewController!
 
     
     var currentCourses : Results<Course>!
@@ -61,6 +61,10 @@ class AddEventViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        self.navigationController?.navigationBar.backgroundColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.barTintColor = PLBlue
+
         
         self.calendarView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width-40, height: 300)
         
@@ -236,8 +240,7 @@ class AddEventViewController: UITableViewController {
             removeFromStack(sender, stack:classStack)
             
             currentCourseName =  (sender.titleLabel?.text)!
-            
-            
+
         }
             //Button in header is tapped and already selected
         else if sender.tag == 1 {
@@ -285,7 +288,7 @@ class AddEventViewController: UITableViewController {
                 }
             }
             if !found {
-                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                     stack.hidden = true
                     }, completion: { (Bool) -> Void in
                         
@@ -293,7 +296,7 @@ class AddEventViewController: UITableViewController {
             }else{
                 for button in stack.arrangedSubviews as! [UIButton] {
                     if button != sender{
-                        UIView.animateWithDuration(0.2, animations: { () -> Void in
+                        UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                             button.hidden = true
                             }, completion: { (Bool) -> Void in
                                 //                            stack.removeArrangedSubview(button)
@@ -308,15 +311,18 @@ class AddEventViewController: UITableViewController {
     func showStack(stack : UIStackView){
         for  stack in stack.arrangedSubviews as! [UIStackView] {
             if stack.hidden == true {
-                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                     stack.hidden = false
+                    }, completion: { (Bool) -> Void in
+                        //                            stack.removeArrangedSubview(button)
                 })
             }
             for button in stack.arrangedSubviews as! [UIButton] {
-                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                     button.hidden = false
                     button.tag = 0
                     }, completion: { (Bool) -> Void in
+                     //stack.removeArrangedSubview(button)
                 })
             }
         }
@@ -352,7 +358,6 @@ class AddEventViewController: UITableViewController {
         
         Answers.logContentViewWithName("Add Event", contentType: "", contentId: "", customAttributes: ["type":currentEventType, "course":(realmCourse.first?.name)!])
 
-        self.delegate.hideEmptyState()
         self.dismissViewControllerAnimated(true, completion: nil)
         
     }

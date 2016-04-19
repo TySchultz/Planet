@@ -16,7 +16,7 @@ class PLNavigationController: UINavigationController {
         
         self.navigationBarHidden = false
         self.navigationBar.backgroundColor = UIColor.whiteColor()
-        self.navigationBar.barTintColor = PLBlue
+        self.navigationBar.barTintColor = UIColor.whiteColor()
         self.navigationBar.opaque = true
         
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
@@ -43,4 +43,26 @@ class PLNavigationController: UINavigationController {
     }
     */
 
+}
+
+
+extension UIButton {
+    
+//    
+//    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        UIView.animateWithDuration(0.2, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+//            self.transform = CGAffineTransformMakeScale(0.5, 0.5)
+//            
+//            }, completion: nil)
+//
+//        
+//    }
+//    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        UIView.animateWithDuration(0.2, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+//            self.transform = CGAffineTransformMakeScale(1, 1)
+//            
+//            }, completion: nil)
+//
+//    }
+    
 }

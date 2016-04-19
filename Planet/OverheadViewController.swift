@@ -51,7 +51,6 @@ class OverheadViewController: UIViewController, PagingMenuControllerDelegate {
         
         masterViewController            = self.storyboard?.instantiateViewControllerWithIdentifier("Master") as! MasterViewController
         masterViewController.title      = ""
-        masterViewController.delegate   = self
         calendarViewController          = self.storyboard?.instantiateViewControllerWithIdentifier("Calendar") as! CalendarViewController
         calendarViewController.title    = ""
         calendarViewController.delegate = self
@@ -341,7 +340,6 @@ class OverheadViewController: UIViewController, PagingMenuControllerDelegate {
             //        viewController.delegate = self
             let viewController = navController.viewControllers.first as! AddEventViewController
             
-            viewController.delegate = self
         
             self.presentViewController(navController, animated: true, completion: nil)
     }
